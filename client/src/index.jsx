@@ -1,18 +1,14 @@
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
 import React from 'react';
 import ReactDOM from 'react-dom';
+import RatingsAndReviews from './Components/RatingsAndReviews/index.jsx';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
-  render() {
-    return (
-      <div>Hello CareThree!!!</div>
-    );
-  }
-}
+const App = () => (
+  <div>
+    <h1>Hello CareThree!!!</h1>
+    <RatingsAndReviews />
+  </div>
+);
 
 ReactDOM.render(<App />, document.getElementById('app'));

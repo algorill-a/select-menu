@@ -1,0 +1,13 @@
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
+import React from 'react';
+import WriteNewReview from './WriteNewReview/index.jsx';
+
+const RatingsAndReviews = () => (
+  <div>
+    Hello from RatingsAndReviews
+    <WriteNewReview />
+  </div>
+);
+
+export default RatingsAndReviews;
