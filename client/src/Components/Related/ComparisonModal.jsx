@@ -35,26 +35,29 @@ const ModalBox = styled.div`
   padding: 40px;
 `;
 
-const ComparisonModal = () => (
+const ComparisonModal = () => {
+  const { display } = useContext(ModalContext);
   // const { toggle } = useContext(ModalContext);
-  <ModalWrapper>
-    <ModalBackdrop />
-    <ModalBox>
-      <h1>Modal Header</h1>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Quia cupiditate excepturi odit quos officiis temporibus alias culpa, quas
-        deleniti eligendi vitae pariatur neque modi magni earum in dolorem consequatur
-        exercitationem.
-        Voluptatum, animi ipsa harum repellat explicabo id, accusamus soluta sequi non labore
-        numquam deserunt optio odio? Nihil voluptates dicta sapiente culpa quas quaerat, nemo
-        libero dolores dignissimos amet itaque numquam.
-        Nostrum repudiandae illum autem fuga delectus officiis, nemo nisi provident quas,
-        error, vitae possimus modi quibusdam eius tenetur sint tempora cum fugit facilis neque
-        rerum officia adipisci nesciunt recusandae! Sapiente.
-      </p>
-    </ModalBox>
-  </ModalWrapper>
-);
+  return display ? (
+    <ModalWrapper>
+      <ModalBackdrop />
+      <ModalBox>
+        <h1>Modal Header</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Quia cupiditate excepturi odit quos officiis temporibus alias culpa, quas
+          deleniti eligendi vitae pariatur neque modi magni earum in dolorem consequatur
+          exercitationem.
+          Voluptatum, animi ipsa harum repellat explicabo id, accusamus soluta sequi non labore
+          numquam deserunt optio odio? Nihil voluptates dicta sapiente culpa quas quaerat, nemo
+          libero dolores dignissimos amet itaque numquam.
+          Nostrum repudiandae illum autem fuga delectus officiis, nemo nisi provident quas,
+          error, vitae possimus modi quibusdam eius tenetur sint tempora cum fugit facilis neque
+          rerum officia adipisci nesciunt recusandae! Sapiente.
+        </p>
+      </ModalBox>
+    </ModalWrapper>
+  ) : null;
+};
 
 export default ComparisonModal;

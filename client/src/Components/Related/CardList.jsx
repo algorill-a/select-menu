@@ -8,8 +8,8 @@ import { CardContext } from '../../contexts/CardContext.jsx';
 const CardListContainer = styled.div`
   border: 1px solid black,
   padding: 10px;
-  position: relative;
   height: 700px;
+  max-width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;

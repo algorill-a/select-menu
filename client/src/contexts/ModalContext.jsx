@@ -13,15 +13,15 @@ const ModalContextProvider = (props) => {
   //     setDisplay(!display);
   //   },
   // );
-  const toggle = () => {
-    console.log('TOGGLED');
+  const toggleModal = () => {
+    setDisplay(!display);
   };
 
-  return display ? (
-    <ModalContext.Provider value={{ display, toggle }}>
+  return (
+    <ModalContext.Provider value={{ display, toggleModal }}>
       {props.children}
     </ModalContext.Provider>
-  ) : null;
+  );
 };
 
 export default ModalContextProvider;

@@ -1,14 +1,13 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { BsFillStarFill } from 'react-icons/bs';
-// import ComparisonModal from './ComparisonModal.jsx';
-// import ModalContextProvider from '../../contexts/ModalContext.jsx';
-// import { ModalContext } from '../../contexts/ModalContext.jsx';
+import ComparisonModal from './ComparisonModal.jsx';
+import { ModalContext } from '../../contexts/ModalContext.jsx';
 import { CardContext } from '../../contexts/CardContext.jsx';
 
 // Styled Components
 const CardContainer = styled.div`
-  width: 300px;
+  width: 250px;
   height: 400px;
   border: 1px solid black;
   padding: 10px 12px 10px;
@@ -48,35 +47,23 @@ const StarIcon = styled.div`
   }
 `;
 
-const toggle = () => {
-  console.log('CLICKED');
-};
-
 // Card Component
-const Card = ({ card }, { display }) => {
- // const { toggle } = useContext(ModalContext);
+const Card = ({ card }) => {
+  const { toggleModal } = useContext(ModalContext);
   const { removeCard } = useContext(CardContext);
 
   return (
-    <div>
-      <CardContainer>
-        <StarIcon onClick={toggle}><BsFillStarFill /></StarIcon>
-        <ProductImage src={card.imageUrl} alt="" />
-        <ProductCategory>
-          <div>{card.prodCategory}</div>
-          <div>{card.prodName}</div>
-        </ProductCategory>
-        <Price>{card.price}</Price>
-      </CardContainer>
-    </div>
+    <CardContainer>
+      <ComparisonModal />
+      <StarIcon onClick={toggleModal}><BsFillStarFill /></StarIcon>
+      <ProductImage src={card.imageUrl} alt="" />
+      <ProductCategory>
+        <div>{card.prodCategory}</div>
+        <div>{card.prodName}</div>
+      </ProductCategory>
+      <Price>{card.price}</Price>
+    </CardContainer>
   );
 };
 
 export default Card;
-
-
-/**
- *       <ModalContextProvider>
-        <ComparisonModal />
-      </ModalContextProvider>
- */
