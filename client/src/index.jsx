@@ -1,18 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import CardContextProvider from './contexts/CardContext.jsx';
+import CardList from './Components/Related/CardList.jsx';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
-  render() {
-    return (
-      <div>Hello CareThree!!!</div>
-    );
-  }
+function App() {
+  return (
+    <div>
+      <CardContextProvider>
+        <CardList />
+      </CardContextProvider>
+    </div>
+  );
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
+
+export default App;
