@@ -5,7 +5,6 @@ import WriteNewReview from './WriteNewReview/index.jsx';
 
 const RatingsAndReviews = () => (
   <div>
-    Hello from RatingsAndReviews
     <WriteNewReview />
   </div>
 );

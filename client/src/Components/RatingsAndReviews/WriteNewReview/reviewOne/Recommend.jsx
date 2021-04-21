@@ -1,14 +1,18 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable import/no-unresolved */
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/extensions */
 import React, { useState, useContext } from 'react';
 import { WriteReviewContext } from '../WriteNewReviewContext.jsx';
 
 const Recommend = () => {
-  const [recommend, setRecommend] = useState(null);
+  const [recommend, setRecommend] = useState(true);
   const [review, setReview] = useContext(WriteReviewContext);
-  const consoleThis = () => (
-    console.log(review)
-  );
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setReview({ ...review, [name]: value });
+  };
 
   return (
     <div>
@@ -18,8 +22,10 @@ const Recommend = () => {
         <input
           type="radio"
           name="recommend"
+          value={recommend}
+          onChange={handleChange}
           onClick={() => {
-            setRecommend(true);
+            setRecommend(recommend);
           }}
         />
         Yes
@@ -27,11 +33,9 @@ const Recommend = () => {
         <input
           type="radio"
           name="recommend"
-          onClick={() => {
-            setRecommend(false);
-            // setReview(review.recommend = recommend);
-            consoleThis();
-          }}
+          value={recommend}
+          onClick={() => setRecommend(!recommend)}
+          onChange={handleChange}
         />
         No
       </label>

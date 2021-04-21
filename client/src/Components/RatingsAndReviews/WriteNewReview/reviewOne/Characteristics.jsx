@@ -9,15 +9,7 @@ import { WriteReviewContext } from '../WriteNewReviewContext.jsx';
 const Characteristics = () => {
   const [review, setReview] = useContext(WriteReviewContext);
   const [clicked, setClicked] = useState(null);
-  const [text, setText] = useState('Please Select');
-
-  // const Input = styled.input`
-  // display: none;
-  // padding: .25em 1em;
-  // size: 20;
-  // `;
-
-  const characteristics = () => ([
+  const characteristics = [
     {
       name: 'SIZE',
       options: ['A size too small', '1/2 a size too small', 'Perfect', '1/2 a size too big', 'A size too big'],
@@ -38,27 +30,35 @@ const Characteristics = () => {
       options: ['Poor', 'Below average', 'What I expected', 'Pretty Great', 'Perfect'],
       levels: ['Poor', 'Perfect'],
     },
-  ]);
+  ];
+  const [text, setText] = useState({
+    SIZE: 'Please Select',
+    WIDTH: 'Please Select',
+    COMFORT: 'Please Select',
+    QUALITY: 'Please Select',
+  });
+
+  const selectOptions = (key, option) => {
+    setText({ ...text, [key]: option });
+  };
+
   return (
     <div>
-      {characteristics().map((characteristic) => (
+      {characteristics.map((characteristic, index) => (
         <form>
           <p>{characteristic.name}</p>
-          <p>{text}</p>
+          <p>{text[characteristic.name]}</p>
           {characteristic.options.map((choice, i) => (
             <label>
-              {/* <ImRadioUnchecked /> */}
               {' '}
               <input
                 type="radio"
                 name="choice"
-                onClick={() => setText(choice)}
+                value={choice}
+                onClick={() => selectOptions(characteristic.name, choice)}
               />
             </label>
           ))}
-          <p>{characteristic.levels[0]}</p>
-          <p>{characteristic.levels[1]}</p>
-          <p>{characteristic.levels[2]}</p>
         </form>
       ))}
     </div>
@@ -66,28 +66,3 @@ const Characteristics = () => {
 };
 
 export default Characteristics;
-
-// return (
-//     <div>
-//       {characteristics().map((characteristic) => (
-//         <form>
-//           <p>{characteristic.name}</p>
-//           <p>{text}</p>
-//           {characteristic.options.map((choice, i) => (
-//             <label>
-//               {/* <ImRadioUnchecked /> */}
-//               {' '}
-//               <input
-//                 type="radio"
-//                 name="choice"
-//                 onClick={() => setText(choice)}
-//               />
-//             </label>
-//           ))}
-//           <p>{characteristic.levels[0]}</p>
-//           <p>{characteristic.levels[1]}</p>
-//           <p>{characteristic.levels[2]}</p>
-//         </form>
-//       ))}
-//     </div>
-//   );

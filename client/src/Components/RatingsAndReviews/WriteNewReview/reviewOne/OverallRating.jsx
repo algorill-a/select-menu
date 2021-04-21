@@ -2,9 +2,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-console */
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useState } from 'react';
-import { FaStar } from 'react-icons/fa';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
+import { FaStar } from 'react-icons/fa';
+import { WriteReviewContext } from '../WriteNewReviewContext.jsx'
 
 const Title = styled.h1`
   font-size: 1.5em;
@@ -17,6 +18,7 @@ const Input = styled.input`
 `;
 
 const OverallRating = () => {
+  const [review, setReview] = useContext(WriteReviewContext);
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
   const [text, setText] = useState('Please select');
@@ -28,6 +30,11 @@ const OverallRating = () => {
     { rating: 'Pretty Great' },
     { rating: 'Love it!' },
   ]);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setReview({ ...review, [name]: value });
+  };
 
   return (
     <form>
@@ -41,6 +48,7 @@ const OverallRating = () => {
               type="radio"
               name="rating"
               value={ratingValue}
+              onChange={handleChange}
               onClick={() => {
                 setRating(ratingValue);
                 setText(star.rating);

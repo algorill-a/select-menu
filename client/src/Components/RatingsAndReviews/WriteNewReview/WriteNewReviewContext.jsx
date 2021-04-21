@@ -6,14 +6,19 @@ export const WriteReviewContext = createContext();
 
 const WriteReviewProvider = (props) => {
   const [review, setReview] = useState({
-    product_id: 1345,
-    rating: 5,
-    summary: 'Hello I\'m a summary',
-    body: 'Hello this is a body blah blah blah',
-    recommend: false,
-    name: 'Mark',
-    email: 'Mark@fakemail.com',
-    characteristics: 'blah blah',
+    product_id: null,
+    rating: null,
+    summary: '',
+    body: '',
+    recommend: null,
+    name: '',
+    email: '',
+    characteristics: {
+      SIZE: 'Please Select',
+      WIDTH: 'Please Select',
+      COMFORT: 'Please Select',
+      QUALITY: 'Please Select',
+    },
   });
   return (
     <WriteReviewContext.Provider value={[review, setReview]}>
