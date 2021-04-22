@@ -25,5 +25,3 @@ const ProductsContextProvider = (props) => {
 };
 
 export default ProductsContextProvider;
-
-// products/productnumber/styles
