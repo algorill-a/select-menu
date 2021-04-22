@@ -1,8 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import styled from 'styled-components';
 import Card from './Card.jsx';
 import { CardContext } from '../../contexts/CardContext.jsx';
+import { MainContext } from '../../contexts/MainContextProvider.jsx';
 
 // Styled Components
 const CardListContainer = styled.div`
@@ -41,9 +42,47 @@ const IconRight = styled.button`
 
 // Card List Component
 const CardList = () => {
+  const { currProduct } = useContext(MainContext);
   const { cards } = useContext(CardContext);
+  const { addCard, removeCard } = useContext(CardContext);
+  let productId;
+  let ratings = 0;
 
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
+
+  const getProducts = (endpoint) => fetch(`api/${endpoint}`)
+    .then((res) => res.json());
+
+  useEffect(() => {
+    getProducts(`products/${currProduct}/related`)
+      .then((data2) => data2.forEach((item) => {
+        getProducts(`products/${item}`)
+          .then((data) => { productId = data.category; });
+        getProducts(`reviews/meta/?product_id=${item}`)
+          .then((reviews) => {
+            let keys = Object.keys(reviews.ratings);
+            if (keys.length > 0) {
+              for (let i = 0; i < keys.length; i++) {
+                ratings += (parseInt(keys[i], 10) * parseInt(reviews.ratings[[keys[i]]], 10));
+              }
+              ratings /= 5;
+            }
+          });
+        getProducts(`products/${item}/styles`)
+          .then((data3) => data3.results.forEach((style) => {
+            addCard({
+              id: style.style_id,
+              prodId: item,
+              prodCategory: productId,
+              prodName: style.name,
+              imageUrl: style.photos[0].thumbnail_url,
+              price: style.original_price,
+              sale: style.sale_price,
+              ratingAvg: ratings,
+            });
+          }));
+      }));
+  }, []);
 
   const prevCard = () => {
     const reset = currentCardIndex === 0;

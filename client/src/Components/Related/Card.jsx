@@ -1,12 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { BsFillStarFill } from 'react-icons/bs';
+import { GiBananaPeeled } from 'react-icons/gi';
 import ComparisonModal from './ComparisonModal.jsx';
 import { ModalContext } from '../../contexts/ModalContext.jsx';
-import { CardContext } from '../../contexts/CardContext.jsx';
+// import { CardContext } from '../../contexts/CardContext.jsx';
+import { MainContext } from '../../contexts/MainContextProvider.jsx';
 
 // Styled Components
 const CardContainer = styled.div`
+  font-family: Helvetica;
   width: 250px;
   height: 400px;
   border: 1px solid black;
@@ -32,7 +35,17 @@ const ProductCategory = styled.h3`
   font-weight: 300;
 `;
 
-const Price = styled.div`
+const Original = styled.div`
+  color: black;
+  font-weight: 300;
+  text-decoration: none;
+`;
+
+const Price = styled(Original)`
+  text-decoration: line-through;
+`;
+
+const Sale = styled.div`
   color: red;
   font-weight: 300;
 `;
@@ -47,13 +60,19 @@ const StarIcon = styled.div`
   }
 `;
 
+const Rating = styled.div`
+  position: relative;
+  bottom: 0;
+  text-align: right;
+`;
+
 // Card Component
 const Card = ({ card }) => {
   const { toggleModal } = useContext(ModalContext);
-  const { removeCard } = useContext(CardContext);
+  const { changeProduct } = useContext(MainContext);
 
   return (
-    <CardContainer>
+    <CardContainer onClick={changeProduct(`${card.prodId}`)}>
       <ComparisonModal />
       <StarIcon onClick={toggleModal}><BsFillStarFill /></StarIcon>
       <ProductImage src={card.imageUrl} alt="" />
@@ -61,7 +80,15 @@ const Card = ({ card }) => {
         <div>{card.prodCategory}</div>
         <div>{card.prodName}</div>
       </ProductCategory>
-      <Price>{card.price}</Price>
+      {card.sale !== null ? (
+        <>
+          <Price>{card.price}</Price>
+          <Sale>{card.sale}</Sale>
+        </>
+      ) : <Original>{card.price}</Original>}
+      <Rating>
+        {[...Array(5)].map((star, index) => <GiBananaPeeled size={25} color={index <= card.ratingAvg ? '#BEDF7C' : '#808080'} value={index} />)}
+      </Rating>
     </CardContainer>
   );
 };

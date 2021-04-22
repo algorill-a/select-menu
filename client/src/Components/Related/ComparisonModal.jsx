@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { AiOutlineClose } from 'react-icons/ai';
 import { ModalContext } from '../../contexts/ModalContext.jsx';
 
 // styled components
@@ -35,13 +36,19 @@ const ModalBox = styled.div`
   padding: 40px;
 `;
 
+const CloseIcon = styled.div`
+  text-align: right;
+`;
+
 const ComparisonModal = () => {
   const { display } = useContext(ModalContext);
-  // const { toggle } = useContext(ModalContext);
+  const { toggleModal } = useContext(ModalContext);
+
   return display ? (
     <ModalWrapper>
       <ModalBackdrop />
       <ModalBox>
+        <CloseIcon onClick={toggleModal}><AiOutlineClose /></CloseIcon>
         <h1>Modal Header</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit.

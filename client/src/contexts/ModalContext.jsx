@@ -8,11 +8,6 @@ export const ModalContext = createContext();
 const ModalContextProvider = (props) => {
   const [display, setDisplay] = useState(false);
 
-  // const [toggle, setToggle] = useState(
-  //   () => {
-  //     setDisplay(!display);
-  //   },
-  // );
   const toggleModal = () => {
     setDisplay(!display);
   };
