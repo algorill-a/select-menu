@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Overview from './Components/Overview/Overview.jsx'
 
 class App extends React.Component {
   constructor(props) {
@@ -10,7 +11,9 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>Hello CareThree!!!</div>
+      <div>
+        <Overview />
+      </div>
     );
   }
 }
