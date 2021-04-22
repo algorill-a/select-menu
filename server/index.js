@@ -6,6 +6,8 @@ const controllers = require('./controllers');
 const app = express();
 const port = 1337;
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.get('/api/*', controllers.get);

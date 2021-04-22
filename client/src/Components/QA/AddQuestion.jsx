@@ -73,7 +73,7 @@ function AddQuestion() {
           </label>
           <p> </p>
 
-          <StyledButton type="submit"> Submit</StyledButton>
+          <StyledButton type="submit"> SUBMIT</StyledButton>
         </FormDiv>
       </Modal>
     </div>
@@ -83,23 +83,24 @@ function AddQuestion() {
 export default AddQuestion;
 
 const StyledInput = styled.input`
-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
+font-family: 'Helvetica', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
 width: 800px;
 height: 40px;
 `;
 
 const StyledButton = styled.button`
 &:hover ${StyledButton} {
-  background-color: #EEEEEE;
+  background-color: #383838;
 }
-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
-width: 150px;
-height: 40px;
-background: white;
-border: solid, 1px;
+font-family: 'Helvetica', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
+width: 200px;
+height: 50px;
+background: #C50000;
+color: white;
+border: none;
 border-width: thin;
 display: flex;
-flex-direction: column;
+flex-direction: row;
 align-items: center;
 justify-content: center;
 cursor: pointer;
@@ -107,7 +108,7 @@ border-radius: 2px;
 `;
 
 const StyledH2 = styled.h2`
-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
+font-family: 'Helvetica', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -116,11 +117,11 @@ margin-top: 10%;
 `;
 
 const StyledDiv = styled.div`
-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
+font-family: 'Helvetica', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
 `;
 
 const FormDiv = styled.form`
-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
+font-family: 'Helvetica', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
 display: flex;
 flex-direction: column;
 align-items: center;

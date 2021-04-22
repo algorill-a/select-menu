@@ -33,14 +33,14 @@ const QuestionItem = ({ question }) => {
 export default QuestionItem;
 
 const StyledDiv = styled.div`
-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
+font-family: 'Helvetica', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
 display: inline-flex;
 flex-direction: row;
 font-weight: bold;
 `;
 
 const Answer = styled.div`
-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
+font-family: 'Helvetica', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
 display: flex;
 flex-direction: row;
 font-weight: 100;
@@ -49,7 +49,7 @@ float: right;
 `;
 
 const HelpfulDiv = styled.div`
-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
+font-family: 'Helvetica', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
 font-weight: 100;
 font-size: 10px;
 float: right;
@@ -58,7 +58,7 @@ padding-right: 20%;
 `;
 
 const Q = styled.div`
-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
+font-family: 'Helvetica', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
 padding-right: 10px;
 float: left;
 `;

@@ -77,7 +77,7 @@ function AddAnswer() {
           </label>
           <p> </p>
 
-          <StyledSubmit type="submit"> Submit</StyledSubmit>
+          <StyledSubmit type="submit"> SUBMIT</StyledSubmit>
         </FormDiv>
       </Modal>
     </div>
@@ -87,7 +87,7 @@ function AddAnswer() {
 export default AddAnswer;
 
 const StyledInput = styled.input`
-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
+font-family: 'Helvetica', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
 width: 800px;
 height: 40px;
 `;
@@ -96,7 +96,7 @@ const StyledButton = styled.span`
 &:hover ${StyledButton} {
   text-decoration: underline;
 }
-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
+font-family: 'Helvetica', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
 background: white;
 border: none;
 font-size: 10px;
@@ -109,11 +109,12 @@ cursor: pointer;
 
 const StyledSubmit = styled.button`
 
-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
-width: 150px;
-height: 40px;
-background: transparent;
-border: solid, 1px;
+font-family: 'Helvetica', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
+width: 200px;
+height: 50px;
+color: white;
+background: #C50000;
+border: none
 border-width: thin;
 display: flex;
 flex-direction: column;
@@ -122,12 +123,12 @@ justify-content: center;
 border-radius: 2px;
 cursor: pointer;
 &:hover ${StyledSubmit} {
-  background-color: #EEEEEE;
+  background-color: #383838;
 }
 `;
 
 const StyledH2 = styled.h2`
-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
+font-family: 'Helvetica', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -136,19 +137,16 @@ margin-top: 10%;
 `;
 
 const StyledDiv = styled.div`
-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
+font-family: 'Helvetica', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
 `;
 
 const FormDiv = styled.form`
-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
+font-family: 'Helvetica', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-
 `;
-
-
 
 // onSubmit={(event) => {
 //   event.preventDefault();

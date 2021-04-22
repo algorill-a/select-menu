@@ -9,6 +9,7 @@ function Helpful() {
   return (
     <div>
       Helpful?
+      &nbsp;
       <span> </span>
       <StyledSpan data-testid="button" onClick={() => setCount(count + 1)}>
         Yes
@@ -19,7 +20,7 @@ function Helpful() {
         <span data-testid="display">{count}</span>
         )
         {' '}
-        |&nbsp;
+        &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
         <span> </span>
       </span>
 

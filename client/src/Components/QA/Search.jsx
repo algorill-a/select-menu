@@ -5,6 +5,16 @@ import Context from './UserContext.jsx';
 
 const Search = () => {
   const { state, actions } = useContext(Context);
+  const { list, search } = state;
+
+  // const handleSearch = (event) => {
+  //   event.preventDefault();
+  //   for (let i = 0; i < list.length; i + 1) {
+  //     if (search === list[i].question) {
+  //       actions({ type: 'setState', payload: { ...state, list: [list[i].question] } });
+  //     }
+  //   }
+  // };
 
   return (
     <div>
@@ -25,10 +35,11 @@ const Search = () => {
 export default Search;
 
 const StyledInput = styled.input`
-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
-width: 80%;
-height: 40px;
+font-family: 'Helvetica', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
+width: 79.5%;
+height: 50px;
 font-weight: bold;
+padding-left: 10px;
 `;
 
 // const message = useContext(UserContext);
