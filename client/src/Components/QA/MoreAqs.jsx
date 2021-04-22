@@ -4,11 +4,33 @@ import Context from './UserContext.jsx';
 
 function MoreAqs() {
   const { state, actions } = useContext(Context);
-  const [ moreAqsIsOpen, setMoreAqsIsOpenOpen] = useState(false);
+  const [moreAqsIsOpen, setMoreAqsIsOpenOpen] = useState(false);
 
   return (
     <div>
-      <StyledButton type="submit" onClick={() => setMoreAqsIsOpenOpen(true)}>MORE ANSWERED QUESTIONS</StyledButton>
+      <StyledButton
+        type="submit"
+        onClick={() => {
+          setMoreAqsIsOpenOpen(!moreAqsIsOpen);
+          if (!moreAqsIsOpen) {
+            actions({
+              type: 'setState',
+              payload: {
+                ...state, list: state.totalQuestionList,
+              },
+            });
+          } else {
+            actions({
+              type: 'setState',
+              payload: {
+                ...state, list: state.totalQuestionList.slice(0, 2),
+              },
+            });
+          }
+        }}
+      >
+        {!moreAqsIsOpen ? <span>MORE ANSWERED QUESTIONS</span> : <span>COLLAPSE</span>}
+      </StyledButton>
     </div>
   );
 }

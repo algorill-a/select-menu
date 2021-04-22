@@ -5,20 +5,19 @@ import Context from './UserContext.jsx';
 
 const Search = () => {
   const { state, actions } = useContext(Context);
-  const { list, search } = state;
 
-  // const handleSearch = (event) => {
-  //   event.preventDefault();
-  //   for (let i = 0; i < list.length; i + 1) {
-  //     if (search === list[i].question) {
-  //       actions({ type: 'setState', payload: { ...state, list: [list[i].question] } });
-  //     }
-  //   }
-  // };
+  const handleSearch = (event) => {
+    event.preventDefault();
+    for (let i = 0; i < state.totalQuestionList.length; i + 1) {
+      if (state.search === state.totalQuestionList[i].question_body) {
+        actions({ type: 'setState', payload: { ...state, list: [state.search] } });
+      }
+    }
+  };
 
   return (
     <div>
-      <form>
+      <form onSubmit={() => { handleSearch(); }}>
         <StyledInput
           className="textbox"
           type="text"

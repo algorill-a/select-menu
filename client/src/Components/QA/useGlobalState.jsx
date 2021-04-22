@@ -5,6 +5,8 @@ const useGlobalState = () => {
     name: '',
     email: '',
     value: '',
+    questionList: 2,
+    totalQuestionList: [],
     list: [{ question: 'Will this product fit in my truck?' }, { question: 'Where is this product manufactured?' }],
     answers: [{ answer: 'This product is made in Hawaii', name: 'Steph Curry' }],
     search: '',

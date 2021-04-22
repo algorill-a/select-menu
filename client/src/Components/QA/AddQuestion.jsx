@@ -21,7 +21,7 @@ function AddQuestion() {
           onSubmit={(event) => {
             event.preventDefault();
             event.target.reset();
-            const newQuestion = { question: state.value };
+            const newQuestion = { question_body: state.value };
             const { list } = state;
             list.push(newQuestion);
             actions({

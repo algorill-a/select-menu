@@ -19,5 +19,6 @@ const StyledReport = styled.span`
 cursor: pointer;
 &:hover ${StyledReport} {
   text-decoration: underline;
+  color: #C50000;
 }
 `;

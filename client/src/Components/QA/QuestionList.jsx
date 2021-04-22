@@ -5,8 +5,8 @@ import QuestionItem from './QuestionItem.jsx';
 import authorization from '../../../../config.js';
 
 const QuestionList = () => {
-  const { state } = useContext(Context);
-  const [questions, setQuestions] = useState([]);
+  const { state, actions } = useContext(Context);
+  // const [questions, setQuestions] = useState([]);
   // const defaultList = state.list.slice(0, 4);
 
   useEffect(() => {
@@ -16,7 +16,13 @@ const QuestionList = () => {
     })
       .then((res) => {
         console.log(res);
-        setQuestions(res.data.results);
+        // setQuestions(res.data.results);
+        actions({
+          type: 'setState',
+          payload: {
+            ...state, list: res.data.results.slice(0, 2), totalQuestionList: res.data.results, value: '', name: '', email: '',
+          },
+        });
       })
       .catch((err) => {
         throw err;
@@ -26,7 +32,7 @@ const QuestionList = () => {
   return (
     <div>
       <ul>
-        {questions.map((question, index) => (
+        {state.list.map((question, index) => (
           <QuestionItem
             question={question.question_body}
             key={question.question_id}

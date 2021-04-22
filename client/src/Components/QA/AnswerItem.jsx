@@ -47,7 +47,7 @@ font-family: 'Helvetica', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans',
 display: grid;
 justify-content: left;
 
-font-size: 12px;
+font-size: 10px;
 
 `;
 
@@ -63,7 +63,7 @@ font-family: 'Helvetica', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans',
 display: flex;
 flex-direction: row;
 
-font-size: 12px;
+font-size: 10px;
 padding-top: 10px;
 `;
 
@@ -72,6 +72,6 @@ font-family: 'Helvetica', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans',
 display: flex;
 flex-direction: row;
 
-font-size: 12px;
+font-size: 10px;
 padding-top: 10px;
 `;

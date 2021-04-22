@@ -95,6 +95,7 @@ height: 40px;
 const StyledButton = styled.span`
 &:hover ${StyledButton} {
   text-decoration: underline;
+  color: #C50000;
 }
 font-family: 'Helvetica', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Helvetica, sans-serif;
 background: white;

@@ -39,5 +39,6 @@ font-weight: 100;
 font-size: 10px;
 &:hover ${StyledSpan} {
   text-decoration: underline;
+  color: #C50000;
 }
 `;
