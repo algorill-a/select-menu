@@ -3,6 +3,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import styled from 'styled-components';
+import gorilla from '../../images/gorilla.gif';
 import Card from './Card.jsx';
 import { CardContext } from '../../contexts/CardContext.jsx';
 import { MainContext } from '../../contexts/MainContextProvider.jsx';
@@ -104,7 +105,6 @@ const CardList = () => {
 
   return cards.length ? (
     <div>
-      <h1>HELLO THERE!</h1>
       <CardListContainer>
         <IconLeft onClick={prevCard}><IoIosArrowBack /></IconLeft>
         {cardsToDisplay.map((card) => (<Card card={card} key={card.id} value={card.prodId} />))}
@@ -112,7 +112,12 @@ const CardList = () => {
       </CardListContainer>
     </div>
 
-  ) : null;
+  ) : (
+    <div>
+      <h1>HELLO THERE!</h1>
+      <img src={gorilla} alt="" />
+    </div>
+  );
 };
 
 export default CardList;
