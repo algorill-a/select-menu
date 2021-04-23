@@ -1,3 +1,5 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable import/extensions */
 import React, { useContext, useState, useEffect } from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import styled from 'styled-components';
@@ -44,7 +46,7 @@ const IconRight = styled.button`
 const CardList = () => {
   const { currProduct } = useContext(MainContext);
   const { cards } = useContext(CardContext);
-  const { addCard, removeCard } = useContext(CardContext);
+  const { addCard } = useContext(CardContext);
   let productId;
   let ratings = 0;
 
@@ -60,7 +62,7 @@ const CardList = () => {
           .then((data) => { productId = data.category; });
         getProducts(`reviews/meta/?product_id=${item}`)
           .then((reviews) => {
-            let keys = Object.keys(reviews.ratings);
+            const keys = Object.keys(reviews.ratings);
             if (keys.length > 0) {
               for (let i = 0; i < keys.length; i++) {
                 ratings += (parseInt(keys[i], 10) * parseInt(reviews.ratings[[keys[i]]], 10));
@@ -105,14 +107,12 @@ const CardList = () => {
       <h1>HELLO THERE!</h1>
       <CardListContainer>
         <IconLeft onClick={prevCard}><IoIosArrowBack /></IconLeft>
-        {cardsToDisplay.map((card) => (<Card card={card} key={card.id} />))}
+        {cardsToDisplay.map((card) => (<Card card={card} key={card.id} value={card.prodId} />))}
         <IconRight onClick={nextCard}><IoIosArrowForward /></IconRight>
       </CardListContainer>
     </div>
 
-  ) : (
-    <div className="empty">Add to Outfit</div>
-  );
+  ) : null;
 };
 
 export default CardList;

@@ -1,11 +1,13 @@
-import React, { useContext, useState } from 'react';
+/* eslint-disable react/prop-types */
+/* eslint-disable import/extensions */
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { BsFillStarFill } from 'react-icons/bs';
 import { GiBananaPeeled } from 'react-icons/gi';
 import ComparisonModal from './ComparisonModal.jsx';
 import { ModalContext } from '../../contexts/ModalContext.jsx';
 // import { CardContext } from '../../contexts/CardContext.jsx';
-import { MainContext } from '../../contexts/MainContextProvider.jsx';
+// import { MainContext } from '../../contexts/MainContextProvider.jsx';
 
 // Styled Components
 const CardContainer = styled.div`
@@ -17,9 +19,6 @@ const CardContainer = styled.div`
   background: alicewhite;
   overflow: hidden;
   box-sizing: border-box;
-  :hover {
-    opacity: 0.8;
-  }
 `;
 
 const ProductImage = styled.img`
@@ -69,11 +68,10 @@ const Rating = styled.div`
 // Card Component
 const Card = ({ card }) => {
   const { toggleModal } = useContext(ModalContext);
-  const { changeProduct } = useContext(MainContext);
+  // const { changeProduct } = useContext(MainContext);
 
   return (
-    <CardContainer onClick={changeProduct(`${card.prodId}`)}>
-      <ComparisonModal />
+    <CardContainer>
       <StarIcon onClick={toggleModal}><BsFillStarFill /></StarIcon>
       <ProductImage src={card.imageUrl} alt="" />
       <ProductCategory>
@@ -89,8 +87,11 @@ const Card = ({ card }) => {
       <Rating>
         {[...Array(5)].map((star, index) => <GiBananaPeeled size={25} color={index <= card.ratingAvg ? '#BEDF7C' : '#808080'} value={index} />)}
       </Rating>
+      <ComparisonModal value={card.prodId} />
     </CardContainer>
   );
 };
 
 export default Card;
+
+// onClick={changeProduct(`${card.prodId}`)}

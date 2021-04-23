@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/destructuring-assignment */
 import React, { createContext, useState } from 'react';
 
 export const CardContext = createContext();
@@ -21,12 +23,3 @@ const CardContextProvider = (props) => {
 };
 
 export default CardContextProvider;
-
-/**
- * const getData = () =>
-    fetch('https://app-hrsei-api.herokuapp.com/api/fec2/hr-sfo/products')
-      .then((res) => res.json());
-
-
-
- */

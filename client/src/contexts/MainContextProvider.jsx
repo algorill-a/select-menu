@@ -3,7 +3,7 @@ import React, { createContext, useState } from 'react';
 export const MainContext = createContext();
 
 const MainContextProvider = (props) => {
-  const [currProduct, setCurrProduct] = useState('23145');
+  const [currProduct, setCurrProduct] = useState('23148');
 
   const changeProduct = (product) => {
     setCurrProduct(product);
