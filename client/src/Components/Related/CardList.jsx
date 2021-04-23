@@ -3,7 +3,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import styled from 'styled-components';
-import gorilla from '../../images/gorilla.gif';
 import Card from './Card.jsx';
 import { CardContext } from '../../contexts/CardContext.jsx';
 import { MainContext } from '../../contexts/MainContextProvider.jsx';
@@ -52,6 +51,8 @@ const CardList = () => {
   let ratings = 0;
 
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const [showStart, setShowStart] = useState(false);
+  const [showEnd, setShowEnd] = useState(true);
 
   const getProducts = (endpoint) => fetch(`api/${endpoint}`)
     .then((res) => res.json());
@@ -88,15 +89,27 @@ const CardList = () => {
   }, []);
 
   const prevCard = () => {
-    const reset = currentCardIndex === 0;
-    const index = reset ? cards.length - 1 : currentCardIndex - 1;
-    setCurrentCardIndex(index);
+    const start = currentCardIndex === 0;
+    if (!start) {
+      setShowStart(true);
+      setShowEnd(true);
+      const index = currentCardIndex - 1;
+      setCurrentCardIndex(index);
+    } else {
+      setShowStart(false);
+    }
   };
 
   const nextCard = () => {
-    const resetIndex = currentCardIndex === cards.length - 1;
-    const index = resetIndex ? 0 : currentCardIndex + 1;
-    setCurrentCardIndex(index);
+    const end = currentCardIndex === cards.length - 1;
+    if (!end) {
+      setShowStart(true);
+      setShowEnd(true);
+      const index = currentCardIndex + 1;
+      setCurrentCardIndex(index);
+    } else {
+      setShowEnd(false);
+    }
   };
 
   const activeCards = cards.slice(currentCardIndex, currentCardIndex + 4);
@@ -106,16 +119,16 @@ const CardList = () => {
   return cards.length ? (
     <div>
       <CardListContainer>
-        <IconLeft onClick={prevCard}><IoIosArrowBack /></IconLeft>
+        {showStart ? <IconLeft onClick={prevCard}><IoIosArrowBack /></IconLeft> : null}
         {cardsToDisplay.map((card) => (<Card card={card} key={card.id} value={card.prodId} />))}
-        <IconRight onClick={nextCard}><IoIosArrowForward /></IconRight>
+        {showEnd ? <IconRight onClick={nextCard}><IoIosArrowForward /></IconRight> : null}
       </CardListContainer>
     </div>
 
   ) : (
     <div>
       <h1>HELLO THERE!</h1>
-      <img src={gorilla} alt="" />
+      <img src="./gorilla2.gif " alt="" />
     </div>
   );
 };

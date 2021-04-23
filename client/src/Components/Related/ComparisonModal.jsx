@@ -30,7 +30,7 @@ const ModalBox = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 70%;
+  height: 50%;
   width: 60%;
   overflow-y: auto;
   background-color: white;
