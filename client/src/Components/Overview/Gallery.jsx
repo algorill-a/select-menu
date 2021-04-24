@@ -4,9 +4,11 @@ import { BsArrowUpShort, BsArrowDownShort, BsArrowLeftShort, BsArrowRightShort }
 import { StyleContext } from './StyleContext.jsx';
 
 const ViewContainer = Styled.div`
-  height: 75%;
-  width: 50%;
-  margin: 0 auto;
+  display: grid;
+  height: 600px;
+  width: 60%;
+  margin: 25px 25px 25px 100px;
+  background: #E8E8E8;
 `;
 
 // background: black;
@@ -42,36 +44,40 @@ const DownArrow = Styled.button`
 `;
 
 const DefaultViewContainer = Styled.div`
-  height: 75%;
-  position: relative;
-  border-radius: 10px;
+  // height:60%;
+  // position: relative;
+  // border-radius: 10px;
+
+  padding: 10px;
+  background: lightgreen;
 `;
 
 const DefaultView = Styled.ul`
+  // display: block;
   list-style: none;
   margin: 0;
   padding: 0;
-  border-radius: 10px;
-`;
-
-const DefaultViewImage = Styled.img`
-  width: 75%;
-  height: 100%;
-  border-radius 10px;
-  object-fit: cover;
+  // border-radius: 10px;
 `;
 
 const DefaultViewSlide = Styled.li`
   height: 75%;
   width: 75%;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 25%;
+  margin-right: 25%;
+`;
+
+const DefaultViewImage = Styled.img`
+  width: 100%;
+  height: 600px;
+  border-radius 10px;
+  object-fit: contain;
 `;
 
 const RightArrow = Styled.button`
   position: absolute;
-  top: 25%;
-  right: 25%;
+  top: 35%;
+  right: 37%;
   color: black;
   z-index: 10;
   cursor: pointer;
@@ -80,8 +86,8 @@ const RightArrow = Styled.button`
 
 const LeftArrow = Styled.button`
   position: absolute;
-  top: 25%;
-  left: 25%;
+  top: 35%;
+  left: 5%;
   color: black;
   z-index: 10;
   cursor: pointer;
