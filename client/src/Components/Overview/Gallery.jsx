@@ -1,13 +1,15 @@
 import React, { useContext } from 'react';
 import Styled from 'styled-components';
 import { BsArrowUpShort, BsArrowDownShort, BsArrowLeftShort, BsArrowRightShort } from 'react-icons/bs';
-import { ProductsContext } from './ProductsContext.jsx';
+import { StyleContext } from './StyleContext.jsx';
 
 const ViewContainer = Styled.div`
-  height: 100%;
+  height: 75%;
   width: 50%;
   margin: 0 auto;
 `;
+
+// background: black;
 
 const ImagesOverlay = Styled.div`
   height: 40px;
@@ -40,9 +42,8 @@ const DownArrow = Styled.button`
 `;
 
 const DefaultViewContainer = Styled.div`
-  height: 100%;
+  height: 75%;
   position: relative;
-  background: grey;
   border-radius: 10px;
 `;
 
@@ -50,20 +51,19 @@ const DefaultView = Styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
-  background: black;
   border-radius: 10px;
 `;
 
 const DefaultViewImage = Styled.img`
-  width: 100%;
+  width: 75%;
   height: 100%;
   border-radius 10px;
   object-fit: cover;
 `;
 
 const DefaultViewSlide = Styled.li`
-  height: 50%;
-  width: 50%;
+  height: 75%;
+  width: 75%;
   margin-left: auto;
   margin-right: auto;
 `;
@@ -89,30 +89,26 @@ const LeftArrow = Styled.button`
 `;
 
 const Gallery = () => {
-  const { images, currentImage, setCurrentImage } = useContext(ProductsContext);
+  const { currentStylePhotos, currentImage, setCurrentImage } = useContext(StyleContext);
 
   const previousSlide = () => {
-    setCurrentImage(currentImage === 0 ? images.length - 1 : currentImage - 1);
+    setCurrentImage(currentImage === 0 ? currentStylePhotos.length - 1 : currentImage - 1);
   };
 
   const nextSlide = () => {
-    setCurrentImage(currentImage === images.length - 1 ? 0 : currentImage + 1);
+    setCurrentImage(currentImage === currentStylePhotos.length - 1 ? 0 : currentImage + 1);
   };
 
   const updateDefaultView = (index) => {
     setCurrentImage(index);
   };
 
-  let photos = [];
-  let photo = null;
-  if (images !== null) {
-    photos = images.map((image, index) => <Image src={image.thumbnail_url} alt="place-holder" key={index} onClick={() => updateDefaultView(index)} />);
-    photo = images.map((image, index) => (
-      <DefaultViewSlide key={index}>
-        {index === currentImage && (<DefaultViewImage src={image.thumbnail_url} alt={image} key={index} />)}
-      </DefaultViewSlide>
-    ))
-  }
+  const photos = (currentStylePhotos !== null) ? currentStylePhotos.map((image, index) => <Image src={image.thumbnail_url} alt="place-holder" key={index} onClick={() => updateDefaultView(index)} />) : <Image src='https://cdn.discordapp.com/attachments/831605836996411443/834994007725441034/gorilla_fly2.gif' />;
+
+  const photo = (currentStylePhotos !== null) ? currentStylePhotos.map((image, index) =>
+    <DefaultViewSlide key={index}>
+      {index === currentImage && (<DefaultViewImage src={image.url} alt={image} key={index} />)}
+    </DefaultViewSlide>) : <Image src='https://cdn.discordapp.com/attachments/831605836996411443/834994007725441034/gorilla_fly2.gif' />;
 
   return (
     <ViewContainer>
@@ -125,7 +121,6 @@ const Gallery = () => {
       <RightArrow onClick={nextSlide}><BsArrowRightShort /></RightArrow>
       <DefaultViewContainer>
         <DefaultView>
-          { /* refactor and map over products list to display an image for each line */ }
           {photo}
         </DefaultView>
       </DefaultViewContainer>
@@ -139,3 +134,5 @@ export default Gallery;
 // click - display current image plus next 6 additional images
 // click - if last image of the displayed images is the last image in the array
   // display last image and the previous 6 images before that
+
+  // https://cdn.discordapp.com/attachments/831605836996411443/834994007725441034/gorilla_fly2.gif

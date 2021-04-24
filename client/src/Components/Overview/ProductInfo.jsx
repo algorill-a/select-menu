@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Styled from 'styled-components';
 import { AiOutlineStar } from 'react-icons/ai';
-// import TestDataContextProvider from './TestDataContext.jsx';
+import { ProductsContext } from './ProductsContext.jsx';
 
 const ProductInfoContainer = Styled.div`
   position: absolute;
@@ -10,17 +10,23 @@ const ProductInfoContainer = Styled.div`
 `;
 
 const ProductInfo = () => {
+  const { prodInfo } = useContext(ProductsContext);
+
   return (
     <ProductInfoContainer>
       <div>Star Rating</div>
       <AiOutlineStar/><AiOutlineStar/><AiOutlineStar/><AiOutlineStar/><AiOutlineStar/>
-      {/* <TestDataContextProvider> */}
-        <div>Product Information</div>
-        <div>Price</div>
-      {/* </TestDataContextProvider> */}
+      <div>{prodInfo !== null ? prodInfo.productCategory : null}</div>
+      <h2>{prodInfo !== null ? prodInfo.productTitle : null}</h2>
+      <div>{prodInfo !== null ? prodInfo.defaultPrice : null}</div>
       <button>share</button>
     </ProductInfoContainer>
-  )
+  );
 };
 
 export default ProductInfo;
+
+// Product Category - product
+// Product Title/Name - product
+// Price - style
+// Information/Overview - product
