@@ -29,7 +29,6 @@ const RatingBreakdown = () => {
   }
   return (
     <div>
-      <h1>Ratings and Reviews</h1>
       <RatingSummary />
       <RatingBars />
       <Recommendation />

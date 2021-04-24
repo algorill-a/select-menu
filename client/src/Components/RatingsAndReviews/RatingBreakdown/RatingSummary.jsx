@@ -4,25 +4,6 @@ import styled from 'styled-components';
 import { GiBananaPeeled } from 'react-icons/gi';
 import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext.jsx';
 
-const Score = styled.div`
-  position: relative;
-  height: 60px;
-  font-family: Helvetica;
-  font-weight: bold;
-  font-size: 70px;
-  text-align: right;
-  top: -20px;
-  left: -30px;
-  color: #FDFF93;
-`;
-
-const BananaDiv = styled.div`
-  font-family: Helvetica;
-  float: left;
-  padding-top: 13px;
-  padding-left: 10px;
-`;
-
 const Container = styled.div`
   width: 310px;
   margin: 10px;
@@ -31,6 +12,25 @@ const Container = styled.div`
   border-radius: 15px;;
   box-shadow: 1px 3px 3px #5B5347;
   outline: 0;
+`;
+
+const Score = styled.div`
+  position: relative;
+  height: 60px;
+  font-family: Helvetica;
+  font-weight: bold;
+  font-size: 70px;
+  text-align: right;
+  top: -20px;
+  left: -20px;
+  color: #FDFF93;
+`;
+
+const BananaDiv = styled.div`
+  font-family: Helvetica;
+  float: left;
+  padding-top: 13px;
+  padding-left: 10px;
 `;
 
 const Title = styled.div`
