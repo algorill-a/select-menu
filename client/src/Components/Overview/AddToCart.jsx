@@ -41,19 +41,12 @@ const AddToCart = () => {
     }
   }, [currentSize]);
 
-  // const PostProducts = (endpoint) => {
-  //   return (fetch(`api/${endpoint}`)
-  //     .then((data) => data.json()));
-  //   };
-
   // const addItemToCart = () => {
   //   fetch('api/cart', {
   //     method: 'POST',
-  //     body: JSON.stringify(
-  //       {
-  //         sku_id: currentSku,
-  //       },
-  //     ),
+  //     body: {
+  //       sku_id: currentSku,
+  //     },
   //   })
   //     .then((res) => res.json)
   //     .then((json) => console.log(json));
@@ -63,10 +56,11 @@ const AddToCart = () => {
     $.ajax({
       url: 'api/cart',
       type: 'POST',
-      data: JSON.stringify({
-        sku_id: currentSku,
-      }),
-      success: (data) => console.log(data),
+      data: { sku_id: currentSku },
+      success: (data) => {
+        console.log(data);
+        setCurrentSize('Select Size');
+      },
       error: (error) => console.log(error),
     });
   };
