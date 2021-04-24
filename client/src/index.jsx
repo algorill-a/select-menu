@@ -6,7 +6,6 @@ import RatingsAndReviews from './Components/RatingsAndReviews/index.jsx';
 
 const App = () => (
   <div>
-    <h1>Hello CareThree!!!</h1>
     <RatingsAndReviews />
   </div>
 );

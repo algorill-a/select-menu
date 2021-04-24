@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-console */
@@ -5,7 +6,7 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { FaStar } from 'react-icons/fa';
-import { WriteReviewContext } from '../WriteNewReviewContext.jsx'
+import { WriteReviewContext } from '../WriteNewReviewContext.jsx';
 
 const Title = styled.h1`
   font-size: 1.5em;

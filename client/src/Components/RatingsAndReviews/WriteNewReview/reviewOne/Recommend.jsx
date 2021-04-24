@@ -6,8 +6,8 @@ import React, { useState, useContext } from 'react';
 import { WriteReviewContext } from '../WriteNewReviewContext.jsx';
 
 const Recommend = () => {
-  const [recommend, setRecommend] = useState(true);
   const [review, setReview] = useContext(WriteReviewContext);
+  const [recommend, setRecommend] = useState(true);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -23,19 +23,15 @@ const Recommend = () => {
           type="radio"
           name="recommend"
           value={recommend}
-          onChange={handleChange}
-          onClick={() => {
-            setRecommend(recommend);
-          }}
+          onClick={handleChange}
         />
         Yes
         <br />
         <input
           type="radio"
           name="recommend"
-          value={recommend}
-          onClick={() => setRecommend(!recommend)}
-          onChange={handleChange}
+          value={!recommend}
+          onClick={handleChange}
         />
         No
       </label>
@@ -43,14 +39,3 @@ const Recommend = () => {
   );
 };
 export default Recommend;
-
-// const [isRecommended, setRecommended] = useState(null);
-// const [review, setReview] = useContext(WriteReviewContext);
-
-// const updateRecommended = (event) => {
-//   setRecommended();
-// };
-
-// const updateReview = (event) => {
-//   setReview();
-// };
