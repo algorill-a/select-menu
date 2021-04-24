@@ -1,18 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Styled from 'styled-components';
+import Overview from './Components/Overview/Overview.jsx'
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+const ModuleContainer = Styled.div`
+`;
 
-    this.state = {};
-  }
-
-  render() {
-    return (
-      <div>Hello CareThree!!!</div>
-    );
-  }
-}
+const App = () => {
+  return (
+    <ModuleContainer>
+      <Overview />
+    </ModuleContainer>
+  );
+};
 
 ReactDOM.render(<App />, document.getElementById('app'));
