@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import MainContextProvider from './contexts/MainContextProvider.jsx';
 import CardContextProvider from './contexts/CardContext.jsx';
 import ModalContextProvider from './contexts/ModalContext.jsx';
+import OutfitContextProvider from './contexts/OutfitContext.jsx';
 import CardList from './Components/Related/CardList.jsx';
 
 function App() {
@@ -11,9 +12,11 @@ function App() {
     <div>
       <MainContextProvider>
         <CardContextProvider>
-          <ModalContextProvider>
-            <CardList />
-          </ModalContextProvider>
+          <OutfitContextProvider>
+            <ModalContextProvider>
+              <CardList />
+            </ModalContextProvider>
+          </OutfitContextProvider>
         </CardContextProvider>
       </MainContextProvider>
     </div>

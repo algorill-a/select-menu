@@ -70,6 +70,7 @@ const ComparisonModal = (props) => {
   const [characteristics, setCharacteristics] = useState([]);
   const [prod1, setProd1Char] = useState({ name: '', feat: [] });
   const [prod2, setProd2Char] = useState({ name: '', feat: [] });
+  let allFeat = [];
 
   const getProducts = (endpoint) => fetch(`api/${endpoint}`)
     .then((res) => res.json());
@@ -77,8 +78,8 @@ const ComparisonModal = (props) => {
   useEffect(() => {
     const featList1 = [];
     const featList2 = [];
-    let allFeat = [];
-    getProducts(`products/${currProduct}`)
+
+    getProducts(`products/${currProduct.currProd}`)
       .then((data1) => {
         data1.features.forEach((feat) => {
           featList1.push(`${feat.value} ${feat.feature}`);

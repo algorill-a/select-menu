@@ -6,8 +6,7 @@ import { BsFillStarFill } from 'react-icons/bs';
 import { GiBananaPeeled } from 'react-icons/gi';
 import ComparisonModal from './ComparisonModal.jsx';
 import { ModalContext } from '../../contexts/ModalContext.jsx';
-// import { CardContext } from '../../contexts/CardContext.jsx';
-// import { MainContext } from '../../contexts/MainContextProvider.jsx';
+import { MainContext } from '../../contexts/MainContextProvider.jsx';
 
 // Styled Components
 const CardContainer = styled.div`
@@ -68,12 +67,12 @@ const Rating = styled.div`
 // Card Component
 const Card = ({ card }) => {
   const { toggleModal } = useContext(ModalContext);
-  // const { changeProduct } = useContext(MainContext);
+  const { changeProduct } = useContext(MainContext);
 
   return (
     <CardContainer>
       <StarIcon onClick={toggleModal}><BsFillStarFill /></StarIcon>
-      <ProductImage src={card.imageUrl} alt="" />
+      <ProductImage src={card.imageUrl} alt="" onClick={() => changeProduct({ currProd: card.prodId, currStyle: card.id })} />
       <ProductCategory>
         <div>{card.prodCategory}</div>
         <div>{card.prodName}</div>
@@ -84,14 +83,15 @@ const Card = ({ card }) => {
           <Sale>{card.sale}</Sale>
         </>
       ) : <Original>{card.price}</Original>}
-      <Rating>
-        {[...Array(5)].map((star, index) => <GiBananaPeeled size={25} color={index <= card.ratingAvg ? '#BEDF7C' : '#808080'} value={index} />)}
-      </Rating>
+      {card.ratingAvg > 0 ? (
+        <Rating>
+          {[...Array(5)].map((star, index) => <GiBananaPeeled size={25} color={index <= card.ratingAvg ? '#BEDF7C' : '#808080'} value={index} />)}
+        </Rating>
+      ) : null}
       <ComparisonModal value={card.prodId} />
     </CardContainer>
   );
 };
 
 export default Card;
-
 // onClick={changeProduct(`${card.prodId}`)}
