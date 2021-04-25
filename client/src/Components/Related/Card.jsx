@@ -7,6 +7,7 @@ import { GiBananaPeeled } from 'react-icons/gi';
 import ComparisonModal from './ComparisonModal.jsx';
 import { ModalContext } from '../../contexts/ModalContext.jsx';
 import { MainContext } from '../../contexts/MainContextProvider.jsx';
+import { StyleContext } from '../Overview/StyleContext.jsx';
 
 // Styled Components
 const CardContainer = styled.div`
@@ -68,11 +69,12 @@ const Rating = styled.div`
 const Card = ({ card }) => {
   const { toggleModal } = useContext(ModalContext);
   const { changeProduct } = useContext(MainContext);
+  const { setCurrentStyle } = useContext(StyleContext);
 
   return (
     <CardContainer>
       <StarIcon onClick={toggleModal}><BsFillStarFill /></StarIcon>
-      <ProductImage src={card.imageUrl} alt="" onClick={() => changeProduct({ currProd: card.prodId, currStyle: card.id })} />
+      <ProductImage src={card.imageUrl} alt="" onClick={() => { changeProduct({ currProd: card.prodId, currStyle: card.id }); setCurrentStyle(card.id); }} />
       <ProductCategory>
         <div>{card.prodCategory}</div>
         <div>{card.prodName}</div>
