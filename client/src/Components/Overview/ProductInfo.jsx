@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 import React, { useContext } from 'react';
 import Styled from 'styled-components';
 import { AiOutlineStar } from 'react-icons/ai';
@@ -15,11 +16,15 @@ const ProductInfo = () => {
   return (
     <ProductInfoContainer>
       <div>Star Rating</div>
-      <AiOutlineStar/><AiOutlineStar/><AiOutlineStar/><AiOutlineStar/><AiOutlineStar/>
+      <AiOutlineStar />
+      <AiOutlineStar />
+      <AiOutlineStar />
+      <AiOutlineStar />
+      <AiOutlineStar />
       <div>{prodInfo !== null ? prodInfo.productCategory : null}</div>
       <h2>{prodInfo !== null ? prodInfo.productTitle : null}</h2>
       <div>{prodInfo !== null ? prodInfo.defaultPrice : null}</div>
-      <button>share</button>
+      <button type="button">share</button>
     </ProductInfoContainer>
   );
 };

@@ -1,8 +1,13 @@
-import React, { createContext, useState, useEffect } from 'react';
+/* eslint-disable import/extensions */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/destructuring-assignment */
+import React, { createContext, useState, useEffect, useContext } from 'react';
+import { MainContext } from '../../contexts/MainContextProvider.jsx';
 
 export const StyleContext = createContext();
 
 const StyleContextProvider = (props) => {
+  const { currProduct } = useContext(MainContext);
   const [currentImage, setCurrentImage] = useState(0);
   const [currentProduct, setCurrentProduct] = useState(null);
   const [currentStyle, setCurrentStyle] = useState(null);
@@ -10,19 +15,17 @@ const StyleContextProvider = (props) => {
   const [currentStyleSkus, setCurrentStyleSkus] = useState(null);
   const [allStyles, setAllStyles] = useState(null);
 
-  const getProducts = (endpoint) => {
-    return (fetch(`api/${endpoint}`)
-      .then((data) => data.json()));
-    };
+  const getProducts = (endpoint) => (fetch(`api/${endpoint}`)
+    .then((data) => data.json()));
 
   useEffect(() => {
     getProducts('products')
-      .then((productList) => {
-        setCurrentProduct(productList[0].id);
-        return getProducts(`products/${productList[0].id}/styles`);
+      .then(() => {
+        setCurrentProduct(currProduct.currProd);
+        return getProducts(`products/${currProduct.currProd}/styles`);
       })
       .then((productStyles) => {
-        setCurrentStyle(productStyles.results[0].style_id);
+        setCurrentStyle(currProduct.currStyle);
         setCurrentStylePhotos(productStyles.results[0].photos);
         setCurrentStyleSkus(Object.entries(productStyles.results[0].skus));
         const styles = [];
@@ -34,19 +37,33 @@ const StyleContextProvider = (props) => {
   }, []);
 
   useEffect(() => {
-    getProducts(`products/${currentProduct}/styles`)
+    getProducts(`products/${currProduct.currProd}/styles`)
       .then((productStyles) => {
         productStyles.results.forEach((result) => {
           if (currentStyle === result.style_id) {
-            setCurrentStylePhotos(productStyles.results[productStyles.results.indexOf(result)].photos);
-            setCurrentStyleSkus(Object.entries(productStyles.results[productStyles.results.indexOf(result)].skus));
+            setCurrentStylePhotos(
+              productStyles.results[productStyles.results.indexOf(result)].photos,
+            );
+            setCurrentStyleSkus(
+              Object.entries(productStyles.results[productStyles.results.indexOf(result)].skus),
+            );
           }
         });
       });
   }, [currentStyle]);
 
   return (
-    <StyleContext.Provider value={{ currentProduct, currentStyle, currentStylePhotos, allStyles, setCurrentStyle, currentImage, setCurrentImage, currentStyleSkus }}>
+    <StyleContext.Provider value={{
+      currentProduct,
+      currentStyle,
+      currentStylePhotos,
+      allStyles,
+      setCurrentStyle,
+      currentImage,
+      setCurrentImage,
+      currentStyleSkus,
+    }}
+    >
       {props.children}
     </StyleContext.Provider>
   );

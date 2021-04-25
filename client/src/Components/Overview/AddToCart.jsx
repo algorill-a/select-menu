@@ -1,8 +1,9 @@
+/* eslint-disable import/extensions */
 import React, { useState, useContext, useEffect } from 'react';
 import Styled from 'styled-components';
-import { StyleContext } from './StyleContext.jsx';
 import { BsHeart } from 'react-icons/bs';
 import $ from 'jquery';
+import { StyleContext } from './StyleContext.jsx';
 
 const AddToCartContainer = Styled.div`
   position: absolute;
@@ -33,8 +34,10 @@ const AddToCart = () => {
     if (currentSize !== 'Select Size' && currentStyleSkus !== null) {
       currentStyleSkus.forEach((sku) => {
         if (sku[1].size === currentSize) {
-          const quantities = (Array.from({ length: (sku[1].quantity < 16 ? sku[1].quantity : 15) }, (_, index) => index + 1)).map(
-          (number, index) => <option key={index}>{number}</option>);
+          const quantities = (Array.from({ length: (sku[1].quantity < 16 ? sku[1].quantity : 15) },
+            (_, index) => index + 1)).map(
+            (number, index) => <option key={index}>{number}</option>,
+          );
           setQuantities(quantities);
         }
       });
@@ -78,8 +81,8 @@ const AddToCart = () => {
     <AddToCartContainer>
       <SizeSelector onChange={updateStyleAndSku}>
         <option>Select Size</option>
-        {(currentStyleSkus !== null) ? currentStyleSkus.map((sku, index) => {
-        return (sku[1].quantity > 0) ? <option key={index} name={sku[0]}>{sku[1].size}</option> : null}) : null}
+        {(currentStyleSkus !== null) ? currentStyleSkus.map((sku, index) => ((sku[1].quantity > 0)
+          ? <option key={index} name={sku[0]}>{sku[1].size}</option> : null)) : null}
       </SizeSelector>
       <QuantitySelector>
         {(currentSize === 'Select Size') ? <option>-</option> : quantitiesList}

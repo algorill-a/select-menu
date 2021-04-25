@@ -1,6 +1,9 @@
+/* eslint-disable import/extensions */
 import React, { useContext } from 'react';
 import Styled from 'styled-components';
-import { BsArrowUpShort, BsArrowDownShort, BsArrowLeftShort, BsArrowRightShort } from 'react-icons/bs';
+import {
+  BsArrowUpShort, BsArrowDownShort, BsArrowLeftShort, BsArrowRightShort,
+} from 'react-icons/bs';
 import { StyleContext } from './StyleContext.jsx';
 
 const ViewContainer = Styled.div`
@@ -109,12 +112,11 @@ const Gallery = () => {
     setCurrentImage(index);
   };
 
-  const photos = (currentStylePhotos !== null) ? currentStylePhotos.map((image, index) => <Image src={image.thumbnail_url} alt="place-holder" key={index} onClick={() => updateDefaultView(index)} />) : <Image src='https://cdn.discordapp.com/attachments/831605836996411443/834994007725441034/gorilla_fly2.gif' />;
+  const photos = (currentStylePhotos !== null) ? currentStylePhotos.map((image, index) => <Image src={image.thumbnail_url} alt="place-holder" key={index} onClick={() => updateDefaultView(index)} />) : <Image src="https://cdn.discordapp.com/attachments/831605836996411443/834994007725441034/gorilla_fly2.gif" />;
 
-  const photo = (currentStylePhotos !== null) ? currentStylePhotos.map((image, index) =>
-    <DefaultViewSlide key={index}>
-      {index === currentImage && (<DefaultViewImage src={image.url} alt={image} key={index} />)}
-    </DefaultViewSlide>) : <Image src='https://cdn.discordapp.com/attachments/831605836996411443/834994007725441034/gorilla_fly2.gif' />;
+  const photo = (currentStylePhotos !== null) ? currentStylePhotos.map((image, index) => <DefaultViewSlide key={index}>
+    {index === currentImage && (<DefaultViewImage src={image.url} alt={image} key={index} />)}
+    </DefaultViewSlide>) : <Image src="https://cdn.discordapp.com/attachments/831605836996411443/834994007725441034/gorilla_fly2.gif" />;
 
   return (
     <ViewContainer>
