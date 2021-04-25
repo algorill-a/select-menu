@@ -32,14 +32,18 @@ const StyleName = Styled.h2`
 `;
 
 const StyleSelector = () => {
-  const { allStyles, setCurrentStyle } = useContext(StyleContext);
+  const { allStyles, setCurrentStyle, setCurrentStyleName, currentStyleName } = useContext(StyleContext);
   const { currProduct } = useContext(MainContext);
   const { changeProduct } = useContext(MainContext);
 
   return (
     <StylesContainer>
-      <StyleName>{}</StyleName>
-      {(allStyles !== null) ? allStyles.map((photo) => <ThumbnailContainer key={photo.style_id}><Thumbnail src={photo.photo} key={photo.style_id} onClick={() => { setCurrentStyle(photo.style_id); changeProduct({ currProd: currProduct.currProd, currStyle: photo.style_id }); }} /></ThumbnailContainer>) : <img src="https://cdn.discordapp.com/attachments/831605836996411443/834994007725441034/gorilla_fly2.gif" alt="" /> }
+      <StyleName>{currentStyleName}</StyleName>
+      {(allStyles !== null) ? allStyles.map((photo) => <ThumbnailContainer key={photo.style_id}><Thumbnail src={photo.photo} key={photo.style_id} onClick={() => {
+        setCurrentStyle(photo.style_id);
+        setCurrentStyleName(photo.name);
+        changeProduct({ currProd: currProduct.currProd, currStyle: photo.style_id });
+        }} /></ThumbnailContainer>) : <img src="https://cdn.discordapp.com/attachments/831605836996411443/834994007725441034/gorilla_fly2.gif" alt="" /> }
     </StylesContainer>
   );
 };

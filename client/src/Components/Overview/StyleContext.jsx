@@ -11,6 +11,7 @@ const StyleContextProvider = (props) => {
   const [currentImage, setCurrentImage] = useState(0);
   const [currentProduct, setCurrentProduct] = useState(null);
   const [currentStyle, setCurrentStyle] = useState(null);
+  const [currentStyleName, setCurrentStyleName] = useState(null);
   const [currentStylePhotos, setCurrentStylePhotos] = useState(null);
   const [currentStyleSkus, setCurrentStyleSkus] = useState(null);
   const [allStyles, setAllStyles] = useState(null);
@@ -26,6 +27,7 @@ const StyleContextProvider = (props) => {
       })
       .then((productStyles) => {
         setCurrentStyle(currProduct.currStyle);
+        setCurrentStyleName(productStyles.results[0].name)
         setCurrentStylePhotos(productStyles.results[0].photos);
         setCurrentStyleSkus(Object.entries(productStyles.results[0].skus));
         const styles = [];
@@ -56,6 +58,7 @@ const StyleContextProvider = (props) => {
     <StyleContext.Provider value={{
       currentProduct,
       currentStyle,
+      currentStyleName,
       currentStylePhotos,
       allStyles,
       setCurrentStyle,

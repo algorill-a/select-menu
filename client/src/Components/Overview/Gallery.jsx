@@ -52,7 +52,7 @@ const DefaultViewContainer = Styled.div`
   // border-radius: 10px;
 
   padding: 10px;
-  background: lightgreen;
+  // background: lightgreen;
 `;
 
 const DefaultView = Styled.ul`
@@ -74,7 +74,7 @@ const DefaultViewImage = Styled.img`
   width: 100%;
   height: 600px;
   border-radius 10px;
-  object-fit: contain;
+  object-fit: cover;
 `;
 
 const RightArrow = Styled.button`
