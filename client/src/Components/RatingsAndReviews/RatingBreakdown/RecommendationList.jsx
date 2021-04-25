@@ -56,13 +56,13 @@ export default Recommendation;
 
 // breakdown.characteristics.Quality.value
 
-            // <Container>
-            //   {key}
-            //   <label>
-            //     <Input
-            //       type="range"
-            //       min={1}
-            //       value={parseFloat(value.value)}
-            //       max={5}
-            //       className="slider"
-            //     />
+// <Container>
+//   {key}
+//   <label>
+//     <Input
+//       type="range"
+//       min={1}
+//       value={parseFloat(value.value)}
+//       max={5}
+//       className="slider"
+//     />

@@ -1,14 +1,15 @@
+/* eslint-disable import/extensions */
 import React, { useEffect, useContext, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import ReviewTile from './ReviewTile.jsx';
+import SortingOptions from './SortingOptions.jsx';
 import { ReviewListContext } from '../Context/ReviewListContext.jsx';
 
 const count = 2;
 const Div = styled.div`
-  padding: 20px;
+  padding: 0;
   overflow: scroll;
-  max-height: 80%;
 `;
 const Button = styled.button`
   padding: 15px;
@@ -41,21 +42,26 @@ const ReviewsList = () => {
 
   const renderList = () => {
     if (toggle) {
-      return list;
+      return list.slice(0, count + 2);
     }
     return list.slice(0, count);
   };
 
   return (
-    <Div>
-      {renderList().map((tile, index) => (
-        <ReviewTile
-          tile={tile}
-          key={index}
-        />
-      ))}
-      <Button type="button" onClick={toggleSearch}>{toggle ? 'Go Back' : 'Read more reviews'}</Button>
-    </Div>
+    <>
+      <Div>
+        <SortingOptions />
+      </Div>
+      <Div>
+        {renderList().map((tile, index) => (
+          <ReviewTile
+            tile={tile}
+            key={index}
+          />
+        ))}
+        <Button type="button" onClick={toggleSearch}>{toggle ? 'Go Back' : 'Read more reviews'}</Button>
+      </Div>
+    </>
   );
 };
 
