@@ -9,6 +9,7 @@ import Overview from './Components/Overview/Overview.jsx';
 import CardList from './Components/Related/CardList.jsx';
 import ProductsContextProvider from './Components/Overview/ProductsContext.jsx';
 import StyleContextProvider from './Components/Overview/StyleContext.jsx';
+import RatingsAndReviews from './Components/RatingsAndReviews/index.jsx';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
                 </ModalContextProvider>
               </OutfitContextProvider>
             </CardContextProvider>
+            <RatingsAndReviews />
           </StyleContextProvider>
         </ProductsContextProvider>
       </MainContextProvider>
