@@ -30,7 +30,7 @@ const StyleContextProvider = (props) => {
         setCurrentStyleSkus(Object.entries(productStyles.results[0].skus));
         const styles = [];
         productStyles.results.forEach((result) => {
-          styles.push({ style_id: result.style_id, photo: result.photos[0].thumbnail_url });
+          styles.push({ name: result.name, style_id: result.style_id, photo: result.photos[0].thumbnail_url });
         });
         setAllStyles(styles);
       });

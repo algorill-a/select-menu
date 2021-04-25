@@ -28,6 +28,9 @@ const Thumbnail = Styled.img`
   margin-top: -25%;
 `;
 
+const StyleName = Styled.h2`
+`;
+
 const StyleSelector = () => {
   const { allStyles, setCurrentStyle } = useContext(StyleContext);
   const { currProduct } = useContext(MainContext);
@@ -35,6 +38,7 @@ const StyleSelector = () => {
 
   return (
     <StylesContainer>
+      <StyleName>{}</StyleName>
       {(allStyles !== null) ? allStyles.map((photo) => <ThumbnailContainer key={photo.style_id}><Thumbnail src={photo.photo} key={photo.style_id} onClick={() => { setCurrentStyle(photo.style_id); changeProduct({ currProd: currProduct.currProd, currStyle: photo.style_id }); }} /></ThumbnailContainer>) : <img src="https://cdn.discordapp.com/attachments/831605836996411443/834994007725441034/gorilla_fly2.gif" alt="" /> }
     </StylesContainer>
   );
