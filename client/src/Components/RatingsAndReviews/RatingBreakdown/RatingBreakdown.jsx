@@ -14,7 +14,7 @@ const Img = styled.div`
 
 const RatingBreakdown = () => {
   const [breakdown, setBreakdown] = useContext(ReviewBreakdownContext);
-  const id = 23149;
+  const id = 23146;
   const getBreakdown = () => {
     axios.get(`/api/reviews/meta?product_id=${id}`)
       .then((response) => setBreakdown(response.data))

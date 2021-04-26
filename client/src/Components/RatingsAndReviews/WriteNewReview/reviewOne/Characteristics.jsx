@@ -10,58 +10,111 @@ import { WriteReviewContext } from '../WriteNewReviewContext.jsx';
 const Characteristics = () => {
   const [review, setReview] = useContext(WriteReviewContext);
   const [clicked, setClicked] = useState(null);
-  const characteristics = [
+  const charas = [
     {
-      name: 'SIZE',
+      name: 'Size',
       options: ['A size too small', '1/2 a size too small', 'Perfect', '1/2 a size too big', 'A size too big'],
+      placeholder: 'Please Select',
       levels: ['Too small', 'Too big', 'Perfect'],
     },
     {
-      name: 'WIDTH',
+      name: 'Width',
       options: ['Too narrow', 'Slightly narrow', 'Perfect', 'Slightly wide', 'Too wide'],
+      placeholder: 'Please Select',
       levels: ['Too small', 'Too big', 'Perfect'],
     },
     {
-      name: 'COMFORT',
+      name: 'Comfort',
       options: ['Uncomfortable', 'Slightly uncomfortable', 'Ok', 'Comfortable', 'Perfect'],
+      placeholder: 'Please Select',
       levels: ['Uncomfortable', 'Comfortable'],
     },
     {
-      name: 'QUALITY',
+      name: 'Quality',
       options: ['Poor', 'Below average', 'What I expected', 'Pretty Great', 'Perfect'],
+      placeholder: 'Please Select',
       levels: ['Poor', 'Perfect'],
+    },
+    {
+      name: 'Length',
+      options: ['Runs Short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long'],
+      placeholder: 'Please Select',
+    },
+    {
+      name: 'Fit',
+      options: ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs long'],
+      placeholder: 'Please Select',
     },
   ];
   const [text, setText] = useState({
-    SIZE: 'Please Select',
-    WIDTH: 'Please Select',
-    COMFORT: 'Please Select',
-    QUALITY: 'Please Select',
+    Size: {
+      placeholder: 'Please Select',
+      value: null,
+    },
+    Width: {
+      placeholder: 'Please Select',
+      value: null,
+    },
+    Comfort: {
+      placeholder: 'Please Select',
+      value: null,
+    },
+    Quality: {
+      placeholder: 'Please Select',
+      value: null,
+    },
+    Length: {
+      placeholder: 'Please Select',
+      value: null,
+    },
+    Fit: {
+      placeholder: 'Please Select',
+      value: null,
+    },
   });
 
-  const selectOptions = (key, option) => {
-    setText({ ...text, [key]: option });
-    setReview({ ...review, characteristics: text });
+  const selectOptions = (key, option, id) => {
+    setText((oldText) => ({
+      ...oldText,
+      [key]: {
+        ...oldText[key],
+        placeholder: option,
+        value: id,
+      },
+    }));
+    setReview((oldReview) => ({
+      ...oldReview,
+      characteristics: {
+        ...oldReview.characteristics,
+        [key]: {
+          value: id,
+        },
+      },
+    }));
   };
 
   return (
     <div>
-      {characteristics.map((characteristic, index) => (
-        <form>
-          <p>{characteristic.name}</p>
-          <p>{text[characteristic.name]}</p>
-          {characteristic.options.map((choice, i) => (
-            <label>
-              {' '}
-              <input
-                type="radio"
-                name="choice"
-                value={choice}
-                onClick={() => selectOptions(characteristic.name, choice)}
-              />
-            </label>
-          ))}
-        </form>
+      {charas.map((chara) => (
+        <div>
+          <p>{chara.name}</p>
+          <p>{text[chara.name].placeholder}</p>
+          {chara.options.map((choice, i) => {
+            const index = i + 1;
+            return (
+              <label>
+                {' '}
+                <input
+                  type="radio"
+                  name="choice"
+                  key={index}
+                  value={choice}
+                  onClick={() => selectOptions(chara.name, choice, index)}
+                />
+              </label>
+            );
+          })}
+        </div>
       ))}
     </div>
   );

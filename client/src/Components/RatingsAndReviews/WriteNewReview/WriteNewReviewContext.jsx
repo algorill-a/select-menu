@@ -14,10 +14,24 @@ const WriteReviewProvider = (props) => {
     name: '',
     email: '',
     characteristics: {
-      SIZE: 'Please Select',
-      WIDTH: 'Please Select',
-      COMFORT: 'Please Select',
-      QUALITY: 'Please Select',
+      Size: {
+        value: null,
+      },
+      Width: {
+        value: null,
+      },
+      Comfort: {
+        value: null,
+      },
+      Quality: {
+        value: null,
+      },
+      Length: {
+        value: null,
+      },
+      Fit: {
+        value: null,
+      },
     },
   });
   return (

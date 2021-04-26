@@ -53,10 +53,10 @@ const ReviewsList = () => {
         <SortingOptions />
       </Div>
       <Div>
-        {renderList().map((tile, index) => (
+        {renderList().map((tile) => (
           <ReviewTile
             tile={tile}
-            key={index}
+            key={Math.random()}
           />
         ))}
         <Button type="button" onClick={toggleSearch}>{toggle ? 'Go Back' : 'Read more reviews'}</Button>

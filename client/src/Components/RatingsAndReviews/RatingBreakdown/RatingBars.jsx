@@ -1,5 +1,5 @@
 /* eslint-disable radix */
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext.jsx';
 
@@ -23,11 +23,6 @@ const Li = styled.li`
   font-weight: bold;
 `;
 
-const Background = styled.div`
-  position: absolute;
-  background: blue;
-`;
-
 const Percent = styled.div`
   font-family: Helvetica;
   color: grey;
@@ -38,15 +33,11 @@ const PercentBar = styled.progress`
   background: yellow;
 `;
 
-const Key = styled.div`
-  font-family: Helvetica;
-`;
-
 const Label = styled.label`
 `;
 
 const RatingBars = () => {
-  const [breakdown, setBreakdown] = useContext(ReviewBreakdownContext);
+  const [breakdown] = useContext(ReviewBreakdownContext);
   const [starRating, setStarRating] = useState(
     {
       1: '0',
@@ -64,14 +55,6 @@ const RatingBars = () => {
     Object.values(breakdown.ratings).forEach((value) => {
       total += parseInt(value);
       container.push(parseInt(value));
-    });
-    return total;
-  };
-
-  const recommendTotal = () => {
-    let total = 0;
-    Object.values(breakdown.recommend).forEach((value) => {
-      total += parseInt(value);
     });
     return total;
   };
@@ -99,6 +82,15 @@ const RatingBars = () => {
     return (score / total) * 100;
   };
 
+  const changeStarRatings = () => {
+    Object.entries(breakdown.ratings).forEach((entry) => {
+      const [key, value] = entry;
+      setStarRating((prevRating) => ({ ...prevRating, [key]: value }));
+    });
+  };
+
+  useEffect(() => changeStarRatings(), {});
+
   return (
     <>
       <Percent>
@@ -106,7 +98,7 @@ const RatingBars = () => {
       </Percent>
 
       <Ul>
-        {Object.entries(breakdown.ratings).slice(0).reverse().map((rating) => {
+        {Object.entries(starRating).slice(0).reverse().map((rating) => {
           const [key, value] = rating;
           return (
             <Li key={Math.random()}>
@@ -125,17 +117,3 @@ const RatingBars = () => {
 };
 
 export default RatingBars;
-
-// {Object.entries(breakdown.ratings).slice(0).reverse().map((rating) => {
-//         const [key, value] = rating;
-//         console.log(getTotal());
-//         return (
-//           <li key={Math.random()}>
-//             {key}
-//             Stars
-//             <label>
-//               <progress value={value} max={getTotal()} />
-//             </label>
-//           </li>
-//         );
-//       })}

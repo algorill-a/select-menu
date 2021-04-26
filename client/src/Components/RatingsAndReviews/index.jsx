@@ -51,7 +51,7 @@ const RatingsAndReviews = () => (
         </ReviewListProvider>
       </DivThree>
     </Container>
-    {/* <WriteNewReview /> */}
+    <WriteNewReview />
   </div>
 );
 
