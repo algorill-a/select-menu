@@ -83,6 +83,7 @@ const CardList = () => {
   const { addToOutfitCard } = useContext(OutfitContext);
   let productId;
   let ratings = 0;
+  let sum = 0;
 
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [showStart, setShowStart] = useState(false);
@@ -102,8 +103,11 @@ const CardList = () => {
             if (keys.length > 0) {
               for (let i = 0; i < keys.length; i++) {
                 ratings += (parseInt(keys[i], 10) * parseInt(reviews.ratings[[keys[i]]], 10));
+                sum += (parseInt(reviews.ratings[[keys[i]]], 10));
               }
-              ratings /= 5;
+              ratings /= sum;
+            } else {
+              ratings = 0;
             }
           });
         getProducts(`products/${item}/styles`)
