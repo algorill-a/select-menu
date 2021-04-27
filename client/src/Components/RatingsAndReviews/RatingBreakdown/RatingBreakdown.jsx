@@ -1,22 +1,24 @@
 /* eslint-disable import/extensions */
 import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import RatingSummary from './RatingSummary.jsx';
 import Recommendation from './Recommendation.jsx';
 import RatingBars from './RatingBars.jsx';
 import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext.jsx';
+import { MainContext } from '../../../contexts/MainContextProvider.jsx';
 
-const Img = styled.div`
-  font-aling: center;
-  background-color: #a4ffc1;
-`;
+// const Img = styled.div`
+//   font-aling: center;
+//   background-color: #a4ffc1;
+// `;
 
 const RatingBreakdown = () => {
   const [breakdown, setBreakdown] = useContext(ReviewBreakdownContext);
-  const id = 23146;
+  const { currProduct } = useContext(MainContext);
+  const productId = currProduct.currProd;
   const getBreakdown = () => {
-    axios.get(`/api/reviews/meta?product_id=${id}`)
+    axios.get(`/api/reviews/meta?product_id=${productId}`)
       .then((response) => setBreakdown(response.data))
       .catch((error) => console.log(error));
   };
@@ -24,9 +26,10 @@ const RatingBreakdown = () => {
 
   if (JSON.stringify(breakdown) === '{}') {
     return (
-      <Img><img src="./gorilla.gif" /></Img>
+      ''
     );
   }
+
   return (
     <div>
       <RatingSummary />
@@ -37,5 +40,3 @@ const RatingBreakdown = () => {
 };
 
 export default RatingBreakdown;
-
-//#a4ffc1

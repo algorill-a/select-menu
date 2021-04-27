@@ -2,120 +2,65 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { ImRadioUnchecked, ImRadioChecked2 } from 'react-icons/Im';
 import styled from 'styled-components';
-import { WriteReviewContext } from '../WriteNewReviewContext.jsx';
+import { WriteReviewContext } from '../../Context/WriteNewReviewContext.jsx';
 
 const Characteristics = () => {
-  const [review, setReview] = useContext(WriteReviewContext);
-  const [clicked, setClicked] = useState(null);
-  const charas = [
-    {
-      name: 'Size',
-      options: ['A size too small', '1/2 a size too small', 'Perfect', '1/2 a size too big', 'A size too big'],
-      placeholder: 'Please Select',
-      levels: ['Too small', 'Too big', 'Perfect'],
-    },
-    {
-      name: 'Width',
-      options: ['Too narrow', 'Slightly narrow', 'Perfect', 'Slightly wide', 'Too wide'],
-      placeholder: 'Please Select',
-      levels: ['Too small', 'Too big', 'Perfect'],
-    },
-    {
-      name: 'Comfort',
-      options: ['Uncomfortable', 'Slightly uncomfortable', 'Ok', 'Comfortable', 'Perfect'],
-      placeholder: 'Please Select',
-      levels: ['Uncomfortable', 'Comfortable'],
-    },
-    {
-      name: 'Quality',
-      options: ['Poor', 'Below average', 'What I expected', 'Pretty Great', 'Perfect'],
-      placeholder: 'Please Select',
-      levels: ['Poor', 'Perfect'],
-    },
-    {
-      name: 'Length',
-      options: ['Runs Short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long'],
-      placeholder: 'Please Select',
-    },
-    {
-      name: 'Fit',
-      options: ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs long'],
-      placeholder: 'Please Select',
-    },
-  ];
-  const [text, setText] = useState({
-    Size: {
-      placeholder: 'Please Select',
-      value: null,
-    },
-    Width: {
-      placeholder: 'Please Select',
-      value: null,
-    },
-    Comfort: {
-      placeholder: 'Please Select',
-      value: null,
-    },
-    Quality: {
-      placeholder: 'Please Select',
-      value: null,
-    },
-    Length: {
-      placeholder: 'Please Select',
-      value: null,
-    },
-    Fit: {
-      placeholder: 'Please Select',
-      value: null,
-    },
-  });
+  const { reviewData, charaData } = useContext(WriteReviewContext);
+  const [review, setReview] = reviewData;
+  const [chara, setChara] = charaData;
 
-  const selectOptions = (key, option, id) => {
-    setText((oldText) => ({
-      ...oldText,
-      [key]: {
-        ...oldText[key],
-        placeholder: option,
-        value: id,
-      },
-    }));
+  const selectOptions = (event) => {
+    const {
+      title, name, id, value,
+    } = event.target;
+
     setReview((oldReview) => ({
       ...oldReview,
       characteristics: {
         ...oldReview.characteristics,
-        [key]: {
-          value: id,
-        },
+        [name]: parseInt(id, 10),
+      },
+    }));
+    setChara((oldChara) => ({
+      ...oldChara,
+      [title]: {
+        ...oldChara[title],
+        placeholder: value,
       },
     }));
   };
 
   return (
     <div>
-      {charas.map((chara) => (
-        <div>
-          <p>{chara.name}</p>
-          <p>{text[chara.name].placeholder}</p>
-          {chara.options.map((choice, i) => {
-            const index = i + 1;
-            return (
-              <label>
-                {' '}
-                <input
-                  type="radio"
-                  name="choice"
-                  key={index}
-                  value={choice}
-                  onClick={() => selectOptions(chara.name, choice, index)}
-                />
-              </label>
-            );
-          })}
-        </div>
-      ))}
+      {Object.entries(chara).map((entry) => {
+        const [key, value] = entry;
+        return value.id !== null
+          ? (
+            <div>
+              <p>{key}</p>
+              <p>{value.placeholder}</p>
+              {value.options.slice(0).map((choice, i) => {
+                const index = i + 1;
+                return (
+                  <label>
+                    <input
+                      type="radio"
+                      title={key}
+                      name={value.id}
+                      id={index}
+                      value={choice}
+                      onClick={selectOptions}
+                    />
+                  </label>
+                );
+              })}
+            </div>
+          )
+          : null;
+      })}
     </div>
   );
 };

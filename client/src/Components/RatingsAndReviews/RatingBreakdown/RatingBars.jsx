@@ -70,7 +70,7 @@ const RatingBars = () => {
         recommended = parseInt(value);
       }
     });
-    return (recommended / total) * 100;
+    return Math.floor((recommended / total) * 100);
   };
 
   const getIndivPercentage = (score) => {
@@ -79,7 +79,7 @@ const RatingBars = () => {
       const [key, value] = number;
       total += parseInt(value);
     });
-    return (score / total) * 100;
+    return Math.floor((score / total) * 100);
   };
 
   const changeStarRatings = () => {
@@ -94,7 +94,7 @@ const RatingBars = () => {
   return (
     <>
       <Percent>
-        {`${getPercentage()}% recommend this product`}
+        {`${parseInt(getPercentage())}% recommend this product`}
       </Percent>
 
       <Ul>
@@ -106,7 +106,7 @@ const RatingBars = () => {
               <Span>Bananas</Span>
               <Label>
                 <PercentBar value={value} max={getTotal()} />
-                {` ${getIndivPercentage(value)}%`}
+                {` ${getIndivPercentage(parseFloat(value).toFixed(1))}%`}
               </Label>
             </Li>
           );
