@@ -3,15 +3,20 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/extensions */
 import React, { useState, useContext } from 'react';
-import { WriteReviewContext } from '../WriteNewReviewContext.jsx';
+import { WriteReviewContext } from '../../Context/WriteNewReviewContext.jsx';
 
 const Recommend = () => {
-  const [review, setReview] = useContext(WriteReviewContext);
+  const { reviewData } = useContext(WriteReviewContext);
+  const [review, setReview] = reviewData;
   const [recommend, setRecommend] = useState(true);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setReview({ ...review, [name]: value });
+    if (value === 'true') {
+      setReview({ ...review, [name]: recommend });
+    } else {
+      setReview({ ...review, [name]: !recommend });
+    }
   };
 
   return (

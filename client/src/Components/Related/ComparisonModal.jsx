@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable import/extensions */
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { AiOutlineClose, AiFillCheckCircle } from 'react-icons/ai';
 import { ModalContext } from '../../contexts/ModalContext.jsx';
-import { MainContext } from '../../contexts/MainContextProvider.jsx';
 
-// styled components
+// Modal styled components
 const ModalWrapper = styled.div`
   position: fixed;
   top: 0;
@@ -63,54 +62,20 @@ const THead = styled.div`
   font-weight: bold;
 `;
 
-const ComparisonModal = (props) => {
-  const { currProduct } = useContext(MainContext);
-  const { display } = useContext(ModalContext);
-  const { toggleModal } = useContext(ModalContext);
-  const [characteristics, setCharacteristics] = useState([]);
-  const [prod1, setProd1Char] = useState({ name: '', feat: [] });
-  const [prod2, setProd2Char] = useState({ name: '', feat: [] });
-  let allFeat = [];
+const ComparisonModal = () => {
+  const {
+    charDisplay,
+    toggleCharModal,
+    characteristics,
+    prod1,
+    prod2,
+  } = useContext(ModalContext);
 
-  const getProducts = (endpoint) => fetch(`api/${endpoint}`)
-    .then((res) => res.json());
-
-  useEffect(() => {
-    const featList1 = [];
-    const featList2 = [];
-
-    getProducts(`products/${currProduct.currProd}`)
-      .then((data1) => {
-        data1.features.forEach((feat) => {
-          featList1.push(`${feat.value} ${feat.feature}`);
-          allFeat.push(`${feat.value} ${feat.feature}`);
-        });
-        setProd1Char({
-          name: data1.name,
-          feat: featList1,
-        });
-      });
-    getProducts(`products/${props.value}`)
-      .then((data2) => {
-        data2.features.forEach((feat) => {
-          featList2.push(`${feat.value} ${feat.feature}`);
-          allFeat.push(`${feat.value} ${feat.feature}`);
-        });
-        setProd2Char({
-          name: data2.name,
-          feat: featList2,
-        });
-      });
-
-    allFeat = [...new Set(allFeat)];
-    setCharacteristics(allFeat);
-  }, []);
-
-  return display ? (
+  return charDisplay ? (
     <ModalWrapper>
       <ModalBackdrop />
       <ModalBox>
-        <CloseIcon onClick={toggleModal}><AiOutlineClose /></CloseIcon>
+        <CloseIcon onClick={toggleCharModal}><AiOutlineClose /></CloseIcon>
         <Grid>
           <THead>
             <Row>
@@ -127,18 +92,18 @@ const ComparisonModal = (props) => {
           </THead>
           <Row>
             <Col size={1}>
-              {characteristics.map((item) => ((prod1.feat.includes(item))
-                ? <Row><AiFillCheckCircle color="#32CD32" /></Row> : <Row><AiFillCheckCircle color="#fff" /></Row>
+              {characteristics.map((item, index) => ((prod1.feat.includes(item))
+                ? <Row><AiFillCheckCircle color="#32CD32" key={index} /></Row> : <Row><AiFillCheckCircle color="#fff" key={index} /></Row>
               ))}
             </Col>
             <Col size={1}>
-              {characteristics.map((char) => (
-                <Row>{char}</Row>
+              {characteristics.map((char, index) => (
+                <Row key={index}>{char}</Row>
               ))}
             </Col>
             <Col size={1}>
-              {characteristics.map((item) => ((prod2.feat.includes(item))
-                ? <Row><AiFillCheckCircle color="#32CD32" /></Row> : <Row><AiFillCheckCircle color="#fff" /></Row>
+              {characteristics.map((item, index) => ((prod2.feat.includes(item))
+                ? <Row><AiFillCheckCircle color="#32CD32" key={index} /></Row> : <Row><AiFillCheckCircle color="#fff" key={index} /></Row>
               ))}
             </Col>
           </Row>

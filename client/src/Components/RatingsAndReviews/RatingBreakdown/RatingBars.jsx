@@ -1,5 +1,5 @@
 /* eslint-disable radix */
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext.jsx';
 
@@ -23,11 +23,6 @@ const Li = styled.li`
   font-weight: bold;
 `;
 
-const Background = styled.div`
-  position: absolute;
-  background: blue;
-`;
-
 const Percent = styled.div`
   font-family: Helvetica;
   color: grey;
@@ -38,15 +33,11 @@ const PercentBar = styled.progress`
   background: yellow;
 `;
 
-const Key = styled.div`
-  font-family: Helvetica;
-`;
-
 const Label = styled.label`
 `;
 
 const RatingBars = () => {
-  const [breakdown, setBreakdown] = useContext(ReviewBreakdownContext);
+  const [breakdown] = useContext(ReviewBreakdownContext);
   const [starRating, setStarRating] = useState(
     {
       1: '0',
@@ -68,14 +59,6 @@ const RatingBars = () => {
     return total;
   };
 
-  const recommendTotal = () => {
-    let total = 0;
-    Object.values(breakdown.recommend).forEach((value) => {
-      total += parseInt(value);
-    });
-    return total;
-  };
-
   const getPercentage = () => {
     let total = 0;
     let recommended = 0;
@@ -87,7 +70,7 @@ const RatingBars = () => {
         recommended = parseInt(value);
       }
     });
-    return (recommended / total) * 100;
+    return Math.floor((recommended / total) * 100);
   };
 
   const getIndivPercentage = (score) => {
@@ -96,17 +79,26 @@ const RatingBars = () => {
       const [key, value] = number;
       total += parseInt(value);
     });
-    return (score / total) * 100;
+    return Math.floor((score / total) * 100);
   };
+
+  const changeStarRatings = () => {
+    Object.entries(breakdown.ratings).forEach((entry) => {
+      const [key, value] = entry;
+      setStarRating((prevRating) => ({ ...prevRating, [key]: value }));
+    });
+  };
+
+  useEffect(() => changeStarRatings(), {});
 
   return (
     <>
       <Percent>
-        {`${getPercentage()}% recommend this product`}
+        {`${parseInt(getPercentage())}% recommend this product`}
       </Percent>
 
       <Ul>
-        {Object.entries(breakdown.ratings).slice(0).reverse().map((rating) => {
+        {Object.entries(starRating).slice(0).reverse().map((rating) => {
           const [key, value] = rating;
           return (
             <Li key={Math.random()}>
@@ -114,7 +106,7 @@ const RatingBars = () => {
               <Span>Bananas</Span>
               <Label>
                 <PercentBar value={value} max={getTotal()} />
-                {` ${getIndivPercentage(value)}%`}
+                {` ${getIndivPercentage(parseFloat(value).toFixed(1))}%`}
               </Label>
             </Li>
           );
@@ -125,17 +117,3 @@ const RatingBars = () => {
 };
 
 export default RatingBars;
-
-// {Object.entries(breakdown.ratings).slice(0).reverse().map((rating) => {
-//         const [key, value] = rating;
-//         console.log(getTotal());
-//         return (
-//           <li key={Math.random()}>
-//             {key}
-//             Stars
-//             <label>
-//               <progress value={value} max={getTotal()} />
-//             </label>
-//           </li>
-//         );
-//       })}

@@ -4,6 +4,7 @@ import Styled from 'styled-components';
 import { BsHeart } from 'react-icons/bs';
 import $ from 'jquery';
 import { StyleContext } from './StyleContext.jsx';
+import { OutfitContext } from '../../contexts/OutfitContext.jsx';
 
 const AddToCartContainer = Styled.div`
   position: absolute;
@@ -86,6 +87,7 @@ const Favorite = Styled.button`
 
 const AddToCart = () => {
   const { currentStyleSkus } = useContext(StyleContext);
+  const { addToOutfitCard } = useContext(OutfitContext);
   const [currentSize, setCurrentSize] = useState('Select Size');
   const [currentSku, setCurrentSku] = useState(null);
   const [quantitiesList, setQuantities] = useState(null);
@@ -159,7 +161,7 @@ const AddToCart = () => {
         {(currentSize === 'Select Size') ? <option>-</option> : quantitiesList}
       </QuantitySelector>
       <AddProductToCart onClick={addItemToCart}>Add To Cart</AddProductToCart>
-      <Favorite><BsHeart /></Favorite>
+      <Favorite onClick={addToOutfitCard}><BsHeart /></Favorite>
     </AddToCartContainer>
   );
 };

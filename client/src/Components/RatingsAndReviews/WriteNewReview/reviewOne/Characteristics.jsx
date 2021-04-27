@@ -2,67 +2,65 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { ImRadioUnchecked, ImRadioChecked2 } from 'react-icons/Im';
 import styled from 'styled-components';
-import { WriteReviewContext } from '../WriteNewReviewContext.jsx';
+import { WriteReviewContext } from '../../Context/WriteNewReviewContext.jsx';
 
 const Characteristics = () => {
-  const [review, setReview] = useContext(WriteReviewContext);
-  const [clicked, setClicked] = useState(null);
-  const characteristics = [
-    {
-      name: 'SIZE',
-      options: ['A size too small', '1/2 a size too small', 'Perfect', '1/2 a size too big', 'A size too big'],
-      levels: ['Too small', 'Too big', 'Perfect'],
-    },
-    {
-      name: 'WIDTH',
-      options: ['Too narrow', 'Slightly narrow', 'Perfect', 'Slightly wide', 'Too wide'],
-      levels: ['Too small', 'Too big', 'Perfect'],
-    },
-    {
-      name: 'COMFORT',
-      options: ['Uncomfortable', 'Slightly uncomfortable', 'Ok', 'Comfortable', 'Perfect'],
-      levels: ['Uncomfortable', 'Comfortable'],
-    },
-    {
-      name: 'QUALITY',
-      options: ['Poor', 'Below average', 'What I expected', 'Pretty Great', 'Perfect'],
-      levels: ['Poor', 'Perfect'],
-    },
-  ];
-  const [text, setText] = useState({
-    SIZE: 'Please Select',
-    WIDTH: 'Please Select',
-    COMFORT: 'Please Select',
-    QUALITY: 'Please Select',
-  });
+  const { reviewData, charaData } = useContext(WriteReviewContext);
+  const [review, setReview] = reviewData;
+  const [chara, setChara] = charaData;
 
-  const selectOptions = (key, option) => {
-    setText({ ...text, [key]: option });
-    setReview({ ...review, characteristics: text });
+  const selectOptions = (event) => {
+    const {
+      title, name, id, value,
+    } = event.target;
+
+    setReview((oldReview) => ({
+      ...oldReview,
+      characteristics: {
+        ...oldReview.characteristics,
+        [name]: parseInt(id, 10),
+      },
+    }));
+    setChara((oldChara) => ({
+      ...oldChara,
+      [title]: {
+        ...oldChara[title],
+        placeholder: value,
+      },
+    }));
   };
 
   return (
     <div>
-      {characteristics.map((characteristic, index) => (
-        <form>
-          <p>{characteristic.name}</p>
-          <p>{text[characteristic.name]}</p>
-          {characteristic.options.map((choice, i) => (
-            <label>
-              {' '}
-              <input
-                type="radio"
-                name="choice"
-                value={choice}
-                onClick={() => selectOptions(characteristic.name, choice)}
-              />
-            </label>
-          ))}
-        </form>
-      ))}
+      {Object.entries(chara).map((entry) => {
+        const [key, value] = entry;
+        return value.id !== null
+          ? (
+            <div>
+              <p>{key}</p>
+              <p>{value.placeholder}</p>
+              {value.options.slice(0).map((choice, i) => {
+                const index = i + 1;
+                return (
+                  <label>
+                    <input
+                      type="radio"
+                      title={key}
+                      name={value.id}
+                      id={index}
+                      value={choice}
+                      onClick={selectOptions}
+                    />
+                  </label>
+                );
+              })}
+            </div>
+          )
+          : null;
+      })}
     </div>
   );
 };

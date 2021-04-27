@@ -75,7 +75,7 @@ const RatingSummary = () => {
           ))}
         </BananaDiv>
         <Score>
-          {getAverage(breakdown.ratings)}
+          {parseFloat(getAverage(breakdown.ratings)).toFixed(1)}
         </Score>
         <Review>
           {`This average is based on ${totalReviews} reviews`}
