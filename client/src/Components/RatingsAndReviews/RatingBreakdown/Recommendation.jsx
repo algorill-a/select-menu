@@ -60,7 +60,7 @@ const Recommendation = () => {
             <Key>{key}</Key>
             <br />
             <Banana><GiBananaPeeled size={30} /></Banana>
-            <Score>{parseFloat(value.value)}</Score>
+            <Score>{parseFloat(value.value).toFixed(1)}</Score>
           </Container>
         );
       })}

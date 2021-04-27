@@ -1,9 +1,10 @@
 /* eslint-disable import/extensions */
 import React, { useContext } from 'react';
-import { WriteReviewContext } from './WriteNewReviewContext.jsx';
+import { WriteReviewContext } from '../Context/WriteNewReviewContext.jsx';
 
 const ReviewTwo = () => {
-  const [review, setReview] = useContext(WriteReviewContext);
+  const { reviewData } = useContext(WriteReviewContext);
+  const [review, setReview] = reviewData;
 
   const handleChange = (event) => {
     const { name, value } = event.target;
