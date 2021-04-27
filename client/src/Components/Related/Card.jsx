@@ -67,13 +67,15 @@ const Rating = styled.div`
 
 // Card Component
 const Card = ({ card }) => {
-  const { toggleModal } = useContext(ModalContext);
+  const { toggleModal, makeModal } = useContext(ModalContext);
   const { changeProduct } = useContext(MainContext);
   const { setCurrentStyle } = useContext(StyleContext);
 
   return (
     <CardContainer>
-      <StarIcon onClick={toggleModal}><BsFillStarFill /></StarIcon>
+      <StarIcon onClick={() => { toggleModal(); makeModal(card.prodId); }}>
+        <BsFillStarFill />
+      </StarIcon>
       <ProductImage src={card.imageUrl} alt="" onClick={() => { changeProduct({ currProd: card.prodId, currStyle: card.id }); setCurrentStyle(card.id); }} />
       <ProductCategory>
         <div>{card.prodCategory}</div>
