@@ -9,16 +9,16 @@ import { CardContext } from '../../contexts/CardContext.jsx';
 import { MainContext } from '../../contexts/MainContextProvider.jsx';
 import { OutfitContext } from '../../contexts/OutfitContext.jsx';
 
-const config = require('../../../../config.js');
-
 // Styled Components
 const Title = styled.h3`
   font-family: Helvetica,
   letter-spacing: 4px;
+  margin-top: 5em;
   margin-left: 8em;
 `;
 
 const CardListContainer = styled.div`
+  margin-top: 3em;
   border: 0;
   position: relative;
   border: 1px solid black,
@@ -52,10 +52,6 @@ const IconRight = styled.button`
   }
 `;
 
-const Loading = styled.div`
-  text-align: center;
-`;
-
 const AddOutfitContainer = styled.div`
   border: 1px solid black;
   width: 250px;
@@ -84,7 +80,7 @@ const CardList = () => {
   const { cards } = useContext(CardContext);
   const { addCard } = useContext(CardContext);
   const { outfitList } = useContext(OutfitContext);
-  const { addToOutfit } = useContext(OutfitContext);
+  const { addToOutfitCard } = useContext(OutfitContext);
   let productId;
   let ratings = 0;
 
@@ -92,29 +88,8 @@ const CardList = () => {
   const [showStart, setShowStart] = useState(false);
   const [showEnd, setShowEnd] = useState(true);
 
-  const getProducts = (endpoint) => fetch(`api/${endpoint}`, {
-    headers: { Authorization: config.TOKEN },
-  })
+  const getProducts = (endpoint) => fetch(`api/${endpoint}`)
     .then((res) => res.json());
-
-  const addToOutfitCard = (() => {
-    getProducts(`products/${currProduct.currProd}`)
-      .then((data) => { productId = data.category; });
-    getProducts(`products/${currProduct.currProd}/styles/`)
-      .then((style) => {
-        const item = style.results.filter((data) => (
-          data.style_id === currProduct.currStyle
-        ));
-        addToOutfit({
-          prodStyleId: currProduct.currStyle,
-          prodCategory: productId,
-          prodName: item[0].name,
-          imageUrl: item[0].photos[0].thumbnail_url,
-          price: item[0].original_price,
-          sale: item[0].sale_price,
-        });
-      });
-  });
 
   useEffect(() => {
     getProducts(`products/${currProduct.currProd}/related`)
@@ -181,7 +156,8 @@ const CardList = () => {
       <CardListContainer>
         {showStart ? <IconLeft onClick={prevCard}><IoIosArrowBack /></IconLeft> : null}
         {showEnd ? <IconRight onClick={nextCard}><IoIosArrowForward /></IconRight> : null}
-        {cardsToDisplay.map((card) => (<Card card={card} key={card.id} value={card.prodId} />))}
+        {cardsToDisplay.map((card, index) => (
+          <Card card={card} key={index} value={card.prodId} />))}
       </CardListContainer>
 
       <Title>Outfit List</Title>
@@ -207,12 +183,7 @@ const CardList = () => {
         </CardListContainer>
       )}
     </>
-  ) : (
-    <Loading>
-      <h1>HELLO THERE!</h1>
-      <img src="./gorilla2.gif" alt="" />
-    </Loading>
-  );
+  ) : null;
 };
 
 export default CardList;
