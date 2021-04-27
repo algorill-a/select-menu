@@ -11,7 +11,8 @@ export const ModalContext = createContext();
 
 const ModalContextProvider = (props) => {
   const { currProduct } = useContext(MainContext);
-  const [display, setDisplay] = useState(false);
+  const [charDisplay, setCharDisplay] = useState(false);
+  const [reviewDisplay, setReviewDisplay] = useState(false);
   const [characteristics, setCharacteristics] = useState([]);
   const [prod1, setProd1Char] = useState({ name: '', feat: [] });
   const [prod2, setProd2Char] = useState({ name: '', feat: [] });
@@ -20,7 +21,8 @@ const ModalContextProvider = (props) => {
   const getProducts = (endpoint) => fetch(`api/${endpoint}`)
     .then((res) => res.json());
 
-  const makeModal = (product) => {
+  // Character Modal
+  const makeCharModal = (product) => {
     const featList1 = [];
     const featList2 = [];
 
@@ -51,18 +53,24 @@ const ModalContextProvider = (props) => {
     setCharacteristics(allFeat);
   };
 
-  const toggleModal = () => {
-    setDisplay(!display);
+  const toggleCharModal = () => {
+    setCharDisplay(!charDisplay);
+  };
+
+  // Review Modal
+  const toggleReviewModal = () => {
+    setReviewDisplay(!reviewDisplay);
   };
 
   return (
     <ModalContext.Provider value={{
-      display,
-      toggleModal,
+      charDisplay,
+      toggleCharModal,
       characteristics,
       prod1,
       prod2,
-      makeModal,
+      makeCharModal,
+      toggleReviewModal,
     }}
     >
       {props.children}

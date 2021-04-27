@@ -63,19 +63,19 @@ const THead = styled.div`
 `;
 
 const ComparisonModal = () => {
-  const { display } = useContext(ModalContext);
   const {
-    toggleModal,
+    charDisplay,
+    toggleCharModal,
     characteristics,
     prod1,
     prod2,
   } = useContext(ModalContext);
 
-  return display ? (
+  return charDisplay ? (
     <ModalWrapper>
       <ModalBackdrop />
       <ModalBox>
-        <CloseIcon onClick={toggleModal}><AiOutlineClose /></CloseIcon>
+        <CloseIcon onClick={toggleCharModal}><AiOutlineClose /></CloseIcon>
         <Grid>
           <THead>
             <Row>
