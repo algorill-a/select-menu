@@ -87,7 +87,7 @@ const Card = ({ card }) => {
       ) : <Original>{card.price}</Original>}
       {card.ratingAvg > 0 ? (
         <Rating>
-          {[...Array(5)].map((star, index) => <GiBananaPeeled size={25} color={index <= card.ratingAvg ? '#BEDF7C' : '#808080'} value={index} />)}
+          {[...Array(5)].map((star, index) => <GiBananaPeeled size={25} color={index <= card.ratingAvg ? '#BEDF7C' : '#808080'} value={index} key={index} />)}
         </Rating>
       ) : null}
       <ComparisonModal value={card.prodId} />

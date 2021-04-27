@@ -17,10 +17,10 @@ function App() {
       <MainContextProvider>
         <ProductsContextProvider>
           <StyleContextProvider>
-            <Overview />
             <CardContextProvider>
               <OutfitContextProvider>
                 <ModalContextProvider>
+                  <Overview />
                   <CardList />
                 </ModalContextProvider>
               </OutfitContextProvider>
