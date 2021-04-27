@@ -20,7 +20,6 @@ const ModalContextProvider = (props) => {
   const getProducts = (endpoint) => fetch(`api/${endpoint}`)
     .then((res) => res.json());
 
-  // useEffect(() => {
   const makeModal = (product) => {
     const featList1 = [];
     const featList2 = [];
@@ -50,7 +49,6 @@ const ModalContextProvider = (props) => {
 
     allFeat = [...new Set(allFeat)];
     setCharacteristics(allFeat);
-  // }, []);
   };
 
   const toggleModal = () => {

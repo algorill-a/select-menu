@@ -10,24 +10,26 @@ import CardList from './Components/Related/CardList.jsx';
 import ProductsContextProvider from './Components/Overview/ProductsContext.jsx';
 import StyleContextProvider from './Components/Overview/StyleContext.jsx';
 import RatingsAndReviews from './Components/RatingsAndReviews/index.jsx';
+import ComparisonModal from './Components/Related/ComparisonModal.jsx';
 
 function App() {
   return (
     <div>
       <MainContextProvider>
-        <ProductsContextProvider>
-          <StyleContextProvider>
-            <CardContextProvider>
-              <OutfitContextProvider>
-                <ModalContextProvider>
+        <ModalContextProvider>
+          <ProductsContextProvider>
+            <StyleContextProvider>
+              <CardContextProvider>
+                <OutfitContextProvider>
                   <Overview />
                   <CardList />
-                </ModalContextProvider>
-              </OutfitContextProvider>
-            </CardContextProvider>
-            <RatingsAndReviews />
-          </StyleContextProvider>
-        </ProductsContextProvider>
+                </OutfitContextProvider>
+              </CardContextProvider>
+              <RatingsAndReviews />
+            </StyleContextProvider>
+          </ProductsContextProvider>
+          <ComparisonModal />
+        </ModalContextProvider>
       </MainContextProvider>
     </div>
   );

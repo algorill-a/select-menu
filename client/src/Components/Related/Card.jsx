@@ -92,10 +92,9 @@ const Card = ({ card }) => {
           {[...Array(5)].map((star, index) => <GiBananaPeeled size={25} color={index <= card.ratingAvg ? '#BEDF7C' : '#808080'} value={index} key={index} />)}
         </Rating>
       ) : null}
-      <ComparisonModal value={card.prodId} />
+
     </CardContainer>
   );
 };
 
 export default Card;
-// onClick={changeProduct(`${card.prodId}`)}

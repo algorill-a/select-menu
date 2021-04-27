@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable import/extensions */
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { AiOutlineClose, AiFillCheckCircle } from 'react-icons/ai';
 import { ModalContext } from '../../contexts/ModalContext.jsx';
