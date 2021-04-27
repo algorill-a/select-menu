@@ -6,6 +6,7 @@ import ReviewList from './ReviewList/ReviewList.jsx';
 import RatingBreakdown from './RatingBreakdown/RatingBreakdown.jsx';
 import WriteNewReview from './WriteNewReview/index.jsx';
 import { ReviewListContext } from './Context/ReviewListContext.jsx';
+import { ModalContext } from '../../contexts/ModalContext.jsx';
 
 const Container = styled.div`
   height: 50vh;
@@ -50,6 +51,7 @@ const count = 2;
 
 const RatingsAndReviews = () => {
   const [list, setList] = useContext(ReviewListContext);
+  const { toggleReviewModal } = useContext(ModalContext);
   const [toggle, setToggle] = useState(false);
 
   const toggleSearch = () => {
@@ -77,7 +79,7 @@ const RatingsAndReviews = () => {
       </Container>
 
       <WriteNewReview />
-      <button type="button">Add Review</button>
+      <button type="button" onClick={toggleReviewModal}>Add Review</button>
       <Button type="button" onClick={toggleSearch}>{toggle ? 'Go Back' : 'Read more reviews'}</Button>
     </div>
   );

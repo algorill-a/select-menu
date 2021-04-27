@@ -74,7 +74,7 @@ const Card = ({ card }) => {
 
   return (
     <CardContainer>
-      <StarIcon onClick={() => { toggleCharModal(); makeCharModal(card.prodId); }}>
+      <StarIcon onClick={() => { makeCharModal(card.prodId); toggleCharModal(); }}>
         <BsFillStarFill />
       </StarIcon>
       <ProductImage src={card.imageUrl} alt="" onClick={() => { resetCards(); changeProduct({ currProd: card.prodId, currStyle: card.id }); setCurrentStyle(card.id); }} />
