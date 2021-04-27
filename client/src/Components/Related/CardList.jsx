@@ -8,6 +8,7 @@ import Outfit from './Outfit.jsx';
 import { CardContext } from '../../contexts/CardContext.jsx';
 import { MainContext } from '../../contexts/MainContextProvider.jsx';
 import { OutfitContext } from '../../contexts/OutfitContext.jsx';
+import { StyleContext } from '../Overview/StyleContext.jsx';
 
 const config = require('../../../../config.js');
 
@@ -85,6 +86,7 @@ const CardList = () => {
   const { addCard } = useContext(CardContext);
   const { outfitList } = useContext(OutfitContext);
   const { addToOutfit } = useContext(OutfitContext);
+  const { setCurrentRating } = useContext(StyleContext);
   let productId;
   let ratings = 0;
 
@@ -130,6 +132,8 @@ const CardList = () => {
               }
               ratings /= 5;
             }
+            setCurrentRating(ratings);
+            console.log(ratings);
           });
         getProducts(`products/${item}/styles`)
           .then((data3) => data3.results.forEach((style) => {
