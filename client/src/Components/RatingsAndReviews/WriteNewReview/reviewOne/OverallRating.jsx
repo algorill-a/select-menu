@@ -6,7 +6,7 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { FaStar } from 'react-icons/fa';
-import { WriteReviewContext } from '../WriteNewReviewContext.jsx';
+import { WriteReviewContext } from '../../Context/WriteNewReviewContext.jsx';
 
 const Title = styled.h1`
   font-size: 1.5em;
@@ -19,7 +19,8 @@ const Input = styled.input`
 `;
 
 const OverallRating = () => {
-  const [review, setReview] = useContext(WriteReviewContext);
+  const { reviewData } = useContext(WriteReviewContext);
+  const [review, setReview] = reviewData;
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
   const [text, setText] = useState('Please select');
@@ -34,11 +35,11 @@ const OverallRating = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setReview({ ...review, [name]: value });
+    setReview({ ...review, [name]: parseInt(value, 10) });
   };
 
   return (
-    <form>
+    <div>
       <div><Title>Overall Rating</Title></div>
       <p>{text}</p>
       {starRating().map((star, i) => {
@@ -69,7 +70,7 @@ const OverallRating = () => {
           </label>
         );
       })}
-    </form>
+    </div>
   );
 };
 

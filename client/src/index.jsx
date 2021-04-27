@@ -5,6 +5,9 @@ import MainContextProvider from './contexts/MainContextProvider.jsx';
 import CardContextProvider from './contexts/CardContext.jsx';
 import ModalContextProvider from './contexts/ModalContext.jsx';
 import OutfitContextProvider from './contexts/OutfitContext.jsx';
+import ReviewListProvider from './Components/RatingsAndReviews/Context/ReviewListContext.jsx';
+import ReviewBreakdownProvider from './Components/RatingsAndReviews/Context/ReviewBreakdownContext.jsx';
+import WriteReviewProvider from './Components/RatingsAndReviews/Context/WriteNewReviewContext.jsx';
 import Overview from './Components/Overview/Overview.jsx';
 import CardList from './Components/Related/CardList.jsx';
 import ProductsContextProvider from './Components/Overview/ProductsContext.jsx';
@@ -25,7 +28,13 @@ function App() {
                   <CardList />
                 </OutfitContextProvider>
               </CardContextProvider>
-              <RatingsAndReviews />
+              <WriteReviewProvider>
+                <ReviewListProvider>
+                  <ReviewBreakdownProvider>
+                    <RatingsAndReviews />
+                  </ReviewBreakdownProvider>
+                </ReviewListProvider>
+              </WriteReviewProvider>
             </StyleContextProvider>
           </ProductsContextProvider>
           <ComparisonModal />
