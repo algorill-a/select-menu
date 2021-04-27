@@ -70,6 +70,7 @@ const ModalContextProvider = (props) => {
       prod1,
       prod2,
       makeCharModal,
+      reviewDisplay,
       toggleReviewModal,
     }}
     >

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { AiOutlineClose, AiFillCheckCircle } from 'react-icons/ai';
 import { ModalContext } from '../../contexts/ModalContext.jsx';
 
-// styled components
+// Modal styled components
 const ModalWrapper = styled.div`
   position: fixed;
   top: 0;
