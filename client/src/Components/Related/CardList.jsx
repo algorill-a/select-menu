@@ -13,10 +13,12 @@ import { OutfitContext } from '../../contexts/OutfitContext.jsx';
 const Title = styled.h3`
   font-family: Helvetica,
   letter-spacing: 4px;
+  margin-top: 5em;
   margin-left: 8em;
 `;
 
 const CardListContainer = styled.div`
+  margin-top: 3em;
   border: 0;
   position: relative;
   border: 1px solid black,
@@ -49,10 +51,6 @@ const IconRight = styled.button`
     opacity: 80%;
   }
 `;
-
-// const Loading = styled.div`
-//   text-align: center;
-// `;
 
 const AddOutfitContainer = styled.div`
   border: 1px solid black;
@@ -158,8 +156,8 @@ const CardList = () => {
       <CardListContainer>
         {showStart ? <IconLeft onClick={prevCard}><IoIosArrowBack /></IconLeft> : null}
         {showEnd ? <IconRight onClick={nextCard}><IoIosArrowForward /></IconRight> : null}
-        {cardsToDisplay.map((card, index) =>
-          (<Card card={card} key={index} value={card.prodId} />))}
+        {cardsToDisplay.map((card, index) => (
+          <Card card={card} key={index} value={card.prodId} />))}
       </CardListContainer>
 
       <Title>Outfit List</Title>
