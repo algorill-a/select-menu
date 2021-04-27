@@ -81,12 +81,8 @@ const CardList = () => {
   const { cards } = useContext(CardContext);
   const { addCard } = useContext(CardContext);
   const { outfitList } = useContext(OutfitContext);
-<<<<<<< HEAD
-  const { addToOutfit } = useContext(OutfitContext);
   const { setCurrentRating } = useContext(StyleContext);
-=======
   const { addToOutfitCard } = useContext(OutfitContext);
->>>>>>> 7661aa5abe1080f1e41feecdb2e1d131f6c1ad2d
   let productId;
   let ratings = 0;
 
