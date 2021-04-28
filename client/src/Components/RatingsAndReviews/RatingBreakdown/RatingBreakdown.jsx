@@ -1,17 +1,11 @@
 /* eslint-disable import/extensions */
 import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
-// import styled from 'styled-components';
 import RatingSummary from './RatingSummary.jsx';
 import Recommendation from './Recommendation.jsx';
 import RatingBars from './RatingBars.jsx';
 import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext.jsx';
 import { MainContext } from '../../../contexts/MainContextProvider.jsx';
-
-// const Img = styled.div`
-//   font-aling: center;
-//   background-color: #a4ffc1;
-// `;
 
 const RatingBreakdown = () => {
   const [breakdown, setBreakdown] = useContext(ReviewBreakdownContext);

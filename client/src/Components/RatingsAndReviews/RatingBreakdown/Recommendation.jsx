@@ -19,20 +19,23 @@ const Container = styled.div`
   height: 50px;
   padding-right: 50px;
   padding-bottom: 30px;
-  border-radius: 25px;
-  box-shadow: 1px 2px 3px rgba(26, 117, 62);
-  background-color: rgba(124, 155, 123, 0.3);
+  border-bottom: 2px solid black;
+  border-right: 2px solid black;
+  box-shadow: 3px 4px black;
+  background-color: white;
   grid-template-columns: repeat(2, 1fr);
   gird-template-rows: repeat(2, 1fr);
   grid-column-gap: 10px;
   grid-row-gap: 10px;
+  font-size: 20px;
 `;
 
 const Key = styled.div`
-  font-family: Helvetica;
-  font-size: 25px;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 4px
+  font-size: 40px;
   font-weight: bold;
-  color: rgba(26, 117, 62);
+  color: black;
   grid-area: 1 / 1 / 2 / 3;
 `;
 
@@ -44,6 +47,7 @@ const Banana = styled.div`
 const Score = styled.div`
   font-size: 25px;
   font-weight: bold;
+  font-family: Helvetica;
   color: black;
   grid-area: 2 / 2 / 3 / 3;
 `;
