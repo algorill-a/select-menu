@@ -8,16 +8,18 @@ import Outfit from './Outfit.jsx';
 import { CardContext } from '../../contexts/CardContext.jsx';
 import { MainContext } from '../../contexts/MainContextProvider.jsx';
 import { OutfitContext } from '../../contexts/OutfitContext.jsx';
+import { StyleContext } from '../Overview/StyleContext.jsx';
 
 // Styled Components
 const Title = styled.h3`
-  font-family: Helvetica,
+  font-family: 'Montserrat', sans-serif;
   letter-spacing: 4px;
   margin-top: 5em;
   margin-left: 8em;
 `;
 
 const CardListContainer = styled.div`
+  font-family: 'Montserrat', sans-serif;
   margin-top: 3em;
   border: 0;
   position: relative;
@@ -60,7 +62,7 @@ const AddOutfitContainer = styled.div`
   background: #ededed;
   overflow: hidden;
   box-sizing: border-box;
-  font-family: Helvetica;
+  font-family: 'Montserrat', sans-serif;
   text-align: center;
   color: #808080;
 `;
@@ -80,6 +82,7 @@ const CardList = () => {
   const { cards } = useContext(CardContext);
   const { addCard } = useContext(CardContext);
   const { outfitList } = useContext(OutfitContext);
+  const { setCurrentRating } = useContext(StyleContext);
   const { addToOutfitCard } = useContext(OutfitContext);
   let productId;
   let ratings = 0;
@@ -88,6 +91,10 @@ const CardList = () => {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [showStart, setShowStart] = useState(false);
   const [showEnd, setShowEnd] = useState(true);
+
+  const [currentOutfitIndex, setCurrentOutfitIndex] = useState(0);
+  const [showOutfitStart, setShowOutfitStart] = useState(false);
+  const [showOutfitEnd, setShowOutfitEnd] = useState(true);
 
   const getProducts = (endpoint) => fetch(`api/${endpoint}`)
     .then((res) => res.json());
@@ -105,10 +112,11 @@ const CardList = () => {
                 ratings += (parseInt(keys[i], 10) * parseInt(reviews.ratings[[keys[i]]], 10));
                 sum += (parseInt(reviews.ratings[[keys[i]]], 10));
               }
-              ratings /= sum;
+              ratings = Math.ceil(ratings / sum);
             } else {
               ratings = 0;
             }
+            setCurrentRating(ratings);
           });
         getProducts(`products/${item}/styles`)
           .then((data3) => data3.results.forEach((style) => {
@@ -126,6 +134,7 @@ const CardList = () => {
       }));
   }, [currProduct]);
 
+  // handlers for Related Items carousel
   const prevCard = () => {
     const start = currentCardIndex === 0;
     if (!start) {
@@ -139,7 +148,7 @@ const CardList = () => {
   };
 
   const nextCard = () => {
-    const end = currentCardIndex === cards.length - 1;
+    const end = currentCardIndex + 4 === cards.length - 1;
     if (!end) {
       setShowStart(true);
       setShowEnd(true);
@@ -150,9 +159,37 @@ const CardList = () => {
     }
   };
 
+  // handlers for Outfit carousel
+  const prevOutfit = () => {
+    const start = currentOutfitIndex === 0;
+    if (!start) {
+      setShowOutfitStart(true);
+      setShowOutfitEnd(true);
+      const index = currentOutfitIndex - 1;
+      setCurrentOutfitIndex(index);
+    } else {
+      setShowOutfitStart(false);
+    }
+  };
+
+  const nextOutfit = () => {
+    const end = currentOutfitIndex + 3 === outfitList.length - 1;
+    if (!end) {
+      setShowOutfitStart(true);
+      setShowOutfitEnd(true);
+      const index = currentOutfitIndex + 1;
+      setCurrentOutfitIndex(index);
+    } else {
+      setShowOutfitEnd(false);
+    }
+  };
+
   const activeCards = cards.slice(currentCardIndex, currentCardIndex + 4);
   const cardsToDisplay = activeCards.length < 4
-    ? [...activeCards, ...cards.slice(0, 4 - activeCards.length)] : activeCards;
+    ? [cards.slice(currentCardIndex, currentCardIndex + 4)] : activeCards;
+
+  const outfitsToDisplay = outfitList.length > 3
+    ? outfitList.slice(currentOutfitIndex, currentOutfitIndex + 4) : outfitList;
 
   return cards.length ? (
     <>
@@ -172,10 +209,11 @@ const CardList = () => {
               <AddButton onClick={addToOutfitCard}><IoIosAddCircle size={100} /></AddButton>
               Add to Outfit
             </AddOutfitContainer>
-            {outfitList.map((outfit) => (
+            {outfitsToDisplay.map((outfit) => (
               <Outfit outfit={outfit} key={outfit.id} value={outfit.prodId} />))}
-            {showStart ? <IconLeft onClick={prevCard}><IoIosArrowBack /></IconLeft> : null}
-            {showEnd ? (<IconRight onClick={nextCard}><IoIosArrowForward /></IconRight>) : null}
+            {showOutfitStart ? <IconLeft onClick={prevOutfit}><IoIosArrowBack /></IconLeft> : null}
+            {showOutfitEnd
+              ? (<IconRight onClick={nextOutfit}><IoIosArrowForward /></IconRight>) : null}
           </CardListContainer>
         </>
       ) : (

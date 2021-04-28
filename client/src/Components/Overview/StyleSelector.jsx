@@ -6,8 +6,8 @@ import { MainContext } from '../../contexts/MainContextProvider.jsx';
 
 const StylesContainer = Styled.div`
   position: absolute;
-  top: 50%;
-  left: 70%;
+  top: 300px;
+  left: 65%;
   z-index: 10;
 `;
 
@@ -26,16 +26,43 @@ const Thumbnail = Styled.img`
   object-fit: cover;
   margin-left: -25%;
   margin-top: -25%;
+  cursor: pointer;
+`;
+
+const StyleName = Styled.h2`
+  font-family: 'Montserrat', sans-serif;
 `;
 
 const StyleSelector = () => {
-  const { allStyles, setCurrentStyle } = useContext(StyleContext);
+  const {
+    allStyles,
+    currentStyle,
+    setCurrentStyle,
+    setCurrentStyleName,
+    currentStyleName,
+  } = useContext(StyleContext);
   const { currProduct } = useContext(MainContext);
   const { changeProduct } = useContext(MainContext);
 
   return (
     <StylesContainer>
-      {(allStyles !== null) ? allStyles.map((photo) => <ThumbnailContainer key={photo.style_id}><Thumbnail src={photo.photo} key={photo.style_id} onClick={() => { setCurrentStyle(photo.style_id); changeProduct({ currProd: currProduct.currProd, currStyle: photo.style_id }); }} /></ThumbnailContainer>) : <img src="https://cdn.discordapp.com/attachments/831605836996411443/834994007725441034/gorilla_fly2.gif" alt="" /> }
+      <StyleName>{currentStyleName}</StyleName>
+      {(allStyles !== null) ? allStyles.map((photo) => (
+        <ThumbnailContainer key={photo.style_id}>
+          <Thumbnail
+            src={photo.photo}
+            key={photo.style_id}
+            onClick={() => {
+              if (photo.style_id !== currentStyle) {
+                changeProduct({ currProd: currProduct.currProd, currStyle: photo.style_id });
+                setCurrentStyleName(photo.name);
+                setCurrentStyle(photo.style_id);
+                // setCurrentImage(0);
+              }
+            }}
+          />
+        </ThumbnailContainer>
+      )) : <img src="../../dist/gorilla.gif" alt="" /> }
     </StylesContainer>
   );
 };
