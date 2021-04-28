@@ -20,6 +20,7 @@ const Container = styled.div`
   grid-column-gap: 2vw;
   grid-row-gap: 2vh;
   padding: 5vh;
+  font-family: 'Montserrat',sans-serif;
 `;
 
 const EmptyContainer = styled.div`
@@ -31,6 +32,14 @@ const EmptyContainer = styled.div`
   padding: 0px;
   margin: 0px;
   border: 1px solid black;
+  font-family: 'Montserrat',sans-serif;
+`;
+
+const Title = styled.h3`
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 4px;
+  margin-top: 5em;
+  margin-left: 8em;
 `;
 
 const NoReviews = styled.div`
@@ -63,12 +72,13 @@ const Text3 = styled.div``;
 const Button = styled.button`
   padding: 15px;
   margin: 15px;
-  color: #FDFF93;
-  background-color: rgba(26, 117, 62);
+  color: black;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 8px
+  background-color: #f2f2f2;
   font-size: 17px;
   font-weight: bold;
-  border: 2px solid #196838;
-  border-radius: 15px;;
+  border: 2px solid black;
   box-shadow: 1px 3px 3px #5B5347;
   outline: 0;
   &:active {
@@ -135,7 +145,7 @@ const RatingsAndReviews = () => {
     }
     return (
       <div>
-        <h1>Ratings and Reviews</h1>
+        <Title>Ratings and Reviews</Title>
         <Container>
           <DivOne className="one">
             <RatingBreakdown />

@@ -18,21 +18,23 @@ const Ul = styled.ul`
   list-style-type: none;
   height: 5vh;
   margin: 0;
-  padding: 0;
+  padding-bottom: 10px;
+  font-weight: 900;
+  font-size: 2em;
+  letter-spacing: 4px;
+  color: #5F939A;
 `;
 
 const Li = styled.li`
-  font-family: Helvetica;
-  font-size: 25px;
-  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 4px
+  color: #5F939A;
   display: inline;
   width: 90%;
   padding-top: .5vh;
   text-align: center;
-  background: rgb(26, 116, 61);
-  color: rgb(252, 255, 147);
-  border: 2px solid rgb(215, 225, 215);
-  border-radius: 25px;
+  border: 2px solid black;
+  box-shadow: 3px 3px 3px #0d555f;
 `;
 
 const SortingOptions = () => {
