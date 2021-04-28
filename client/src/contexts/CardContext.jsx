@@ -11,8 +11,12 @@ const CardContextProvider = (props) => {
     setCards((oldCards) => [...oldCards, obj]);
   };
 
+  const resetCards = () => {
+    setCards([]);
+  };
+
   return (
-    <CardContext.Provider value={{ cards, addCard }}>
+    <CardContext.Provider value={{ cards, addCard, resetCards }}>
       {props.children}
     </CardContext.Provider>
   );

@@ -8,7 +8,7 @@ import { OutfitContext } from '../../contexts/OutfitContext.jsx';
 
 // Styled Components
 const CardContainer = styled.div`
-  font-family: Helvetica;
+  font-family: 'Montserrat', sans-serif;
   width: 250px;
   height: 400px;
   border: 1px solid black;

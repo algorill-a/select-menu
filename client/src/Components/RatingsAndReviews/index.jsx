@@ -10,6 +10,7 @@ import WriteNewReview from './WriteNewReview/index.jsx';
 import { ReviewListContext } from './Context/ReviewListContext.jsx';
 import { MainContext } from '../../contexts/MainContextProvider.jsx';
 import { ReviewButtonContext } from '../../contexts/ReviewButtonContext.jsx';
+import { ModalContext } from '../../contexts/ModalContext.jsx';
 
 const Container = styled.div`
   height: 50vh;
@@ -110,6 +111,7 @@ const RatingsAndReviews = () => {
       .catch((error) => console.log(error));
   };
   useEffect(getList, [currProduct]);
+  const { toggleReviewModal } = useContext(ModalContext);
 
   const incrementCount = () => {
     setCount(count + 2);
@@ -149,19 +151,14 @@ const RatingsAndReviews = () => {
           </DivThree>
 
           <DivFour>
+            <WriteNewReview />
             <Button type="button" onClick={incrementCount}>Read More Reivews</Button>
-            <Button type="button">Add Review</Button>
+            <Button type="button" onClick={toggleReviewModal}>Add Review</Button>
           </DivFour>
         </Container>
-
-        {/* <WriteNewReview /> */}
       </div>
     );
   };
-
-  return (
-    renderConditionList()
-  );
 };
 
 export default RatingsAndReviews;
