@@ -8,11 +8,6 @@ import styled from 'styled-components';
 import { FaStar } from 'react-icons/fa';
 import { WriteReviewContext } from '../../Context/WriteNewReviewContext.jsx';
 
-const Title = styled.h1`
-  font-size: 1.5em;
-  color: palevioletred;
-`;
-
 const Input = styled.input`
   display: none;
   size: 20;
@@ -40,7 +35,7 @@ const OverallRating = () => {
 
   return (
     <div>
-      <div><Title>Overall Rating</Title></div>
+      <div>Overall Rating</div>
       <p>{text}</p>
       {starRating().map((star, i) => {
         const ratingValue = i + 1;
@@ -51,6 +46,7 @@ const OverallRating = () => {
               name="rating"
               value={ratingValue}
               onChange={handleChange}
+              key={Math.floor(Math.random() * 10000)}
               onClick={() => {
                 setRating(ratingValue);
                 setText(star.rating);
