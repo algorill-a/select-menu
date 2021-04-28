@@ -32,14 +32,15 @@ const Sale = Styled.div`
 
 const Rating = Styled.div`
   bottom: 0;
-  text-align: right;
 `;
 
-// {card.ratingAvg > 0 ? (
-//   <Rating>
-//     {[...Array(5)].map((star, index) => <GiBananaPeeled size={25} color={index <= card.ratingAvg ? '#BEDF7C' : '#808080'} value={index} />)}
-//   </Rating>
-// ) : null}
+const Pinterest = Styled.a`
+  display: block;
+`;
+
+const Twitter = Styled.a`
+  display: block;
+`;
 
 const ProductInfo = () => {
   const { prodInfo } = useContext(ProductsContext);
@@ -73,7 +74,32 @@ const ProductInfo = () => {
           </>
         ) : <Original>{price.price}</Original>}
       </div>
-      <button type="button">share</button>
+      <div
+        style={{ display: 'block' }}
+        className="fb-share-button"
+        data-href="http://localhost:1337/"
+        data-layout="button"
+        data-size="large"
+      >
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A1337%2F&amp;src=sdkpreparse"
+          className="fb-xfbml-parse-ignore"
+        >
+          Share
+        </a>
+      </div>
+      <a
+        style={{ display: 'block' }}
+        href="https://twitter.com/share?ref_src=twsrc%5Etfw"
+        className="twitter-share-button"
+        data-show-count="false"
+        data-size="large"
+      >
+        Tweet
+      </a>
+      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8" />
     </ProductInfoContainer>
   );
 };

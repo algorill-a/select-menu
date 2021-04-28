@@ -13,11 +13,12 @@ const StylesContainer = Styled.div`
 
 const ThumbnailContainer = Styled.button`
   display: inline-block;
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
   position: relative;
   overflow: hidden;
   border-radius: 50%;
+  margin: 2px;
 `;
 
 const Thumbnail = Styled.img`
@@ -46,6 +47,7 @@ const StyleSelector = () => {
 
   return (
     <StylesContainer>
+
       <StyleName>{currentStyleName}</StyleName>
       {(allStyles !== null) ? allStyles.map((photo) => (
         <ThumbnailContainer key={photo.style_id}>
@@ -68,3 +70,18 @@ const StyleSelector = () => {
 };
 
 export default StyleSelector;
+
+// const selectors = [
+//   [0, 0, 0, 0],
+//   [0, 0, 0, 0],
+// ];
+
+// styles.forEach((photo) => {
+//   selectors.forEach((row) => {
+//     row.forEach((spot) => {
+//       if (spot === 0) {
+//         row[spot] = photo
+//       }
+//     })
+//   }
+// })
