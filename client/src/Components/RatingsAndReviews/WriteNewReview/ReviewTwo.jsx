@@ -8,6 +8,7 @@ const ReviewTwo = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+    console.log('this is value', value);
     setReview({ ...review, [name]: value });
   };
 

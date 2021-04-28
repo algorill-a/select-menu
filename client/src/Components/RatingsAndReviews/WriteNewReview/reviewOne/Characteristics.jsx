@@ -3,9 +3,17 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
 import React, { useState, useContext, useEffect } from 'react';
-import { ImRadioUnchecked, ImRadioChecked2 } from 'react-icons/Im';
 import styled from 'styled-components';
+import { ImRadioUnchecked, ImRadioChecked2 } from 'react-icons/Im';
 import { WriteReviewContext } from '../../Context/WriteNewReviewContext.jsx';
+
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
+`;
 
 const Characteristics = () => {
   const { reviewData, charaData } = useContext(WriteReviewContext);
@@ -34,20 +42,21 @@ const Characteristics = () => {
   };
 
   return (
-    <div>
-      {Object.entries(chara).map((entry) => {
+    <Container>
+      {Object.entries(chara).map((entry, i) => {
         const [key, value] = entry;
         return value.id !== null
           ? (
             <div>
               <p>{key}</p>
               <p>{value.placeholder}</p>
-              {value.options.slice(0).map((choice, i) => {
-                const index = i + 1;
+              {value.options.slice(0).map((choice, j) => {
+                const index = j + 1;
                 return (
                   <label>
                     <input
                       type="radio"
+                      key={Math.floor(Math.random() * 10000)}
                       title={key}
                       name={value.id}
                       id={index}
@@ -61,7 +70,7 @@ const Characteristics = () => {
           )
           : null;
       })}
-    </div>
+    </Container>
   );
 };
 

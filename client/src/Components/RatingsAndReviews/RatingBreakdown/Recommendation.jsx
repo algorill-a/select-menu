@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { GiBananaPeeled } from 'react-icons/gi';
@@ -26,7 +27,6 @@ const Container = styled.div`
   grid-column-gap: 10px;
   grid-row-gap: 10px;
 `;
-
 
 const Key = styled.div`
   font-family: Helvetica;

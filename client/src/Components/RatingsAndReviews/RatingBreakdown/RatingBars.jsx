@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 /* eslint-disable radix */
 import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
@@ -48,13 +49,10 @@ const RatingBars = () => {
     },
   );
 
-  const container = [];
-
   const getTotal = () => {
     let total = 0;
     Object.values(breakdown.ratings).forEach((value) => {
       total += parseInt(value);
-      container.push(parseInt(value));
     });
     return total;
   };
@@ -75,8 +73,8 @@ const RatingBars = () => {
 
   const getIndivPercentage = (score) => {
     let total = 0;
-    Object.entries(breakdown.recommended).forEach((number) => {
-      const [key, value] = number;
+    Object.values(breakdown.recommended).forEach((number) => {
+      const [value] = number;
       total += parseInt(value);
     });
     return Math.floor((score / total) * 100);
@@ -88,8 +86,7 @@ const RatingBars = () => {
       setStarRating((prevRating) => ({ ...prevRating, [key]: value }));
     });
   };
-
-  useEffect(() => changeStarRatings(), {});
+  useEffect(() => changeStarRatings(), []);
 
   return (
     <>
@@ -102,8 +99,7 @@ const RatingBars = () => {
           const [key, value] = rating;
           return (
             <Li key={Math.random()}>
-              {key}
-              <Span>Bananas</Span>
+              <Span onClick={() => console.log('hello')}>{`${key}  Bananas`}</Span>
               <Label>
                 <PercentBar value={value} max={getTotal()} />
                 {` ${getIndivPercentage(parseFloat(value).toFixed(1))}%`}

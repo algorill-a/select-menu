@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 /* eslint-disable radix */
 import React, { useContext } from 'react';
 import styled from 'styled-components';
@@ -63,7 +64,7 @@ const RatingSummary = () => {
   };
 
   return (
-    <>
+    <div>
       <Container>
         <Title>Banana Score</Title>
         <BananaDiv>
@@ -81,7 +82,7 @@ const RatingSummary = () => {
           {`This average is based on ${totalReviews} reviews`}
         </Review>
       </Container>
-    </>
+    </div>
   );
 };
 

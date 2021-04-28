@@ -1,43 +1,35 @@
 /* eslint-disable import/extensions */
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import ReviewTile from './ReviewTile.jsx';
-import SortingOptions from './SortingOptions.jsx';
 import { ReviewListContext } from '../Context/ReviewListContext.jsx';
-import { MainContext } from '../../../contexts/MainContextProvider.jsx';
+import { ReviewButtonContext } from '../../../contexts/ReviewButtonContext.jsx';
 
-const Div = styled.div`
+const DivTwo = styled.div`
   padding: 0;
   overflow: scroll;
 `;
 
 const ReviewsList = () => {
-  const [list, setList] = useContext(ReviewListContext);
-  const { currProduct } = useContext(MainContext);
+  const [list] = useContext(ReviewListContext);
+  const { counts } = useContext(ReviewButtonContext);
+  const [count] = counts;
 
-  const productId = currProduct.currProd;
-  const getList = () => {
-    axios.get(`/api/reviews?product_id=${productId}`)
-      .then((response) => setList(response.data.results))
-      .catch((error) => console.log(error));
-  };
-  useEffect(getList, [currProduct]);
+  const renderList = () => (
+    list.slice(0, count)
+  );
 
   return (
-    <>
-      <Div>
-        <SortingOptions />
-      </Div>
-      <Div>
-        {list.slice(0).map((tile) => (
+    <div>
+      <DivTwo>
+        {renderList().slice(0).map((tile) => (
           <ReviewTile
             tile={tile}
             key={Math.random()}
           />
         ))}
-      </Div>
-    </>
+      </DivTwo>
+    </div>
   );
 };
 

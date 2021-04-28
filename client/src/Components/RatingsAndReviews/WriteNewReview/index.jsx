@@ -47,6 +47,19 @@ const CloseIcon = styled.div`
   text-align: right;
 `;
 
+const Button = styled.button`
+  padding: 15px;
+  margin: 15px;
+  color: #FDFF93;
+  background-color: rgba(26, 117, 62);
+  font-size: 17px;
+  font-weight: bold;
+  border: 2px solid #196838;
+  border-radius: 15px;;
+  box-shadow: 1px 3px 3px #5B5347;
+  outline: 0;
+`;
+
 const WriteNewReview = () => {
   const { reviewData } = useContext(WriteReviewContext);
   const { reviewDisplay, toggleReviewModal } = useContext(ModalContext);
@@ -79,7 +92,7 @@ const WriteNewReview = () => {
           <ReviewPartOne onClick={() => console.log(review)} />
           <ReviewPartTwo />
           <ReviewPartThree />
-          <button type="button" onClick={handlePostSubmit}>Submit</button>
+          <Button type="button" onClick={handlePostSubmit}>Submit</Button>
         </form>
       </ModalBox>
     </ModalWrapper>

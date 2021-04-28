@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 /* eslint-disable import/extensions */
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -9,6 +10,7 @@ import OutfitContextProvider from './contexts/OutfitContext.jsx';
 import ReviewListProvider from './Components/RatingsAndReviews/Context/ReviewListContext.jsx';
 import ReviewBreakdownProvider from './Components/RatingsAndReviews/Context/ReviewBreakdownContext.jsx';
 import WriteReviewProvider from './Components/RatingsAndReviews/Context/WriteNewReviewContext.jsx';
+import ReviewButtonProvider from './contexts/ReviewButtonContext.jsx';
 import Overview from './Components/Overview/Overview.jsx';
 import CardList from './Components/Related/CardList.jsx';
 import ProductsContextProvider from './Components/Overview/ProductsContext.jsx';
@@ -38,7 +40,9 @@ function App() {
               <WriteReviewProvider>
                 <ReviewListProvider>
                   <ReviewBreakdownProvider>
-                    <RatingsAndReviews />
+                    <ReviewButtonProvider>
+                      <RatingsAndReviews />
+                    </ReviewButtonProvider>
                   </ReviewBreakdownProvider>
                 </ReviewListProvider>
               </WriteReviewProvider>
