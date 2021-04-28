@@ -173,7 +173,7 @@ const CardList = () => {
   };
 
   const nextOutfit = () => {
-    const end = currentOutfitIndex + 3 === outfitList.length - 1;
+    const end = currentOutfitIndex + 2 === outfitList.length - 1;
     if (!end) {
       setShowOutfitStart(true);
       setShowOutfitEnd(true);
