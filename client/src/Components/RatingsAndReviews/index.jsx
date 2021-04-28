@@ -133,7 +133,6 @@ const RatingsAndReviews = () => {
         </EmptyContainer>
       );
     }
-
     return (
       <div>
         <h1>Ratings and Reviews</h1>
@@ -159,6 +158,8 @@ const RatingsAndReviews = () => {
       </div>
     );
   };
+  return (
+    renderConditionList()
+  );
 };
-
 export default RatingsAndReviews;
