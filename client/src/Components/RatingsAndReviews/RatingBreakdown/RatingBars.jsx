@@ -99,8 +99,7 @@ const RatingBars = () => {
           const [key, value] = rating;
           return (
             <Li key={Math.random()}>
-              {key}
-              <Span>Bananas</Span>
+              <Span onClick={() => console.log('hello')}>{`${key}  Bananas`}</Span>
               <Label>
                 <PercentBar value={value} max={getTotal()} />
                 {` ${getIndivPercentage(parseFloat(value).toFixed(1))}%`}

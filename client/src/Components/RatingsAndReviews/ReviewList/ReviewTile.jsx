@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
-import { GiBananaPeeled } from 'react-icons/gi';
+import { GiBananaPeeled, GiGorilla } from 'react-icons/gi';
 
 // grid-template-area:
 //   'banana-user-date'
@@ -111,7 +111,8 @@ const ReviewTile = ({ tile }) => (
     </Body>
 
     <RecommendDiv>
-      {JSON.stringify(tile.recommend) === 'true' ? 'X | I recommend this product' : null}
+      <GiGorilla size={30} />
+      {JSON.stringify(tile.recommend) === 'true' ? ' | Gorilla approved' : null}
     </RecommendDiv>
 
     {tile.response ? (

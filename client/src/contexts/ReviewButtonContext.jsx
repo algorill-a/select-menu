@@ -8,13 +8,6 @@ const ReviewButtonProvider = (props) => {
   const [toggle, setToggle] = useState(false);
   const [count, setCount] = useState(2);
 
-  const moreReviews = (array) => {
-    if (toggle) {
-      return array.slice(0, setCount(count + 2));
-    }
-    return array.slice(0, count);
-  };
-
   return (
     <ReviewButtonContext.Provider value={
       {

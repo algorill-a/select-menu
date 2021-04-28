@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import ReviewList from './ReviewList/ReviewList.jsx';
@@ -70,7 +70,7 @@ const Button = styled.button`
   border-radius: 15px;;
   box-shadow: 1px 3px 3px #5B5347;
   outline: 0;
-  &:hover {
+  &:active {
     background-color: #03fc07;
     border: 2px solid #91ff93;
     color: #c8f745;
