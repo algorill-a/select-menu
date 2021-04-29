@@ -34,7 +34,11 @@ const Li = styled.li`
   padding-top: .5vh;
   text-align: center;
   border: 2px solid black;
-  box-shadow: 3px 3px 3px #0d555f;
+  box-shadow: 3px 3px 3px grey;
+  &:hover {
+    border: 2px solid #00bee8;
+    box-shadow: 2px 5px 5px #00bee8;
+  }
 `;
 
 const SortingOptions = () => {

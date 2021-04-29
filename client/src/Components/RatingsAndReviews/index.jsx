@@ -74,9 +74,13 @@ const Button = styled.button`
   box-shadow: 1px 3px 3px #5B5347;
   outline: 0;
   &:active {
-    background-color: #03fc07;
-    border: 2px solid #91ff93;
-    color: #c8f745;
+    background-color: black;
+    color: white;
+    box-shadow: 1px 3px 3px #5F939A;
+  }
+  &:hover {
+    border: 2px solid #00bee8;
+    box-shadow: 2px 5px 5px #00bee8;
   }
 `;
 
@@ -108,7 +112,7 @@ const RatingsAndReviews = () => {
   const productId = currProduct.currProd;
 
   const getList = () => {
-    axios.get(`/api/reviews?product_id=${productId}`)
+    axios.get(`/api/reviews?product_id=${productId}&count=10`)
       .then((response) => setList(response.data.results))
       .catch((error) => console.log(error));
   };
@@ -150,7 +154,7 @@ const RatingsAndReviews = () => {
 
           <DivFour>
             <WriteNewReview />
-            <Button type="button" onClick={incrementCount}>Read More Reivews</Button>
+            <Button type="button" onClick={incrementCount}>Read More Reviews</Button>
             <Button type="button" onClick={toggleReviewModal}>Add Review</Button>
           </DivFour>
         </Container>

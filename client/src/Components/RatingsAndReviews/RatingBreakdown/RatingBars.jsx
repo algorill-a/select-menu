@@ -3,7 +3,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext.jsx';
-import { ReviewListContext } from '../Context/ReviewListContext.jsx';
+
+let percentage = [];
 
 const Ul = styled.div`
   padding-bottom: 20px;
@@ -38,18 +39,26 @@ const Percent = styled.div`
   color: grey;
 `;
 
-const PercentBar = styled.progress`
-  color: black;
-  background: yellow;
+const Progress = styled.div`
+  width: 90%;
+  border: 2px solid black;
+  position: relative;
+  padding: 3px;
 `;
 
-const Label = styled.label`
+const PercentBar = styled.span`
+  position: absolute;
+  left: 50%;
+`;
+
+const Bar = styled.div`
+    height: 20px;
+    background-color: #20afe3;
+    width: 30%;
 `;
 
 const RatingBars = () => {
   const [breakdown] = useContext(ReviewBreakdownContext);
-  const [list, setList] = useContext(ReviewListContext);
-  const [star, setStar] = useState(null);
   const [starRating, setStarRating] = useState(
     {
       1: '0',
@@ -59,22 +68,14 @@ const RatingBars = () => {
       5: '0',
     },
   );
-  const filterListByStar = (num) => {
-    setList(list.slice().filter((item) => item.rating === num));
-  };
 
-  const anon = (num) => {
-    setStar(num);
-    filterListByStar(num);
-  };
-
-  const getTotal = () => {
-    let total = 0;
-    Object.values(breakdown.ratings).forEach((value) => {
-      total += parseInt(value);
-    });
-    return total;
-  };
+  // const getTotal = () => {
+  //   let total = 0;
+  //   Object.values(breakdown.ratings).forEach((value) => {
+  //     total += parseInt(value);
+  //   });
+  //   return total;
+  // };
 
   const getPercentage = () => {
     let total = 0;
@@ -95,7 +96,8 @@ const RatingBars = () => {
     Object.values(breakdown.recommended).forEach((number) => {
       total += parseInt(number);
     });
-    return Math.floor((score / total) * 100);
+    const num = (score / total).toFixed(1);
+    return Math.floor(num * 100);
   };
 
   const changeStarRatings = () => {
@@ -104,10 +106,16 @@ const RatingBars = () => {
       setStarRating((prevRating) => ({ ...prevRating, [key]: value }));
     });
   };
+
+  const updatePercentage = (value) => {
+    percentage.push(getIndivPercentage(value));
+    return getIndivPercentage(value);
+  };
+
   useEffect(() => changeStarRatings(), []);
 
   return (
-    <>
+    <div>
       <Percent>
         {`${parseInt(getPercentage())}% recommend this product`}
       </Percent>
@@ -118,19 +126,26 @@ const RatingBars = () => {
           return (
             <Li key={Math.random()}>
               <Span>{key}</Span>
-              <Text onClick={console.log('hello')}>
-                Bananas
+              <Text>
+                Stars
               </Text>
-              <Label>
-                <PercentBar value={value} max={getTotal()} />
-                {` ${getIndivPercentage(parseFloat(value))}%`}
-              </Label>
+              <Progress>
+                <PercentBar>{`${getIndivPercentage(value)}%`}</PercentBar>
+                <Bar width={`30px`} />
+              </Progress>
             </Li>
           );
         })}
       </Ul>
-    </>
+    </div>
   );
 };
 
 export default RatingBars;
+
+// <PercentBar value={value} max={getTotal()} />
+//               {` ${getIndivPercentage(value)}%`};
+
+// console.log('this is number', number);
+// console.log('this is total', total);
+// console.log('this is score', score);

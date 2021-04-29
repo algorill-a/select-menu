@@ -3,7 +3,7 @@ import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import axios from 'axios';
-import { GiBananaPeeled, GiGorilla } from 'react-icons/gi';
+import { BsStarFill } from 'react-icons/bs';
 import { ReviewListContext } from '../Context/ReviewListContext.jsx';
 
 const Container = styled.div`
@@ -134,8 +134,8 @@ const ReviewTile = ({ tile }) => {
     <Container>
       <StarDiv>
         {[...Array(5)].map((star, i) => (
-          <GiBananaPeeled
-            color={(i) < tile.rating ? '#C7C709' : '#e4e5e9'}
+          <BsStarFill
+            color={(i) < tile.rating ? '#20afe3' : '#3d3d3d'}
             size={16}
             key={Math.floor(Math.random() * 10000)}
           />
@@ -159,7 +159,6 @@ const ReviewTile = ({ tile }) => {
       </Body>
 
       <RecommendDiv>
-        <GiGorilla size={30} />
         {JSON.stringify(tile.recommend) === 'true' ? ' | Gorilla approved' : null}
       </RecommendDiv>
 

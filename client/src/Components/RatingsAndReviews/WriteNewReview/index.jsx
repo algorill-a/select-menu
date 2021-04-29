@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable import/extensions */
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -8,7 +8,10 @@ import ReviewPartOne from './reviewOne/ReviewOne.jsx';
 import ReviewPartTwo from './ReviewTwo.jsx';
 import ReviewPartThree from './ReviewThree.jsx';
 import { WriteReviewContext } from '../Context/WriteNewReviewContext.jsx';
+import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext.jsx';
+import { ReviewListContext } from '../Context/ReviewListContext.jsx';
 import { ModalContext } from '../../../contexts/ModalContext.jsx';
+import { MainContext } from '../../../contexts/MainContextProvider.jsx';
 
 // Modal styled components
 const ModalWrapper = styled.div`
@@ -39,38 +42,63 @@ const ModalBox = styled.div`
   overflow-y: auto;
   background-color: white;
   box-shadow: 0 0 10px rgba(0,0,0,0.25);
-  z-index: 101;
+  z-index: 900;
   padding: 40px;
 `;
 
 const CloseIcon = styled.div`
-  text-align: right;
+  left: 90%;
+  position: absolute;
+  background-color: grey;
+  border: 2px solid black;
+  opacity: 0.33;
+  &: hover{
+    opacity: 1;
+  }
 `;
 
 const Button = styled.button`
   padding: 15px;
   margin: 15px;
-  color: #FDFF93;
-  background-color: rgba(26, 117, 62);
+  color: black;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 8px
+  background-color: #f2f2f2;
   font-size: 17px;
   font-weight: bold;
-  border: 2px solid #196838;
-  border-radius: 15px;;
+  border: 2px solid black;
   box-shadow: 1px 3px 3px #5B5347;
   outline: 0;
+  &:active {
+    background-color: black;
+    color: white;
+    box-shadow: 1px 3px 3px #5F939A;
+  }
 `;
 
 const WriteNewReview = () => {
   const { reviewData } = useContext(WriteReviewContext);
+  const [list, setList] = useContext(ReviewListContext);
+  const [breakdown, setBreakdown] = useContext(ReviewBreakdownContext);
+  const { currProduct } = useContext(MainContext);
   const { reviewDisplay, toggleReviewModal } = useContext(ModalContext);
   const [review, setReview] = reviewData;
+  const productId = currProduct.currProd;
 
-  const handlePostSubmit = () => axios({
-    method: 'post',
-    url: '/api/reviews',
-    data: review,
-  })
-    .then(() => setReview({
+  const getList = () => {
+    axios.get(`/api/reviews?product_id=${productId}&count=10`)
+      .then((response) => setList(response.data.results))
+      .catch((error) => console.log(error));
+  };
+
+  // const getBreakdown = () => {
+  //   axios.get(`/api/reviews/meta?product_id=${productId}`)
+  //     .then((response) => setBreakdown(response.data))
+  //     .catch((error) => console.log(error));
+  // };
+
+  const handlePostSuccess = () => {
+    setReview({
       product_id: null,
       rating: null,
       summary: '',
@@ -80,20 +108,34 @@ const WriteNewReview = () => {
       email: '',
       photos: [],
       characteristics: {},
-    }))
+    });
+    getList();
+  };
+
+  const handlePostSubmit = () => axios({
+    method: 'post',
+    url: '/api/reviews',
+    data: review,
+  })
+    .then(() => handlePostSuccess)
     .catch((error) => console.log(error));
+
+  const handleClick = () => {
+    handlePostSubmit();
+    toggleReviewModal();
+  };
+
+  useEffect(getList, [review]);
 
   return reviewDisplay ? (
     <ModalWrapper>
       <ModalBackdrop />
       <ModalBox>
-        <CloseIcon onClick={toggleReviewModal}><AiOutlineClose /></CloseIcon>
-        <form>
-          <ReviewPartOne />
-          <ReviewPartTwo />
-          <ReviewPartThree />
-          <Button type="button" onClick={handlePostSubmit}>Submit</Button>
-        </form>
+        <CloseIcon onClick={toggleReviewModal}><AiOutlineClose size={40} /></CloseIcon>
+        <ReviewPartOne />
+        <ReviewPartTwo />
+        <ReviewPartThree />
+        <Button type="button" onClick={handleClick}>Submit</Button>
       </ModalBox>
     </ModalWrapper>
   ) : null;

@@ -12,8 +12,10 @@ export const WriteReviewContext = createContext();
 
 const WriteReviewProvider = (props) => {
   const { currProduct } = useContext(MainContext);
+  const productId = currProduct.currProd;
+
   const [review, setReview] = useState({
-    product_id: currProduct.currProd,
+    product_id: productId,
     rating: null,
     summary: '',
     body: '',
@@ -78,15 +80,19 @@ const WriteReviewProvider = (props) => {
   };
 
   const getRequest = () => {
-    axios.get(`/api/reviews/meta?product_id=${review.product_id}`)
+    axios.get(`/api/reviews/meta?product_id=${currProduct.currProd}`)
       .then((response) => setReview({
         ...review,
         characteristics: changeReqChara(response.data.characteristics),
       }))
       .catch((error) => console.log(error));
+    console.log('this is review before', productId);
+    console.log('this is product id', currProduct.currProd);
+    console.log('this is review now', review);
+    console.log('this is review now', productId);
   };
 
-  useEffect(getRequest, []);
+  useEffect(getRequest, [productId]);
 
   return (
     <WriteReviewContext.Provider value={
