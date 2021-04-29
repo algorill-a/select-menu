@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Styled from 'styled-components';
 import {
   IoIosArrowBack, IoIosArrowForward, IoIosArrowUp, IoIosArrowDown
@@ -7,7 +7,7 @@ import {
 import { StyleContext } from './StyleContext.jsx';
 
 const ViewContainer = Styled.div`
-  height: 600px;
+  height: 690px;
   width: 50%;
   background: #E8E8E8;
   margin-left: 10%;
@@ -17,7 +17,6 @@ const ImagesOverlay = Styled.div`
   position: absolute;
   height: 75px;
   width: 75px;
-  // margin: 0 auto;
 `;
 
 const Image = Styled.img`
@@ -28,7 +27,7 @@ const Image = Styled.img`
   z-index: 10;
   right: 420%;
   left: 20px;
-  top: 20px;
+  top: 23px;
   border-radius: 0.12em;
   cursor: pointer;
   opacity: 55%;
@@ -40,10 +39,8 @@ const Image = Styled.img`
 const UpArrow = Styled.button`
   cursor: pointer;
   position: absolute;
-  right: 392%;
   z-index: 10;
-  left: 12.8%;
-  top: 60px;
+  left: 33px;
   width: 50px;
   opacity: 30%;
   :hover {
@@ -54,10 +51,9 @@ const UpArrow = Styled.button`
 const DownArrow = Styled.button`
   cursor: pointer;
   position: absolute;
-  right: 392%;
   z-index: 10;
-  left: 12.8%;
-  top: 650px;
+  left: 33px;
+  top: 575px;
   width: 50px;
   opacity: 30%;
   :hover {
@@ -66,10 +62,7 @@ const DownArrow = Styled.button`
 `;
 
 const DefaultViewContainer = Styled.div`
-  height: 600px;
-  // position: relative;
-  // border-radius: 10px;
-  // background: lightgreen;
+  height: 690px;
 `;
 
 const DefaultView = Styled.ul`
@@ -86,14 +79,14 @@ const DefaultViewSlide = Styled.li`
 
 const DefaultViewImage = Styled.img`
   width: 100%;
-  height: 600px;
+  height: 690px;
   border-radius: 0.12em;
   object-fit: cover;
 `;
 
 const RightArrow = Styled.button`
   position: absolute;
-  top: 360px;
+  top: 390px;
   right: 38%;
   color: black;
   z-index: 10;
@@ -108,7 +101,7 @@ const RightArrow = Styled.button`
 
 const LeftArrow = Styled.button`
   position: absolute;
-  top: 360px;
+  top: 390px;
   left: 8.2%;
   color: black;
   z-index: 10;
@@ -123,9 +116,8 @@ const LeftArrow = Styled.button`
 
 const Gallery = () => {
   const { currentStylePhotos, currentImage, setCurrentImage } = useContext(StyleContext);
-  const [thumbnailIndex, setThumbnailIndex] = useState(0);
-  const [showStart, setShowStart] = useState(false);
-  const [showEnd, setShowEnd] = useState(true);
+  const [showUpArrow, setShowUpArrow] = useState(false);
+  const [showDownArrow, setShowDownArrow] = useState(false);
 
   const previousImage = () => {
     setCurrentImage(currentImage === 0 ? currentStylePhotos.length - 1 : currentImage - 1);
@@ -140,59 +132,73 @@ const Gallery = () => {
   };
 
   const prevThumbnail = () => {
-    const start = thumbnailIndex === 0;
+    const start = currentImage === 0;
     if (!start) {
-      setShowStart(true);
-      setShowEnd(true);
-      const index = thumbnailIndex - 1;
-      setThumbnailIndex(index);
+      setShowUpArrow(true);
+      setShowDownArrow(true);
+      const index = currentImage - 1;
+      setCurrentImage(index);
     } else {
-      setShowStart(false);
+      setShowUpArrow(false);
     }
   };
 
   const nextThumbnail = () => {
-    const end = thumbnailIndex + 7 === currentStylePhotos.length - 1;
+    const end = currentImage + 7 === currentStylePhotos.length;
     if (!end) {
-      setShowStart(true);
-      setShowEnd(false);
-      const index = thumbnailIndex + 1;
-      setThumbnailIndex(index);
+      setShowUpArrow(true);
+      setShowDownArrow(true);
+      const index = currentImage + 1;
+      setCurrentImage(index);
     } else {
-      setShowEnd(false);
+      setShowDownArrow(false);
     }
   };
 
-  const photo = (currentStylePhotos !== null)
-    ? currentStylePhotos.map((image, index) => (
-      <DefaultViewSlide key={index}>
-        {index === currentImage
-        && (<DefaultViewImage src={image.url} alt={image} key={index} />)}
+  const photo = (currentStylePhotos.length !== 0)
+    ? currentStylePhotos.map((image) => (
+      <DefaultViewSlide key={image.index}>
+        {image.index === currentImage
+        && (<DefaultViewImage src={image.url} alt={image} key={image.index} />)}
       </DefaultViewSlide>
-    )) : <Image src="../../dist/gorilla.gif" />;
+    )) : <Image />;
 
-  const activeThumbnails = currentStylePhotos.slice(thumbnailIndex,
-    thumbnailIndex + 7);
+  const activeThumbnails = (currentStylePhotos.length < 7) ? currentStylePhotos : (currentStylePhotos.length - 7 > currentImage ? currentStylePhotos.slice(currentImage,
+    currentImage + 7) : currentStylePhotos.slice(currentStylePhotos.length - 7, currentStylePhotos.length));
+
   // const thumbnailsToDisplay = activeThumbnails.length < 7
   //   ? [...activeThumbnails,
   //     ...currentStylePhotos.slice(0, 7 - activeThumbnails.length)] : activeThumbnails;
+
+  useEffect(() => {
+    if (currentStylePhotos.length > 7) {
+      setShowDownArrow(true);
+    }
+  }, [currentStylePhotos]);
 
   return (
     <ViewContainer>
       <LeftArrow onClick={previousImage}><IoIosArrowBack /></LeftArrow>
       <RightArrow onClick={nextImage}><IoIosArrowForward /></RightArrow>
       <DefaultViewContainer>
-        {showStart ? <UpArrow onClick={prevThumbnail}><IoIosArrowUp /></UpArrow> : null}
         <ImagesOverlay>
-          {activeThumbnails.map((thumbnail, index) => (
+          {showUpArrow ? <UpArrow onClick={prevThumbnail}><IoIosArrowUp /></UpArrow> : null}
+          {activeThumbnails.map((thumbnail) => (
             <Image
               src={thumbnail.thumbnail_url}
-              key={thumbnail.thumbnail_url}
-              onClick={() => updateDefaultView(index)}
+              key={thumbnail.index}
+              onClick={() => updateDefaultView(thumbnail.index)}
             />
           ))}
+          {showDownArrow
+            ? (
+              <DownArrow
+                onClick={nextThumbnail}
+              >
+                <IoIosArrowDown />
+              </DownArrow>
+            ) : null }
         </ImagesOverlay>
-        {showEnd ? <DownArrow onClick={nextThumbnail}><IoIosArrowDown /></DownArrow> : null }
         <DefaultView>
           {photo}
         </DefaultView>

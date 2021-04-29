@@ -34,14 +34,6 @@ const Rating = Styled.div`
   bottom: 0;
 `;
 
-const Pinterest = Styled.a`
-  display: block;
-`;
-
-const Twitter = Styled.a`
-  display: block;
-`;
-
 const ProductInfo = () => {
   const { prodInfo } = useContext(ProductsContext);
   const { currentProduct, currentStyle, currentRating } = useContext(StyleContext);
@@ -61,9 +53,13 @@ const ProductInfo = () => {
       });
   }, [currentStyle]);
 
+  const reviewClickHandler = () => {
+    <a href="ratings">Go to Ratings</a>;
+  };
+
   return (
     <ProductInfoContainer>
-      <Rating>{[...Array(5)].map((star, index) => <GiBananaPeeled size={25} color={index <= currentRating ? '#BEDF7C' : '#808080'} value={index} />)}</Rating>
+      <Rating onClick={reviewClickHandler}>{[...Array(5)].map((star, index) => <GiBananaPeeled size={25} color={index <= currentRating ? '#BEDF7C' : '#808080'} value={index} />)}</Rating>
       <div>{prodInfo !== null ? prodInfo.productCategory : null}</div>
       <h1>{prodInfo !== null ? prodInfo.productTitle : null}</h1>
       <div>
@@ -73,22 +69,6 @@ const ProductInfo = () => {
             <Sale>{price.sale}</Sale>
           </>
         ) : <Original>{price.price}</Original>}
-      </div>
-      <div
-        style={{ display: 'block' }}
-        className="fb-share-button"
-        data-href="http://localhost:1337/"
-        data-layout="button"
-        data-size="large"
-      >
-        <a
-          target="_blank"
-          rel="noreferrer"
-          href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A1337%2F&amp;src=sdkpreparse"
-          className="fb-xfbml-parse-ignore"
-        >
-          Share
-        </a>
       </div>
       <a
         style={{ display: 'block' }}
@@ -100,13 +80,16 @@ const ProductInfo = () => {
         Tweet
       </a>
       <script async src="https://platform.twitter.com/widgets.js" charset="utf-8" />
+      <a
+        style={{ display: 'block' }}
+        data-pin-do="buttonBookmark"
+        data-pin-tall="true"
+        href="https://www.pinterest.com/pin/create/button/"
+      >
+        Save
+      </a>
     </ProductInfoContainer>
   );
 };
 
 export default ProductInfo;
-
-// Product Category - product
-// Product Title/Name - product
-// Price - style
-// Information/Overview - product

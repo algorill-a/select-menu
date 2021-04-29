@@ -6,9 +6,8 @@ import { MainContext } from '../../contexts/MainContextProvider.jsx';
 
 const StylesContainer = Styled.div`
   position: absolute;
-  top: 300px;
+  top: 350px;
   left: 65%;
-  z-index: 10;
 `;
 
 const ThumbnailContainer = Styled.button`
@@ -30,7 +29,7 @@ const Thumbnail = Styled.img`
   cursor: pointer;
 `;
 
-const StyleName = Styled.h2`
+const StyleName = Styled.h3`
   font-family: 'Montserrat', sans-serif;
 `;
 
@@ -42,13 +41,11 @@ const StyleSelector = () => {
     setCurrentStyleName,
     currentStyleName,
   } = useContext(StyleContext);
-  const { currProduct } = useContext(MainContext);
-  const { changeProduct } = useContext(MainContext);
+  const { currProduct, changeProduct } = useContext(MainContext);
 
   return (
     <StylesContainer>
-
-      <StyleName>{currentStyleName}</StyleName>
+      <StyleName>{`Style > ${currentStyleName}`}</StyleName>
       {(allStyles !== null) ? allStyles.map((photo) => (
         <ThumbnailContainer key={photo.style_id}>
           <Thumbnail
@@ -59,29 +56,13 @@ const StyleSelector = () => {
                 changeProduct({ currProd: currProduct.currProd, currStyle: photo.style_id });
                 setCurrentStyleName(photo.name);
                 setCurrentStyle(photo.style_id);
-                // setCurrentImage(0);
               }
             }}
           />
         </ThumbnailContainer>
-      )) : <img src="../../dist/gorilla.gif" alt="" /> }
+      )) : null }
     </StylesContainer>
   );
 };
 
 export default StyleSelector;
-
-// const selectors = [
-//   [0, 0, 0, 0],
-//   [0, 0, 0, 0],
-// ];
-
-// styles.forEach((photo) => {
-//   selectors.forEach((row) => {
-//     row.forEach((spot) => {
-//       if (spot === 0) {
-//         row[spot] = photo
-//       }
-//     })
-//   }
-// })
