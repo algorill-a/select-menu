@@ -18,19 +18,18 @@ const Percent = styled.div`
 
 const RatingBars = () => {
   const [breakdown] = useContext(ReviewBreakdownContext);
-  const [starRating, setStarRating] = useState(
-    {
+  const [starRating, setStarRating] = useState({});
+  const changeStarRatings = () => {
+    setStarRating({
       1: '0',
       2: '0',
       3: '0',
       4: '0',
       5: '0',
-    },
-  );
-  const changeStarRatings = () => {
+    });
+
     Object.entries(breakdown.ratings).forEach((entry) => {
       const [key, value] = entry;
-      console.log('this is ratings', breakdown.ratings);
       setStarRating((prevRating) => ({ ...prevRating, [key]: value }));
     });
   };
@@ -57,6 +56,7 @@ const RatingBars = () => {
     const num = (score / total).toFixed(1);
     return Math.floor(num * 100);
   };
+
   useEffect(changeStarRatings, [breakdown]);
 
   return (
