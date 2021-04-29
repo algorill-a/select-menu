@@ -86,10 +86,6 @@ const WriteReviewProvider = (props) => {
         characteristics: changeReqChara(response.data.characteristics),
       }))
       .catch((error) => console.log(error));
-    console.log('this is review before', productId);
-    console.log('this is product id', currProduct.currProd);
-    console.log('this is review now', review);
-    console.log('this is review now', productId);
   };
 
   useEffect(getRequest, [productId]);

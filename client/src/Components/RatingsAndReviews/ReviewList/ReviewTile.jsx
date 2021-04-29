@@ -100,8 +100,6 @@ const Bold = styled.div`
 `;
 
 const ReviewTile = ({ tile }) => {
-  const [helpfulToggle, setHelpfulToggle] = useState(true);
-  const [reportToggle, setReportToggle] = useState(true);
   const [list, setList] = useContext(ReviewListContext);
 
   const putHelpfulRequest = () => {
