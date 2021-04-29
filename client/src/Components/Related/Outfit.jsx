@@ -63,11 +63,11 @@ const Rating = styled.div`
 `;
 
 const Outfit = ({ outfit }) => {
-  const { removeOutfit } = useContext(OutfitContext);
+  const { dispatch } = useContext(OutfitContext);
   //
   return (
     <CardContainer>
-      <StarIcon onClick={() => removeOutfit(outfit.prodStyleId)}><AiOutlineClose /></StarIcon>
+      <StarIcon onClick={() => dispatch({ type: 'REMOVE_OUTFIT', value: outfit.prodStyleId })}><AiOutlineClose /></StarIcon>
       <ProductImage src={outfit.imageUrl} alt="" />
       <ProductCategory>
         <div>{outfit.prodCategory}</div>
