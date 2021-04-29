@@ -49,6 +49,7 @@ const Label = styled.label`
 const RatingBars = () => {
   const [breakdown] = useContext(ReviewBreakdownContext);
   const [list, setList] = useContext(ReviewListContext);
+  const [star, setStar] = useState(null);
   const [starRating, setStarRating] = useState(
     {
       1: '0',
@@ -58,10 +59,13 @@ const RatingBars = () => {
       5: '0',
     },
   );
-
   const filterListByStar = (num) => {
     setList(list.slice().filter((item) => item.rating === num));
-    console.log(list);
+  };
+
+  const anon = (num) => {
+    setStar(num);
+    filterListByStar(num);
   };
 
   const getTotal = () => {
@@ -114,7 +118,9 @@ const RatingBars = () => {
           return (
             <Li key={Math.random()}>
               <Span>{key}</Span>
-              <Text onClick={() => filterListByStar(key)}>Bananas</Text>
+              <Text onClick={console.log('hello')}>
+                Bananas
+              </Text>
               <Label>
                 <PercentBar value={value} max={getTotal()} />
                 {` ${getIndivPercentage(parseFloat(value))}%`}

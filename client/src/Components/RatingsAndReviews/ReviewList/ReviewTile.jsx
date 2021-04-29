@@ -1,15 +1,10 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import axios from 'axios';
 import { GiBananaPeeled, GiGorilla } from 'react-icons/gi';
-
-// grid-template-area:
-//   'banana-user-date'
-//   'summary'
-//   'body'
-//   'heplful';
+import { ReviewListContext } from '../Context/ReviewListContext.jsx';
 
 const Container = styled.div`
   display: grid;
@@ -79,9 +74,23 @@ const HelpfulDiv = styled.div`
     font-size: 10px;
   `;
 
+const Help = styled.span`
+  &:hover {
+    border-bottom: 1.5px solid black;
+    width: 80px;
+  }
+`;
+
+const Report = styled.span`
+  &:hover {
+    border-bottom: 1.5px solid black;
+    width: 80px;
+  }
+`;
+
 const Span = styled.span`
     padding-right: 10px;
-    font-size: bold;
+    font-weight: bold;
   `;
 
 const Bold = styled.div`
@@ -91,13 +100,34 @@ const Bold = styled.div`
 `;
 
 const ReviewTile = ({ tile }) => {
-  const putRequest = () => {
+  const [helpfulToggle, setHelpfulToggle] = useState(true);
+  const [reportToggle, setReportToggle] = useState(true);
+  const [list, setList] = useContext(ReviewListContext);
+
+  const putHelpfulRequest = () => {
     axios({
       method: 'put',
       url: `/api/reviews/${tile.review_id}/helpful`,
     })
-      .then(() => console.log('needs to be a set state'))
+      .then(() => console.log('successful helpful'))
       .catch(() => console.log('fail'));
+  };
+
+  const putReportRequest = () => {
+    axios({
+      method: 'put',
+      url: `/api/reviews/${tile.review_id}/report`,
+    })
+      .then(() => console.log('successful report'))
+      .catch(() => console.log('fail'));
+  };
+
+  const handleHelpfulClick = () => {
+    putHelpfulRequest();
+  };
+
+  const handleReportClick = () => {
+    putReportRequest();
   };
 
   return (
@@ -142,11 +172,12 @@ const ReviewTile = ({ tile }) => {
 
       <HelpfulDiv>
         <Span>Helpful?</Span>
-        <div onClick={putRequest} role="button" aria-hidden="true">
-          Yes(
-          {tile.helpfulness}
-          )
-        </div>
+        <Help onClick={handleHelpfulClick} role="button" aria-hidden="true">
+          Yes
+          <span>{`(${tile.helpfulness})`}</span>
+        </Help>
+        |
+        <Report onClick={handleReportClick} role="button" aria-hidden="true">Report</Report>
       </HelpfulDiv>
 
     </Container>
