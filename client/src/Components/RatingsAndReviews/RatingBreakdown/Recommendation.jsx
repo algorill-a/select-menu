@@ -63,7 +63,12 @@ const Recommendation = () => {
           <Container>
             <Key>{key}</Key>
             <br />
-            <Banana><GiBananaPeeled size={30} /></Banana>
+            <Banana>
+              <GiBananaPeeled
+                size={30}
+                key={Math.floor(Math.random() * 10000)}
+              />
+            </Banana>
             <Score>{parseFloat(value.value).toFixed(1)}</Score>
           </Container>
         );

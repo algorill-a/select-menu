@@ -62,6 +62,7 @@ const RatingSummary = () => {
               color={(i + 1)
               < getAverage(breakdown.ratings) ? '#C7C709' : '#818176'}
               size={30}
+              key={Math.floor(Math.random() * 10000)}
             />
           ))}
         </BananaDiv>

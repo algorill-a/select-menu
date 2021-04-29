@@ -33,6 +33,7 @@ const EmptyContainer = styled.div`
   margin: 0px;
   border: 1px solid black;
   font-family: 'Montserrat',sans-serif;
+  letter-spacing: 4px;
 `;
 
 const Title = styled.h3`
@@ -41,29 +42,20 @@ const Title = styled.h3`
   margin-top: 5em;
   margin-left: 8em;
 `;
-
-const NoReviews = styled.div`
-  grid-area: 1 / 2 / 2 / 3;
-`;
-
-const Img = styled.img`
-  background-size: cover;
-  border-radius: 15px;
-  box-shadow: 2px 4px 6px green;
-  width: 80%;
-  height: 50%;
-  z-index: -1;
-`;
-
 const TextContainer = styled.div`
-  position: relative;
+  grid-area: 1 / 1 / 2 / 2;
   font-size: 3em;
-  left: 25%;
-  top: 45%;
-  font-family: Helvetica;
-  color: white;
-  text-shadow: 2px 2px 3px black;
+  font-weight: bold;
+  color: #0d555f;
 `;
+
+// const Img = styled.img`
+//   grid-area: 1 / 2 / 2 / 3;
+//   left: 50%;
+//   width: 50vw;
+//   height: 60vh;
+//   z-index: -1;
+// `;
 
 const Text = styled.div``;
 const Text2 = styled.div``;
@@ -132,14 +124,11 @@ const RatingsAndReviews = () => {
     if (list.length === 0) {
       return (
         <EmptyContainer>
-          <NoReviews>
-            <TextContainer>
-              <Text>Looks like there are</Text>
-              <Text2>no reviews</Text2>
-              <Text3>for this product</Text3>
-            </TextContainer>
-            <Img src="./monkey.gif" alt="" />
-          </NoReviews>
+          <TextContainer>
+            <Text>Looks like there are</Text>
+            <Text2>no reviews</Text2>
+            <Text3>for this product</Text3>
+          </TextContainer>
         </EmptyContainer>
       );
     }

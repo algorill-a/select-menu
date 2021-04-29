@@ -89,7 +89,7 @@ const WriteNewReview = () => {
       <ModalBox>
         <CloseIcon onClick={toggleReviewModal}><AiOutlineClose /></CloseIcon>
         <form>
-          <ReviewPartOne onClick={() => console.log(review)} />
+          <ReviewPartOne />
           <ReviewPartTwo />
           <ReviewPartThree />
           <Button type="button" onClick={handlePostSubmit}>Submit</Button>

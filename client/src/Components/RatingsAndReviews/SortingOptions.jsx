@@ -22,13 +22,13 @@ const Ul = styled.ul`
   font-weight: 900;
   font-size: 2em;
   letter-spacing: 4px;
-  color: #5F939A;
+  color: black;
 `;
 
 const Li = styled.li`
   font-family: 'Montserrat', sans-serif;
   letter-spacing: 4px
-  color: #5F939A;
+  color: black;
   display: inline;
   width: 90%;
   padding-top: .5vh;
@@ -49,8 +49,9 @@ const SortingOptions = () => {
   };
 
   const filterByRelevance = () => {
-    console.log(list);
-    setList(list.slice());
+    setList(list.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
+      .sort((a, b) => (b.date === a.date
+        ? (b.helpfulness - a.helpfulness) : null)));
   };
 
   return (

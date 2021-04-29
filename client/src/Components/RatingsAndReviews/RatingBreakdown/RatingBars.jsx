@@ -3,6 +3,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext.jsx';
+import { ReviewListContext } from '../Context/ReviewListContext.jsx';
 
 const Ul = styled.div`
   padding-bottom: 20px;
@@ -47,6 +48,7 @@ const Label = styled.label`
 
 const RatingBars = () => {
   const [breakdown] = useContext(ReviewBreakdownContext);
+  const [list, setList] = useContext(ReviewListContext);
   const [starRating, setStarRating] = useState(
     {
       1: '0',
@@ -56,6 +58,11 @@ const RatingBars = () => {
       5: '0',
     },
   );
+
+  const filterListByStar = (num) => {
+    setList(list.slice().filter((item) => item.rating === num));
+    console.log(list);
+  };
 
   const getTotal = () => {
     let total = 0;
@@ -82,8 +89,7 @@ const RatingBars = () => {
   const getIndivPercentage = (score) => {
     let total = 0;
     Object.values(breakdown.recommended).forEach((number) => {
-      const [value] = number;
-      total += parseInt(value);
+      total += parseInt(number);
     });
     return Math.floor((score / total) * 100);
   };
@@ -108,10 +114,10 @@ const RatingBars = () => {
           return (
             <Li key={Math.random()}>
               <Span>{key}</Span>
-              <Text>Bananas</Text>
+              <Text onClick={() => filterListByStar(key)}>Bananas</Text>
               <Label>
                 <PercentBar value={value} max={getTotal()} />
-                {` ${getIndivPercentage(parseFloat(value).toFixed(1))}%`}
+                {` ${getIndivPercentage(parseFloat(value))}%`}
               </Label>
             </Li>
           );
