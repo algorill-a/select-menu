@@ -3,16 +3,20 @@
 /* eslint-disable react/destructuring-assignment */
 import React, {
   createContext,
-  useState,
+  useReducer,
   useContext,
   useEffect,
 } from 'react';
 import { MainContext } from './MainContextProvider.jsx';
+import { outfitReducer } from '../reducers/outfitReducer.jsx';
 
 export const OutfitContext = createContext();
 
 const OutfitContextProvider = (props) => {
-  const [outfitList, setOutfitList] = useState([]);
+  const [outfitList, dispatch] = useReducer(outfitReducer, [], () => {
+    const localData = localStorage.getItem('outfit');
+    return localData ? JSON.parse(localData) : [];
+  });
   const { currProduct } = useContext(MainContext);
 
   useEffect(() => {
@@ -22,13 +26,7 @@ const OutfitContextProvider = (props) => {
   const addToOutfit = (product) => {
     outfitList.push(product);
     const unique = [...new Map(outfitList.map((outfit) => [outfit.prodStyleId, outfit])).values()];
-    setOutfitList(unique);
-    const localData = localStorage.getItem('outfit');
-    return localData ? JSON.parse(localData) : [];
-  };
-
-  const removeOutfit = (product) => {
-    setOutfitList(outfitList.filter(({ prodStyleId }) => prodStyleId !== product));
+    dispatch({ type: 'ADD_OUTFIT', value: unique });
   };
 
   const getProducts = (endpoint) => fetch(`api/${endpoint}`)
@@ -58,8 +56,8 @@ const OutfitContextProvider = (props) => {
     <OutfitContext.Provider value={{
       outfitList,
       addToOutfit,
-      removeOutfit,
       addToOutfitCard,
+      dispatch,
     }}
     >
       {props.children}

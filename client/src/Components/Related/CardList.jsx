@@ -87,11 +87,11 @@ const CardList = () => {
   let productId;
   let ratings = 0;
   let sum = 0;
-
+  // card states
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [showStart, setShowStart] = useState(false);
   const [showEnd, setShowEnd] = useState(true);
-
+  // outfit states
   const [currentOutfitIndex, setCurrentOutfitIndex] = useState(0);
   const [showOutfitStart, setShowOutfitStart] = useState(false);
   const [showOutfitEnd, setShowOutfitEnd] = useState(true);
@@ -173,7 +173,7 @@ const CardList = () => {
   };
 
   const nextOutfit = () => {
-    const end = currentOutfitIndex + 3 === outfitList.length - 1;
+    const end = currentOutfitIndex + 2 === outfitList.length - 1;
     if (!end) {
       setShowOutfitStart(true);
       setShowOutfitEnd(true);
