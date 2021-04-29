@@ -14,6 +14,8 @@ app.get('/api/*', controllers.get);
 
 app.post('/api/*', controllers.post);
 
+app.put('/api/*', controllers.put);
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });

@@ -1,14 +1,10 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
-import { GiBananaPeeled, GiGorilla } from 'react-icons/gi';
-
-// grid-template-area:
-//   'banana-user-date'
-//   'summary'
-//   'body'
-//   'heplful';
+import axios from 'axios';
+import { BsStarFill } from 'react-icons/bs';
+import { ReviewListContext } from '../Context/ReviewListContext.jsx';
 
 const Container = styled.div`
   display: grid;
@@ -24,7 +20,8 @@ const Container = styled.div`
 const StarDiv = styled.div`
   grid-area: 1 / 1 / 2 / 2;
   padding-top: 10px;
-  font-family: Helvetica;
+  font-family: 'Montserrat',sans-serif;
+  letter-spacing: 4px;
   float: left;
 `;
 
@@ -34,30 +31,35 @@ const UserNameDiv = styled.div`
 
 const UserTimeDiv = styled.div`
     grid-area: grid 1 / 3 / 2 / 4;
-    font-family: Helvetica;
+    font-family: 'Montserrat',sans-serif;
+    letter-spacing: 4px;
     float: right;
     font-size: 12px;
   `;
 
 const Summary = styled.div`
     grid-area: 2 / 1 / 3 / 4;
-    font-family: Helvetica;
-    font-size: 20px;
-    font-weight: bold;
-    color: #341D02;
+    font-family: 'Montserrat',sans-serif;
+    letter-spacing: 4px;
+    font-size: 30px;
+    font-weight: 900;
+    color: black;
   `;
 
 const Body = styled.div`
     grid-area: 3 / 1 / 4 / 4;
-    font-family: Helvetica;
+    font-family: 'Montserrat',sans-serif;
+    letter-spacing: 4px;
     font-size: 13px;
   `;
 const RecommendDiv = styled.div`
-    font-family: 'Helvetica';
+    font-family: 'Montserrat',sans-serif;
+    letter-spacing: 4px;
     grid-area: 4 / 1 / 5 / 4;
   `;
 const ResponseDiv = styled.div`
-    font-family: Helvetica;
+    font-family: 'Montserrat',sans-serif;
+    letter-spacing: 4px;
     grid-area: 5 / 1 / 6 / 4;
     font-size: 13px;
     background-color: rgba(124, 155, 123, 0.3);
@@ -65,15 +67,30 @@ const ResponseDiv = styled.div`
   `;
 
 const HelpfulDiv = styled.div`
-    font-family: Helvetica;
+    font-family: 'Montserrat',sans-serif;
+    letter-spacing: 4px;
     grid-area: 6 / 1 / 7 /  4;
     font-weight: 100;
     font-size: 10px;
   `;
 
+const Help = styled.span`
+  &:hover {
+    border-bottom: 1.5px solid black;
+    width: 80px;
+  }
+`;
+
+const Report = styled.span`
+  &:hover {
+    border-bottom: 1.5px solid black;
+    width: 80px;
+  }
+`;
+
 const Span = styled.span`
     padding-right: 10px;
-    font-size: bold;
+    font-weight: bold;
   `;
 
 const Bold = styled.div`
@@ -82,54 +99,85 @@ const Bold = styled.div`
   color: rgba(26, 117, 62);
 `;
 
-const ReviewTile = ({ tile }) => (
-  <Container>
+const ReviewTile = ({ tile }) => {
+  const [list, setList] = useContext(ReviewListContext);
 
-    <StarDiv>
-      {[...Array(5)].map((star, i) => (
-        <GiBananaPeeled
-          color={(i + 1) < tile.rating ? '#C7C709' : '#e4e5e9'}
-          size={16}
-        />
-      ))}
-    </StarDiv>
+  const putHelpfulRequest = () => {
+    axios({
+      method: 'put',
+      url: `/api/reviews/${tile.review_id}/helpful`,
+    })
+      .then(() => console.log('successful helpful'))
+      .catch(() => console.log('fail'));
+  };
 
-    <UserNameDiv>
-      {tile.reviewer_name}
-    </UserNameDiv>
+  const putReportRequest = () => {
+    axios({
+      method: 'put',
+      url: `/api/reviews/${tile.review_id}/report`,
+    })
+      .then(() => console.log('successful report'))
+      .catch(() => console.log('fail'));
+  };
 
-    <UserTimeDiv>
-      {moment(tile.date).format('MMMM Do YYYY')}
-    </UserTimeDiv>
+  const handleHelpfulClick = () => {
+    putHelpfulRequest();
+  };
 
-    <Summary>
-      {tile.summary}
-    </Summary>
+  const handleReportClick = () => {
+    putReportRequest();
+  };
 
-    <Body>
-      {tile.body}
-    </Body>
+  return (
+    <Container>
+      <StarDiv>
+        {[...Array(5)].map((star, i) => (
+          <BsStarFill
+            color={(i) < tile.rating ? '#20afe3' : '#3d3d3d'}
+            size={16}
+            key={Math.floor(Math.random() * 10000)}
+          />
+        ))}
+      </StarDiv>
 
-    <RecommendDiv>
-      <GiGorilla size={30} />
-      {JSON.stringify(tile.recommend) === 'true' ? ' | Gorilla approved' : null}
-    </RecommendDiv>
+      <UserNameDiv>
+        {tile.reviewer_name}
+      </UserNameDiv>
 
-    {tile.response ? (
-      <ResponseDiv>
-        <Bold>Response:</Bold>
-        {tile.response}
-      </ResponseDiv>
-    ) : null}
+      <UserTimeDiv>
+        {moment(tile.date).format('MMMM Do YYYY')}
+      </UserTimeDiv>
 
-    <HelpfulDiv>
-      <Span>Helpful?</Span>
-      Yes
-      (
-      {tile.helpfulness}
-      )
-    </HelpfulDiv>
+      <Summary>
+        {tile.summary}
+      </Summary>
 
-  </Container>
-);
+      <Body>
+        {tile.body}
+      </Body>
+
+      <RecommendDiv>
+        {JSON.stringify(tile.recommend) === 'true' ? ' | Gorilla approved' : null}
+      </RecommendDiv>
+
+      {tile.response ? (
+        <ResponseDiv>
+          <Bold>Response:</Bold>
+          {tile.response}
+        </ResponseDiv>
+      ) : null}
+
+      <HelpfulDiv>
+        <Span>Helpful?</Span>
+        <Help onClick={handleHelpfulClick} role="button" aria-hidden="true">
+          Yes
+          <span>{`(${tile.helpfulness})`}</span>
+        </Help>
+        |
+        <Report onClick={handleReportClick} role="button" aria-hidden="true">Report</Report>
+      </HelpfulDiv>
+
+    </Container>
+  );
+};
 export default ReviewTile;

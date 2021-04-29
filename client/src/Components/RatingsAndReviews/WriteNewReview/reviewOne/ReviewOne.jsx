@@ -6,15 +6,16 @@ import Characteristics from './Characteristics.jsx';
 import OverallRating from './OverallRating.jsx';
 import Recommend from './Recommend.jsx';
 
-const Container = styled.div`
+const Container = styled.fieldset`
   display: grid;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 4px;
   grid-template-columns: repeate(2, 1fr);
   grid-template-rows: 1fr 4fr;
   grid-column-gap: 30px;
   grid-row-gap: 30px;
   width: 60vw;
   height: 50vh;
-  border: 4px solid red;
 `;
 
 // const FirstTwoDivs = styled.div`

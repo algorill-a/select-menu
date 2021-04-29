@@ -16,7 +16,7 @@ const RatingBreakdown = () => {
       .then((response) => setBreakdown(response.data))
       .catch((error) => console.log(error));
   };
-  useEffect(getBreakdown, []);
+  useEffect(getBreakdown, [productId]);
 
   if (JSON.stringify(breakdown) === '{}') {
     return (
