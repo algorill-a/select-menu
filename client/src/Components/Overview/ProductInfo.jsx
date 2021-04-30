@@ -7,10 +7,12 @@ import { ProductsContext } from './ProductsContext.jsx';
 import { StyleContext } from './StyleContext.jsx';
 
 const ProductInfoContainer = Styled.div`
-  position: absolute;
-  left: 65%;
-  top: 100px;
   font-family: 'Montserrat', sans-serif;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: .75fr .5fr 1.5fr .75fr repeat(2, .5fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
 `;
 
 const Original = Styled.div`
@@ -37,14 +39,6 @@ const Rating = Styled.div`
   z-index: 1;
 `;
 
-const Pinterest = Styled.a`
-  display: block;
-`;
-
-const Twitter = Styled.a`
-  display: block;
-`;
-
 const FullStars = Styled.span`
   position: relative;
   opacity: 50%;
@@ -60,10 +54,12 @@ const Star = Styled.span`
         : 'rect(0px, 25px, 25px, 0px)')}
 `;
 
-const ProductInfo = () => {
+const ProductInfo = (props) => {
   const { prodInfo } = useContext(ProductsContext);
   const { currentProduct, currentStyle, currentRating } = useContext(StyleContext);
   const [price, setPrice] = useState({ price: null, salesPrice: null });
+  // eslint-disable-next-line react/prop-types
+  const { focus } = props;
 
   // average rating
   const fullStarCount = Math.floor(currentRating);
@@ -83,15 +79,22 @@ const ProductInfo = () => {
       });
   }, [currentStyle]);
 
+  // const reviewClickHandler = () => {
+  //   <a href="ratings">Go to Ratings</a>;
+  //   focus();
+  // };
+
   return (
     <ProductInfoContainer>
-      <FullStars>{[...Array(5)].map((star, index) => <GiBananaPeeled size={25} color="#3d3d3d" key={index} />)}</FullStars>
-      <Rating>
-        {fullStarCount > 0 ? ([...Array(fullStarCount)].map((star, index) => <GiBananaPeeled size={25} color="#20afe3" key={index} />)) : null}
-        {percentStar > 0 ? (<Star star={fullStarCount} percent={percentStar}><GiBananaPeeled size={25} color="#20afe3" /></Star>) : null}
-      </Rating>
+      <div>
+        <FullStars>{[...Array(5)].map((star, index) => <GiBananaPeeled size={25} color="#3d3d3d" key={index} />)}</FullStars>
+        <Rating onClick={focus}>
+          {fullStarCount > 0 ? ([...Array(fullStarCount)].map((star, index) => <GiBananaPeeled size={25} color="#20afe3" key={index} />)) : null}
+          {percentStar > 0 ? (<Star star={fullStarCount} percent={percentStar}><GiBananaPeeled size={25} color="#20afe3" /></Star>) : null}
+        </Rating>
+      </div>
       <div>{prodInfo !== null ? prodInfo.productCategory : null}</div>
-      <h1>{prodInfo !== null ? prodInfo.productTitle : null}</h1>
+      <h1 style={{ marginBottom: '0' }}>{prodInfo !== null ? prodInfo.productTitle : null}</h1>
       <div>
         {price.sale !== '$null' ? (
           <>
@@ -100,39 +103,28 @@ const ProductInfo = () => {
           </>
         ) : <Original>{price.price}</Original>}
       </div>
-      <div
-        style={{ display: 'block' }}
-        className="fb-share-button"
-        data-href="http://localhost:1337/"
-        data-layout="button"
-        data-size="large"
-      >
+      <div>
         <a
-          target="_blank"
-          rel="noreferrer"
-          href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A1337%2F&amp;src=sdkpreparse"
-          className="fb-xfbml-parse-ignore"
+          style={{ display: 'block' }}
+          href="https://twitter.com/share?ref_src=twsrc%5Etfw"
+          className="twitter-share-button"
+          data-show-count="false"
+          data-size="large"
         >
-          Share
+          Tweet
+        </a>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8" />
+        <a
+          data-pin-do="buttonBookmark"
+          data-pin-tall="true"
+          data-pin-shape="round"
+          href="https://www.pinterest.com/pin/create/button/"
+        >
+          Save
         </a>
       </div>
-      <a
-        style={{ display: 'block' }}
-        href="https://twitter.com/share?ref_src=twsrc%5Etfw"
-        className="twitter-share-button"
-        data-show-count="false"
-        data-size="large"
-      >
-        Tweet
-      </a>
-      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8" />
     </ProductInfoContainer>
   );
 };
 
 export default ProductInfo;
-
-// Product Category - product
-// Product Title/Name - product
-// Price - style
-// Information/Overview - product

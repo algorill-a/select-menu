@@ -38,7 +38,6 @@ const IconLeft = styled.button`
   height: 50px;
   left: 1em;
   opacity: 30%;
-
   :hover {
     opacity: 80%;
   }

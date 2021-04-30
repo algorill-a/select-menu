@@ -1,7 +1,9 @@
 /* eslint-disable import/extensions */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
-import React, { useState, useEffect, useContext, createContext } from 'react';
+import React, {
+  useState, useEffect, useContext, createContext,
+} from 'react';
 import { MainContext } from '../../contexts/MainContextProvider.jsx';
 
 export const ProductsContext = createContext();

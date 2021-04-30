@@ -8,27 +8,29 @@ import { OutfitContext } from '../../contexts/OutfitContext.jsx';
 
 const AddToCartContainer = Styled.div`
   position: absolute;
-  left: 65%;
-  top: 500px;
-  z-index: 10;
+  top: 625px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
 `;
 
 const PleaseSelectSize = Styled.h4`
-  position: absolute;
   bottom: 100px;
   font-family: 'Montserrat', sans-serif;
   font-weight:300;
   color: red;
+  margin: 0;
 `;
 
 const SizeSelector = Styled.select`
   display:inline-block;
-  padding:0.35em 1.2em;
+  padding:1em 4em;
   margin:0 0.3em 0.3em 0;
   border-radius:0.12em;
   box-sizing: border-box;
   text-decoration:none;
-  // font-family:'Roboto',sans-serif;
   font-family: 'Montserrat', sans-serif;
   font-weight:300;
   text-align:center;
@@ -38,12 +40,11 @@ const SizeSelector = Styled.select`
 
 const QuantitySelector = Styled.select`
   display:inline-block;
-  padding:0.35em 1.2em;
+  padding:1em 2em;
   margin:0 0.3em 0.3em 0;
   border-radius:0.12em;
   box-sizing: border-box;
   text-decoration:none;
-  // font-family:'Roboto',sans-serif;
   font-family: 'Montserrat', sans-serif;
   font-weight:300;
   text-align:center;
@@ -52,13 +53,12 @@ const QuantitySelector = Styled.select`
 `;
 
 const AddProductToCart = Styled.button`
-  display: block;
-  padding:0.35em 1.2em;
+  display: inline-block;
+  padding:1em 5em;
   margin:0 0.3em 0.3em 0;
   border-radius: 0.12em;
   box-sizing: border-box;
   text-decoration:none;
-  // font-family:'Roboto',sans-serif;
   font-family: 'Montserrat', sans-serif;
   font-weight:300;
   text-align:center;
@@ -70,12 +70,11 @@ const AddProductToCart = Styled.button`
 
 const Favorite = Styled.button`
   display:inline-block;
-  padding:0.35em 1.2em;
+  padding:1em 2em;
   margin:0 0.3em 0.3em 0;
   border-radius:0.12em;
   box-sizing: border-box;
   text-decoration:none;
-  // font-family:'Roboto',sans-serif;
   font-family: 'Montserrat', sans-serif;
   font-weight:300;
   text-align:center;
@@ -99,24 +98,13 @@ const AddToCart = () => {
         if (sku[1].size === currentSize) {
           const quantities = (Array.from({ length: (sku[1].quantity < 16 ? sku[1].quantity : 15) },
             (_, index) => index + 1)).map(
-            (number, index) => <option key={index}>{number}</option>,
+            (number) => <option key={sku[0]}>{number}</option>,
           );
           setQuantities(quantities);
         }
       });
     }
   }, [currentSize]);
-
-  // const addItemToCart = () => {
-  //   fetch('api/cart', {
-  //     method: 'POST',
-  //     body: {
-  //       sku_id: currentSku,
-  //     },
-  //   })
-  //     .then((res) => res.json)
-  //     .then((json) => console.log(json));
-  // };
 
   const addItemToCart = () => {
     if (currentSize === 'Select Size') {
@@ -146,23 +134,29 @@ const AddToCart = () => {
   };
 
   return (
-    <AddToCartContainer>
-      <PleaseSelectSize>{pleaseSelect}</PleaseSelectSize>
-      <SizeSelector onChange={updateStyleAndSku} id="selector">
-        (
-        <option>
-          {(currentStyleSkus !== null && currentStyleSkus[0][0] === 'null') ? 'Out of Stock' : 'Select Size'}
-        </option>
-        {(currentStyleSkus !== null) ? currentStyleSkus.map((sku, index) => ((sku[1].quantity > 0)
-          ? <option key={index} name={sku[0]}>{sku[1].size}</option> : null)) : null}
-        )
-      </SizeSelector>
-      <QuantitySelector>
-        {(currentSize === 'Select Size') ? <option>-</option> : quantitiesList}
-      </QuantitySelector>
-      <AddProductToCart onClick={addItemToCart}>Add To Cart</AddProductToCart>
-      <Favorite onClick={addToOutfitCard}><BsHeart /></Favorite>
-    </AddToCartContainer>
+    <>
+      <AddToCartContainer>
+        <PleaseSelectSize>{pleaseSelect}</PleaseSelectSize>
+        <div>
+          <SizeSelector onChange={updateStyleAndSku} id="selector">
+            (
+            <option>
+              {(currentStyleSkus !== null && currentStyleSkus[0][0] === 'null') ? 'Out of Stock' : 'Select Size'}
+            </option>
+            {(currentStyleSkus !== null) ? currentStyleSkus.map((sku) => ((sku[1].quantity > 0)
+              ? <option key={sku[0]} name={sku[0]}>{sku[1].size}</option> : null)) : null}
+            )
+          </SizeSelector>
+          <QuantitySelector>
+            {(currentSize === 'Select Size') ? <option>-</option> : quantitiesList}
+          </QuantitySelector>
+        </div>
+        <div>
+          <AddProductToCart onClick={addItemToCart}>Add To Cart</AddProductToCart>
+          <Favorite onClick={addToOutfitCard}><BsHeart /></Favorite>
+        </div>
+      </AddToCartContainer>
+    </>
   );
 };
 

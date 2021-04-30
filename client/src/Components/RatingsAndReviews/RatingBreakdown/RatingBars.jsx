@@ -53,8 +53,9 @@ const RatingBars = () => {
     Object.values(breakdown.recommended).forEach((number) => {
       total += parseInt(number, 10);
     });
-    const num = (score / total).toFixed(1);
-    return Math.floor(num * 100);
+    const num = (score / total).toFixed(2);
+    console.log(num);
+    return (num * 100).toFixed(0);
   };
 
   useEffect(changeStarRatings, [breakdown]);
