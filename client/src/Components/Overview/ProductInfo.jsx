@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable import/extensions */
 import React, { useContext, useEffect, useState } from 'react';
 import Styled from 'styled-components';
@@ -53,10 +54,10 @@ const FullStars = Styled.span`
 
 const Star = Styled.span`
   position: absolute;
-  clip: ${(props) => (props.percent > 0 && props.percent <= 25 ? "rect(0px, 7px, 25px, 0px)"
-    : props.percent > 25 && props.percent <= 50 ? "rect(0px, 13px, 25px, 0px)"
-    : props.percent > 50 && props.percent <= 75 ? "rect(0px, 17px, 25px, 0px)"
-    : "rect(0px, 25px, 25px, 0px)")}
+  clip: ${(props) => (props.percent > 0 && props.percent <= 25 ? 'rect(0px, 7px, 25px, 0px)'
+    : props.percent > 25 && props.percent <= 50 ? 'rect(0px, 13px, 25px, 0px)'
+      : props.percent > 50 && props.percent <= 75 ? 'rect(0px, 17px, 25px, 0px)'
+        : 'rect(0px, 25px, 25px, 0px)')}
 `;
 
 const ProductInfo = () => {

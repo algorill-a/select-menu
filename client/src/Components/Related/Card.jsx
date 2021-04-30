@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react/prop-types */
 /* eslint-disable import/extensions */
 import React, { useContext } from 'react';
@@ -88,10 +89,10 @@ const Rating = styled.div`
 const Star = styled.span`
   position: absolute;
   bottom: 0;
-  clip: ${(props) => (props.percent > 0 && props.percent <= 25 ? "rect(0px, 7px, 25px, 0px)"
-    : props.percent > 25 && props.percent <= 50 ? "rect(0px, 13px, 25px, 0px)"
-    : props.percent > 50 && props.percent <= 75 ? "rect(0px, 17px, 25px, 0px)"
-    : "rect(0px, 25px, 25px, 0px)")}
+  clip: ${(props) => (props.percent > 0 && props.percent <= 25 ? 'rect(0px, 7px, 25px, 0px)'
+    : props.percent > 25 && props.percent <= 50 ? 'rect(0px, 13px, 25px, 0px)'
+      : props.percent > 50 && props.percent <= 75 ? 'rect(0px, 17px, 25px, 0px)'
+        : 'rect(0px, 25px, 25px, 0px)')}
 `;
 
 // Card Component
