@@ -1,7 +1,7 @@
 /* eslint-disable import/extensions */
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { BsStarFill } from 'react-icons/bs';
+import { GiBananaPeeled } from 'react-icons/gi';
 import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext.jsx';
 
 const Div = styled.div`
@@ -64,7 +64,7 @@ const Recommendation = () => {
             <Key>{key}</Key>
             <br />
             <Star>
-              <BsStarFill
+              <GiBananaPeeled
                 size={30}
                 key={Math.floor(Math.random() * 10000)}
               />
