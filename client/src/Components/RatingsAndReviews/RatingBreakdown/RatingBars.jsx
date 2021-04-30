@@ -54,7 +54,6 @@ const RatingBars = () => {
       total += parseInt(number, 10);
     });
     const num = (score / total).toFixed(2);
-    console.log(num);
     return (num * 100).toFixed(0);
   };
 

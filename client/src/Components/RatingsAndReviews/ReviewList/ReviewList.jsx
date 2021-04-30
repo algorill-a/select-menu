@@ -11,12 +11,13 @@ const DivTwo = styled.div`
 `;
 
 const ReviewsList = () => {
-  const [list] = useContext(ReviewListContext);
+  const { copy } = useContext(ReviewListContext);
+  const [dupeList] = copy;
   const { counts } = useContext(ReviewButtonContext);
   const [count] = counts;
 
   const renderList = () => (
-    list.slice(0, count)
+    dupeList.slice(0, count)
   );
 
   return (

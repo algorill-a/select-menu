@@ -1,8 +1,9 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable import/extensions */
 /* eslint-disable radix */
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { BsStarHalf, BsStarFill, BsStar } from 'react-icons/bs';
+import { GiBananaPeeled } from 'react-icons/gi';
 import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext.jsx';
 
 const Container = styled.div`
@@ -32,7 +33,11 @@ const BananaDiv = styled.div`
   float: left;
   padding-top: 12px;
   padding-left: 10px;
-  color: grey;
+`;
+
+const H3 = styled.h3`
+  font-weight: bold;
+  font-size: 25px;
 `;
 
 const Review = styled.p`
@@ -40,8 +45,31 @@ const Review = styled.p`
   letter-spacing: 4px;
 `;
 
+const FullStars = styled.span`
+  position: relative;
+  opacity: 50%;
+  z-index: 0;
+  margin-top: 5px;
+  color: #d6d6d6;
+`;
+
+const Rating = styled.span`
+  position: absolute;
+  left: 8.2%;
+  z-index: 1;
+`;
+
+const Star = styled.div`
+  position: absolute;
+  clip: ${(props) => (props.percent > 0 && props.percent <= 25 ? 'rect(0px, 7px, 25px, 0px)'
+    : props.percent > 25 && props.percent <= 50 ? 'rect(0px, 13px, 25px, 0px)'
+      : props.percent > 50 && props.percent <= 75 ? 'rect(0px, 17px, 25px, 0px)'
+        : 'rect(0px, 25px, 25px, 0px)')}
+`;
+
 const RatingSummary = () => {
   const [breakdown] = useContext(ReviewBreakdownContext);
+
   let totalReviews = 0;
   const getAverage = (object) => {
     let total = 0;
@@ -54,23 +82,30 @@ const RatingSummary = () => {
     totalReviews = length;
     return total / length;
   };
-  const selectedStars = Math.round(getAverage(breakdown.ratings) * 2) / 2;
 
-  const halfStarMaker = (num) => [...Array(5)].map((star, i) => {
-    if (i < num && i + 1 > num) {
-      return <BsStarHalf size={30} color="#C0FEFC" />;
-    }
-    if (i < num) {
-      return <BsStarFill size={30} color="#C0FEFC" />;
-    }
-    return <BsStar size={30} color="#C0FEFC" />;
-  });
+  const selectedStars = Math.round(getAverage(breakdown.ratings) * 2) / 2;
+  const fullStarCount = Math.floor(selectedStars);
+  const percentStar = ((breakdown.ratings - Math.floor(breakdown.ratings)) * 100).toFixed(0);
 
   return (
     <div>
+      <H3>Banana Score</H3>
       <Container>
         <BananaDiv>
-          {halfStarMaker(selectedStars)}
+          <>
+            <FullStars>
+              {[...Array(5)].map((star, index) => (
+                <GiBananaPeeled
+                  size={30}
+                  key={index}
+                />
+              ))}
+            </FullStars>
+            <Rating>
+              {fullStarCount > 0 ? ([...Array(fullStarCount)].map((star, index) => <GiBananaPeeled size={30} color="#20afe3" key={index} />)) : null}
+              {percentStar > 0 ? (<Star star={fullStarCount} percent={percentStar}><GiBananaPeeled size={30} color="#20afe3" /></Star>) : null}
+            </Rating>
+          </>
         </BananaDiv>
         <Score>
           {(parseFloat(getAverage(breakdown.ratings)).toFixed(1))}

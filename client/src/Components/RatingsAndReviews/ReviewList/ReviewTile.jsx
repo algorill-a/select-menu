@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import axios from 'axios';
-import { BsStarFill } from 'react-icons/bs';
+import { GiBananaPeeled } from 'react-icons/gi';
 
 const Container = styled.div`
   display: grid;
@@ -120,7 +120,6 @@ const Img = styled.img`
 `;
 
 const ReviewTile = ({ tile }) => {
-  // const [helpful, setHelpful] = useState({ id: tile.review_id, helpfulness: tile.helpfulness });
   const [helpful, setHelpful] = useState(tile.helpfulness);
 
   const putHelpfulRequest = () => {
@@ -149,9 +148,9 @@ const ReviewTile = ({ tile }) => {
     <Container>
       <StarDiv>
         {[...Array(5)].map((star, i) => (
-          <BsStarFill
-            color={(i) < tile.rating ? '#20afe3' : '#3d3d3d'}
-            size={16}
+          <GiBananaPeeled
+            color={(i) < tile.rating ? '#20afe3' : '#d6d6d6'}
+            size={20}
             key={Math.floor(Math.random() * 10000)}
           />
         ))}

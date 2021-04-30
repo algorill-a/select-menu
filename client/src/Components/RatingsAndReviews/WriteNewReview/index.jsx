@@ -8,7 +8,6 @@ import ReviewPartOne from './reviewOne/ReviewOne.jsx';
 import ReviewPartTwo from './ReviewTwo.jsx';
 import ReviewPartThree from './ReviewThree.jsx';
 import { WriteReviewContext } from '../Context/WriteNewReviewContext.jsx';
-import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext.jsx';
 import { ReviewListContext } from '../Context/ReviewListContext.jsx';
 import { ModalContext } from '../../../contexts/ModalContext.jsx';
 import { MainContext } from '../../../contexts/MainContextProvider.jsx';
@@ -78,8 +77,8 @@ const Button = styled.button`
 
 const WriteNewReview = () => {
   const { reviewData } = useContext(WriteReviewContext);
-  const [list, setList] = useContext(ReviewListContext);
-  const [breakdown, setBreakdown] = useContext(ReviewBreakdownContext);
+  const { real } = useContext(ReviewListContext);
+  const { setList } = real;
   const { currProduct } = useContext(MainContext);
   const { reviewDisplay, toggleReviewModal } = useContext(ModalContext);
   const [review, setReview] = reviewData;
@@ -90,12 +89,6 @@ const WriteNewReview = () => {
       .then((response) => setList(response.data.results))
       .catch((error) => console.log(error));
   };
-
-  // const getBreakdown = () => {
-  //   axios.get(`/api/reviews/meta?product_id=${productId}`)
-  //     .then((response) => setBreakdown(response.data))
-  //     .catch((error) => console.log(error));
-  // };
 
   const handlePostSuccess = () => {
     setReview({

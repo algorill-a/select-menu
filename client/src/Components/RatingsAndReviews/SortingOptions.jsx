@@ -33,41 +33,58 @@ const Option = styled.option`
   letter-spacing: 4px
   color: black;
   font-size: 2em;
+  padding-left: 10px;
   text-align: center;
 `;
 
 const SortingOptions = () => {
-  const [list, setList] = useContext(ReviewListContext);
+  const { real, copy } = useContext(ReviewListContext);
+  const [list] = real;
+  const [dupeList, setDupeList] = copy;
 
-  const filterByHelpful = () => {
-    setList(list.slice().sort((a, b) => b.helpfulness - a.helpfulness));
+  const sortByHelpful = () => {
+    setDupeList(list.slice().sort((a, b) => b.helpfulness - a.helpfulness));
+    console.log('this is list', list);
+    console.log('this is dupelist', dupeList);
   };
 
-  const filterByDate = () => {
-    setList(list.slice().sort((a, b) => new Date(b.date) - new Date(a.date)));
+  const sortByDate = () => {
+    setDupeList(list.slice().sort((a, b) => new Date(b.date) - new Date(a.date)));
   };
 
-  const filterByRelevance = () => {
-    setList(list.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
+  const sortByRelevance = () => {
+    setDupeList(list.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
       .sort((a, b) => (b.date === a.date
         ? (b.helpfulness - a.helpfulness) : null)));
+  };
+
+  const filterByNumber = (event) => {
+    const { value } = event.target;
+    setDupeList(list);
+    setDupeList(list.slice().filter((review) => review.rating === parseInt(value, 10)));
   };
 
   const handleOnChange = (event) => {
     const { value } = event.target;
     if (value === 'Helpful') {
-      filterByHelpful();
+      sortByHelpful();
     }
     if (value === 'Newest') {
-      filterByDate();
+      sortByDate();
     }
     if (value === 'Relevance') {
-      filterByRelevance();
+      sortByRelevance();
     }
   };
 
   return (
     <Container>
+      <Select onChange={filterByNumber}>
+        {[...Array(5)].map((rating, i) => {
+          const index = `${i + 1}`;
+          return <Option value={index}>{`${index} Bananas`}</Option>;
+        })}
+      </Select>
       <Select onChange={handleOnChange}>
         <Option value="Helpful">Helpful</Option>
         <Option value="Newest">Newest</Option>

@@ -105,8 +105,11 @@ const DivFour = styled.div`
 `;
 
 const RatingsAndReviews = () => {
-  const [list, setList] = useContext(ReviewListContext);
+  const { real, copy } = useContext(ReviewListContext);
+  const [list, setList] = real;
+  const [dupeList, setDupeList] = copy;
   const { currProduct } = useContext(MainContext);
+  const { toggleReviewModal } = useContext(ModalContext);
   const { counts } = useContext(ReviewButtonContext);
   const [count, setCount] = counts;
   const productId = currProduct.currProd;
@@ -117,7 +120,6 @@ const RatingsAndReviews = () => {
       .catch((error) => console.log(error));
   };
   useEffect(getList, [currProduct]);
-  const { toggleReviewModal } = useContext(ModalContext);
 
   const incrementCount = () => {
     setCount(count + 2);
@@ -125,7 +127,8 @@ const RatingsAndReviews = () => {
   };
 
   const renderConditionList = () => {
-    if (list.length === 0) {
+    setDupeList(list);
+    if (dupeList.length === 0) {
       return (
         <EmptyContainer>
           <TextContainer>
