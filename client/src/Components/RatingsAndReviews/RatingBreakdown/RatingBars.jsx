@@ -66,11 +66,12 @@ const RatingBars = () => {
       </Percent>
       <Ul>
         {Object.entries(starRating).slice(0).reverse().map((rating) => {
-          const [key, value] = rating;
+          const [title, value] = rating;
           return (
             <RatingBar
-              title={key}
+              title={title}
               value={getIndivPercentage(value)}
+              key={Math.floor(Math.random() * 10000)}
             />
           );
         })}

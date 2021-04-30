@@ -78,7 +78,7 @@ const Button = styled.button`
 const WriteNewReview = () => {
   const { reviewData } = useContext(WriteReviewContext);
   const { real } = useContext(ReviewListContext);
-  const { setList } = real;
+  const [, setList] = real;
   const { currProduct } = useContext(MainContext);
   const { reviewDisplay, toggleReviewModal } = useContext(ModalContext);
   const [review, setReview] = reviewData;

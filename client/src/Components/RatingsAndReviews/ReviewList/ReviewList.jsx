@@ -23,10 +23,10 @@ const ReviewsList = () => {
   return (
     <div>
       <DivTwo>
-        {renderList().slice(0).map((tile) => (
+        {renderList().slice(0).map((tile, index) => (
           <ReviewTile
             tile={tile}
-            key={Math.random()}
+            key={index}
           />
         ))}
       </DivTwo>

@@ -43,19 +43,19 @@ const Characteristics = () => {
   return (
     <Container>
       {Object.entries(chara).map((entry, i) => {
-        const [key, value] = entry;
+        const [title, value] = entry;
         return value.id !== null
           ? (
-            <div>
-              <p>{key}</p>
+            <div key={Math.floor(Math.random() * 10000)}>
+              <p>{title}</p>
               <p>{value.placeholder}</p>
               {value.options.slice(0).map((choice, j) => {
                 const index = j + 1;
                 return (
-                  <label>
+                  <label key={Math.floor(Math.random() * 10000)}>
                     <input
                       type="radio"
-                      title={key}
+                      title={title}
                       name={value.id}
                       id={index}
                       value={choice}

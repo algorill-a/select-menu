@@ -40,13 +40,12 @@ const OverallRating = () => {
       {starRating().map((star, i) => {
         const ratingValue = i + 1;
         return (
-          <label>
+          <label key={Math.floor(Math.random() * 10000)}>
             <Input
               type="radio"
               name="rating"
               value={ratingValue}
               onChange={handleChange}
-              key={Math.floor(Math.random() * 10000)}
               onClick={() => {
                 setRating(ratingValue);
                 setText(star.rating);

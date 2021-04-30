@@ -82,7 +82,11 @@ const SortingOptions = () => {
       <Select onChange={filterByNumber}>
         {[...Array(5)].map((rating, i) => {
           const index = `${i + 1}`;
-          return <Option value={index}>{`${index} Bananas`}</Option>;
+          return (
+            <Option value={index} key={Math.floor(Math.random() * 10000)}>
+              {`${index} Bananas`}
+            </Option>
+          );
         })}
       </Select>
       <Select onChange={handleOnChange}>

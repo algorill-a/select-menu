@@ -58,15 +58,14 @@ const Recommendation = () => {
   return (
     <Div>
       {Object.entries(breakdown.characteristics).map((entries) => {
-        const [key, value] = entries;
+        const [title, value] = entries;
         return (
           <Container>
-            <Key>{key}</Key>
+            <Key>{title}</Key>
             <br />
             <Star>
               <GiBananaPeeled
                 size={30}
-                key={Math.floor(Math.random() * 10000)}
               />
             </Star>
             <Score>{parseFloat(value.value).toFixed(1)}</Score>
