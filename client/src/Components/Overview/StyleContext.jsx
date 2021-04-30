@@ -14,7 +14,7 @@ const StyleContextProvider = (props) => {
   const [currentRating, setCurrentRating] = useState(0);
   const [currentProduct, setCurrentProduct] = useState(null);
   const [currentStyle, setCurrentStyle] = useState(null);
-  const [currentStyleName, setCurrentStyleName] = useState(null);
+  const [currentStyleName, setCurrentStyleName] = useState('');
   const [currentStylePhotos, setCurrentStylePhotos] = useState([]);
   const [currentStyleSkus, setCurrentStyleSkus] = useState(null);
   const [allStyles, setAllStyles] = useState(null);
@@ -31,8 +31,13 @@ const StyleContextProvider = (props) => {
       .then((productStyles) => {
         setCurrentStyle(productStyles.results[0].style_id);
         setCurrentStyleName(productStyles.results[0].name);
-        setCurrentStylePhotos(productStyles.results[0].photos);
         setCurrentStyleSkus(Object.entries(productStyles.results[0].skus));
+        const stylePhotos = [];
+        productStyles.results[0].photos.forEach((image, index) => {
+          image.index = index;
+          stylePhotos.push(image);
+        });
+        setCurrentStylePhotos(stylePhotos);
         const styles = [];
         productStyles.results.forEach((result) => {
           styles.push({
@@ -81,9 +86,12 @@ const StyleContextProvider = (props) => {
             setCurrentStyleName(
               productStyles.results[productStyles.results.indexOf(result)].name,
             );
-            setCurrentStylePhotos(
-              productStyles.results[productStyles.results.indexOf(result)].photos,
-            );
+            const stylePhotos = [];
+            productStyles.results[productStyles.results.indexOf(result)].photos.forEach((image, index) => {
+              image.index = index;
+              stylePhotos.push(image);
+            });
+            setCurrentStylePhotos(stylePhotos);
             setCurrentStyleSkus(
               Object.entries(productStyles.results[productStyles.results.indexOf(result)].skus),
             );

@@ -7,7 +7,6 @@ import Card from './Card.jsx';
 import Outfit from './Outfit.jsx';
 import { CardContext } from '../../contexts/CardContext.jsx';
 import { MainContext } from '../../contexts/MainContextProvider.jsx';
-// import { ThemeContext } from '../../contexts/ThemeContext.jsx';
 import { OutfitContext } from '../../contexts/OutfitContext.jsx';
 import { StyleContext } from '../Overview/StyleContext.jsx';
 
@@ -39,7 +38,6 @@ const IconLeft = styled.button`
   height: 50px;
   left: 1em;
   opacity: 30%;
-
   :hover {
     opacity: 80%;
   }
@@ -87,9 +85,6 @@ const CardList = () => {
   const { outfitList } = useContext(OutfitContext);
   const { setCurrentRating } = useContext(StyleContext);
   const { addToOutfitCard } = useContext(OutfitContext);
-  // const { isLightTheme, light, dark } = useContext(ThemeContext);
-  // const theme = isLightTheme ? light : dark;
-  // console.log(theme);
   let productId;
   let ratings = 0;
   let sum = 0;
@@ -113,17 +108,17 @@ const CardList = () => {
           .then((data) => { productId = data.category; });
         getProducts(`reviews/meta?product_id=${item}`)
           .then((reviews) => {
-            const keys = Object.keys(reviews.ratings);
-            if (keys.length > 0) {
-              for (let i = 0; i < keys.length; i++) {
-                ratings += (parseInt(keys[i], 10) * parseInt(reviews.ratings[[keys[i]]], 10));
-                sum += (parseInt(reviews.ratings[[keys[i]]], 10));
+            const reviewKeys = Object.keys(reviews.ratings);
+            if (reviewKeys.length > 0) {
+              for (let i = 0; i < reviewKeys.length; i++) {
+                // eslint-disable-next-line max-len
+                ratings += (parseInt(reviewKeys[i], 10) * parseInt(reviews.ratings[[reviewKeys[i]]], 10));
+                sum += (parseInt(reviews.ratings[[reviewKeys[i]]], 10));
               }
               ratings /= sum;
             } else {
               ratings = 0;
             }
-            /* NEED TO CHANGE FOR OVERVIEW */
             setCurrentRating(ratings);
           });
         getProducts(`products/${item}/styles`)
@@ -205,8 +200,8 @@ const CardList = () => {
       <CardListContainer>
         {showStart ? <IconLeft onClick={prevCard}><IoIosArrowBack /></IconLeft> : null}
         {showEnd ? <IconRight onClick={nextCard}><IoIosArrowForward /></IconRight> : null}
-        {cardsToDisplay.map((card, index) => (
-          <Card card={card} key={index} value={card.prodId} />))}
+        {cardsToDisplay.map((card) => (
+          <Card card={card} key={card.id} value={card.prodId} />))}
       </CardListContainer>
 
       <Title>Outfit List</Title>
