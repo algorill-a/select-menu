@@ -36,7 +36,7 @@ const CardListContainer = styled.div`
 const IconLeft = styled.button`
   position: absolute;
   height: 50px;
-  left: 1em;
+  left: -25px;
   opacity: 30%;
   :hover {
     opacity: 80%;
@@ -46,7 +46,7 @@ const IconLeft = styled.button`
 const IconRight = styled.button`
   position: absolute;
   height: 50px;
-  right: 1em;
+  right: -25px;
   opacity: 30%;
 
   :hover {
