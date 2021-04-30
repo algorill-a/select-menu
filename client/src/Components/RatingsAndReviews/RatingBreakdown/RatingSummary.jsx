@@ -110,7 +110,7 @@ const RatingSummary = () => {
             ))}
           </FullStars>
           <Rating>
-            {fullStarCount > 0 ? ([...Array(fullStarCount)].map((star, index) => <GiBananaPeeled size={30} color="#20afe3" key={index} />)) : null}
+            {fullStarCount > 0 ? ([...Array(fullStarCount)].map((star) => <GiBananaPeeled size={30} color="#20afe3" name={star} />)) : null}
             {percentStar > 0 ? (<Star star={fullStarCount} percent={percentStar}><GiBananaPeeled size={30} color="#20afe3" /></Star>) : null}
           </Rating>
         </BananaDiv>

@@ -23,10 +23,9 @@ const ReviewsList = () => {
   return (
     <div>
       <DivTwo>
-        {renderList().slice(0).map((tile, index) => (
+        {renderList().slice(0).map((tile) => (
           <ReviewTile
             tile={tile}
-            key={index}
           />
         ))}
       </DivTwo>
