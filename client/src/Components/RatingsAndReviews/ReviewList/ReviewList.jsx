@@ -34,4 +34,3 @@ const ReviewsList = () => {
 };
 
 export default ReviewsList;
-// changed line 33 to add slice (incorporate renderlist)
