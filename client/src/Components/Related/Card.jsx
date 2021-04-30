@@ -110,7 +110,14 @@ const Card = ({ card }) => {
       <StarIcon onClick={() => { makeCharModal(card.prodId); toggleCharModal(); }}>
         <BsFillStarFill />
       </StarIcon>
-      <ProductImage src={card.imageUrl ? card.imageUrl : image} alt="" onClick={() => { resetCards(); changeProduct({ currProd: card.prodId, currStyle: card.id }); setCurrentStyle(card.id); }} />
+      <ProductImage
+        src={card.imageUrl ? card.imageUrl : image}
+        alt={card.imageUrl}
+        onClick={() => {
+          resetCards();
+          changeProduct({ currProd: card.prodId, currStyle: card.id }); setCurrentStyle(card.id);
+        }}
+      />
       <ProdDescription>
         <ProductCategory>
           <div>{card.prodCategory}</div>
