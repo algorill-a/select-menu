@@ -1,6 +1,6 @@
 /* eslint-disable import/no-named-as-default */
 /* eslint-disable import/extensions */
-import React from 'react';
+import React, { createRef } from 'react';
 import ReactDOM from 'react-dom';
 import Styled from 'styled-components';
 import MainContextProvider from './contexts/MainContextProvider.jsx';
@@ -24,6 +24,11 @@ const Header = Styled.h1`
 `;
 
 function App() {
+  const ratingsAndReviewsRef = createRef();
+  const focus = () => {
+    ratingsAndReviewsRef.current.scrollIntoView();
+  };
+
   return (
     <div>
       <Header> ALGORILLA </Header>
@@ -33,7 +38,7 @@ function App() {
             <StyleContextProvider>
               <CardContextProvider>
                 <OutfitContextProvider>
-                  <Overview />
+                  <Overview focus={focus} />
                   <CardList />
                 </OutfitContextProvider>
               </CardContextProvider>
@@ -42,6 +47,7 @@ function App() {
                   <ReviewBreakdownProvider>
                     <ReviewButtonProvider>
                       <RatingsAndReviews />
+                      <div ref={ratingsAndReviewsRef} />
                     </ReviewButtonProvider>
                   </ReviewBreakdownProvider>
                 </ReviewListProvider>

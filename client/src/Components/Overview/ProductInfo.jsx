@@ -6,10 +6,12 @@ import { ProductsContext } from './ProductsContext.jsx';
 import { StyleContext } from './StyleContext.jsx';
 
 const ProductInfoContainer = Styled.div`
-  position: absolute;
-  left: 65%;
-  top: 100px;
   font-family: 'Montserrat', sans-serif;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr .5fr 1.5fr .75fr repeat(2, .5fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
 `;
 
 const Original = Styled.div`
@@ -31,13 +33,16 @@ const Sale = Styled.div`
 `;
 
 const Rating = Styled.div`
+  vertical-align: center;
   bottom: 0;
 `;
 
-const ProductInfo = () => {
+const ProductInfo = (props) => {
   const { prodInfo } = useContext(ProductsContext);
   const { currentProduct, currentStyle, currentRating } = useContext(StyleContext);
   const [price, setPrice] = useState({ price: null, salesPrice: null });
+  // eslint-disable-next-line react/prop-types
+  const { focus } = props;
 
   const getProducts = (endpoint) => (fetch(`api/${endpoint}`)
     .then((data) => data.json()));
@@ -53,15 +58,16 @@ const ProductInfo = () => {
       });
   }, [currentStyle]);
 
-  const reviewClickHandler = () => {
-    <a href="ratings">Go to Ratings</a>;
-  };
+  // const reviewClickHandler = () => {
+  //   <a href="ratings">Go to Ratings</a>;
+  //   focus();
+  // };
 
   return (
     <ProductInfoContainer>
-      <Rating onClick={reviewClickHandler}>{[...Array(5)].map((star, index) => <GiBananaPeeled size={25} color={index <= currentRating ? '#BEDF7C' : '#808080'} value={index} />)}</Rating>
+      <Rating onClick={focus}>{[...Array(5)].map((star, index) => <GiBananaPeeled size={25} color={index <= currentRating ? '#BEDF7C' : '#808080'} value={index} />)}</Rating>
       <div>{prodInfo !== null ? prodInfo.productCategory : null}</div>
-      <h1>{prodInfo !== null ? prodInfo.productTitle : null}</h1>
+      <h1 style={{ marginBottom: '0' }}>{prodInfo !== null ? prodInfo.productTitle : null}</h1>
       <div>
         {price.sale !== '$null' ? (
           <>
@@ -70,24 +76,26 @@ const ProductInfo = () => {
           </>
         ) : <Original>{price.price}</Original>}
       </div>
-      <a
-        style={{ display: 'block' }}
-        href="https://twitter.com/share?ref_src=twsrc%5Etfw"
-        className="twitter-share-button"
-        data-show-count="false"
-        data-size="large"
-      >
-        Tweet
-      </a>
-      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8" />
-      <a
-        style={{ display: 'block' }}
-        data-pin-do="buttonBookmark"
-        data-pin-tall="true"
-        href="https://www.pinterest.com/pin/create/button/"
-      >
-        Save
-      </a>
+      <div>
+        <a
+          style={{ display: 'block' }}
+          href="https://twitter.com/share?ref_src=twsrc%5Etfw"
+          className="twitter-share-button"
+          data-show-count="false"
+          data-size="large"
+        >
+          Tweet
+        </a>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8" />
+        <a
+          data-pin-do="buttonBookmark"
+          data-pin-tall="true"
+          data-pin-shape="round"
+          href="https://www.pinterest.com/pin/create/button/"
+        >
+          Save
+        </a>
+      </div>
     </ProductInfoContainer>
   );
 };

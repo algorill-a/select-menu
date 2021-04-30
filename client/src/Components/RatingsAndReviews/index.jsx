@@ -145,7 +145,7 @@ const RatingsAndReviews = () => {
     }
     return (
       <div>
-        <Title>Ratings and Reviews</Title>
+        <Title className="ratings">Ratings and Reviews</Title>
         <Container>
           <DivOne className="one">
             <RatingBreakdown />

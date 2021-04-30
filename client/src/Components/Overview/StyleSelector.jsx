@@ -5,15 +5,14 @@ import { StyleContext } from './StyleContext.jsx';
 import { MainContext } from '../../contexts/MainContextProvider.jsx';
 
 const StylesContainer = Styled.div`
-  position: absolute;
   top: 350px;
   left: 65%;
 `;
 
 const ThumbnailContainer = Styled.button`
   display: inline-block;
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   position: relative;
   overflow: hidden;
   border-radius: 50%;

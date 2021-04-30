@@ -7,9 +7,9 @@ const Container = Styled.div`
   color: black;
   font-weight: 100;
   font-family: 'Montserrat', sans-serif;
-  position: absolute;
-  width: 30%;
-  left: 11%;
+  width: 75%;
+  margin-left: 15%;
+  margin-top: 0;
 `;
 
 const Slogan = Styled.h3`

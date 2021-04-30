@@ -2,15 +2,16 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Styled from 'styled-components';
 import {
-  IoIosArrowBack, IoIosArrowForward, IoIosArrowUp, IoIosArrowDown
+  IoIosArrowBack, IoIosArrowForward, IoIosArrowUp, IoIosArrowDown,
 } from 'react-icons/io';
 import { StyleContext } from './StyleContext.jsx';
 
 const ViewContainer = Styled.div`
   height: 690px;
-  width: 50%;
-  background: #E8E8E8;
-  margin-left: 10%;
+  width: 80%;
+  margin-left: 15%;
+  z-index: 2;
+  cursor: zoom-in;
 `;
 
 const ImagesOverlay = Styled.div`
@@ -26,7 +27,7 @@ const Image = Styled.img`
   position: relative;
   z-index: 10;
   right: 420%;
-  left: 20px;
+  left: 30px;
   top: 23px;
   border-radius: 0.12em;
   cursor: pointer;
@@ -40,7 +41,7 @@ const UpArrow = Styled.button`
   cursor: pointer;
   position: absolute;
   z-index: 10;
-  left: 33px;
+  left: 42.5px;
   width: 50px;
   opacity: 30%;
   :hover {
@@ -52,7 +53,7 @@ const DownArrow = Styled.button`
   cursor: pointer;
   position: absolute;
   z-index: 10;
-  left: 33px;
+  left: 42.5px;
   top: 575px;
   width: 50px;
   opacity: 30%;
@@ -87,7 +88,7 @@ const DefaultViewImage = Styled.img`
 const RightArrow = Styled.button`
   position: absolute;
   top: 390px;
-  right: 38%;
+  left: 63.5%;
   color: black;
   z-index: 10;
   cursor: pointer;
@@ -102,7 +103,7 @@ const RightArrow = Styled.button`
 const LeftArrow = Styled.button`
   position: absolute;
   top: 390px;
-  left: 8.2%;
+  left: 8.5%;
   color: black;
   z-index: 10;
   cursor: pointer;
@@ -116,6 +117,7 @@ const LeftArrow = Styled.button`
 
 const Gallery = () => {
   const { currentStylePhotos, currentImage, setCurrentImage } = useContext(StyleContext);
+  const [viewToggle, setView] = useState(null);
   const [showUpArrow, setShowUpArrow] = useState(false);
   const [showDownArrow, setShowDownArrow] = useState(false);
 
@@ -125,10 +127,6 @@ const Gallery = () => {
 
   const nextImage = () => {
     setCurrentImage(currentImage === currentStylePhotos.length - 1 ? 0 : currentImage + 1);
-  };
-
-  const updateDefaultView = (index) => {
-    setCurrentImage(index);
   };
 
   const prevThumbnail = () => {
@@ -163,7 +161,7 @@ const Gallery = () => {
       </DefaultViewSlide>
     )) : <Image />;
 
-  const activeThumbnails = (currentStylePhotos.length < 7) ? currentStylePhotos : (currentStylePhotos.length - 7 > currentImage ? currentStylePhotos.slice(currentImage,
+  const activeThumbnails = (currentStylePhotos.length < 7)? currentStylePhotos : (currentStylePhotos.length - 7 > currentImage ? currentStylePhotos.slice(currentImage,
     currentImage + 7) : currentStylePhotos.slice(currentStylePhotos.length - 7, currentStylePhotos.length));
 
   // const thumbnailsToDisplay = activeThumbnails.length < 7
@@ -176,18 +174,42 @@ const Gallery = () => {
     }
   }, [currentStylePhotos]);
 
+  const expandedView = () => {
+    if (viewToggle === null) {
+      setView({
+        width: '120%',
+        cursor: 'zoom-out',
+        zIndex: '10',
+        buttonPosition: '90%',
+      });
+    } else {
+      setView(null);
+    }
+  };
+
   return (
-    <ViewContainer>
+    <ViewContainer
+      style={viewToggle !== null
+        ? { width: viewToggle.width, zIndex: viewToggle.zIndex, cursor: viewToggle.cursor } : null}
+    >
       <LeftArrow onClick={previousImage}><IoIosArrowBack /></LeftArrow>
-      <RightArrow onClick={nextImage}><IoIosArrowForward /></RightArrow>
+      <RightArrow
+        onClick={nextImage}
+        style={viewToggle !== null ? { left: viewToggle.buttonPosition } : null}
+      >
+        <IoIosArrowForward />
+      </RightArrow>
       <DefaultViewContainer>
         <ImagesOverlay>
           {showUpArrow ? <UpArrow onClick={prevThumbnail}><IoIosArrowUp /></UpArrow> : null}
           {activeThumbnails.map((thumbnail) => (
             <Image
+              style={(thumbnail.index === currentImage) ? {
+                opacity: '100%', borderStyle: 'solid', borderColor: 'white', borderWidth: 'thin',
+              } : null}
               src={thumbnail.thumbnail_url}
               key={thumbnail.index}
-              onClick={() => updateDefaultView(thumbnail.index)}
+              onClick={() => setCurrentImage(thumbnail.index)}
             />
           ))}
           {showDownArrow
@@ -199,7 +221,9 @@ const Gallery = () => {
               </DownArrow>
             ) : null }
         </ImagesOverlay>
-        <DefaultView>
+        <DefaultView
+          onClick={expandedView}
+        >
           {photo}
         </DefaultView>
       </DefaultViewContainer>
