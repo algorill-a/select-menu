@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable import/extensions */
 import React, { useContext } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
 import { ReviewListContext } from './Context/ReviewListContext.jsx';
 
@@ -82,7 +83,7 @@ const SortingOptions = () => {
       <Select onChange={filterByNumber}>
         {[...Array(5)].map((rating, i) => {
           const index = `${i + 1}`;
-          return <Option value={index}>{`${index} Bananas`}</Option>;
+          return <Option value={index} key={uuidv4()}>{`${index} Bananas`}</Option>;
         })}
       </Select>
       <Select onChange={handleOnChange}>

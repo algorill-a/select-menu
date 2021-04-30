@@ -2,6 +2,7 @@
 /* eslint-disable import/extensions */
 /* eslint-disable radix */
 import React, { useContext } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
 import { GiBananaPeeled } from 'react-icons/gi';
 import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext.jsx';
@@ -94,15 +95,15 @@ const RatingSummary = () => {
         <BananaDiv>
           <>
             <FullStars>
-              {[...Array(5)].map((star, index) => (
+              {[...Array(5)].map(() => (
                 <GiBananaPeeled
                   size={30}
-                  key={index}
+                  key={uuidv4()}
                 />
               ))}
             </FullStars>
             <Rating>
-              {fullStarCount > 0 ? ([...Array(fullStarCount)].map((star, index) => <GiBananaPeeled size={30} color="#20afe3" key={index} />)) : null}
+              {fullStarCount > 0 ? ([...Array(fullStarCount)].map(() => <GiBananaPeeled size={30} color="#20afe3" key={uuidv4()} />)) : null}
               {percentStar > 0 ? (<Star star={fullStarCount} percent={percentStar}><GiBananaPeeled size={30} color="#20afe3" /></Star>) : null}
             </Rating>
           </>

@@ -1,9 +1,9 @@
-/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/prop-types */
 /* eslint-disable import/extensions */
 import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { v4 as uuidv4 } from 'uuid';
 import { BsFillStarFill } from 'react-icons/bs';
 import { GiBananaPeeled } from 'react-icons/gi';
 import { ModalContext } from '../../contexts/ModalContext.jsx';
@@ -124,9 +124,9 @@ const Card = ({ card }) => {
         ) : <Original>{card.price}</Original>}
         {card.ratingAvg > 0 ? (
           <>
-            <FullStars>{[...Array(5)].map((star, index) => <GiBananaPeeled size={25} color="#3d3d3d" key={index} />)}</FullStars>
+            <FullStars>{[...Array(5)].map(() => <GiBananaPeeled size={25} color="#3d3d3d" key={uuidv4()} />)}</FullStars>
             <Rating>
-              {fullStarCount > 0 ? ([...Array(fullStarCount)].map((star, index) => <GiBananaPeeled size={25} color="#20afe3" key={index} />)) : null}
+              {fullStarCount > 0 ? ([...Array(fullStarCount)].map(() => <GiBananaPeeled size={25} color="#20afe3" key={uuidv4()} />)) : null}
               {percentStar > 0 ? (<Star star={fullStarCount} percent={percentStar}><GiBananaPeeled size={25} color="#20afe3" /></Star>) : null}
             </Rating>
           </>
