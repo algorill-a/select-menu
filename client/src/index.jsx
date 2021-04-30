@@ -11,6 +11,7 @@ import ReviewListProvider from './Components/RatingsAndReviews/Context/ReviewLis
 import ReviewBreakdownProvider from './Components/RatingsAndReviews/Context/ReviewBreakdownContext.jsx';
 import WriteReviewProvider from './Components/RatingsAndReviews/Context/WriteNewReviewContext.jsx';
 import ReviewButtonProvider from './contexts/ReviewButtonContext.jsx';
+import FilterStarProvider from './contexts/FilterStarContext.jsx';
 import Overview from './Components/Overview/Overview.jsx';
 import CardList from './Components/Related/CardList.jsx';
 import ProductsContextProvider from './Components/Overview/ProductsContext.jsx';
@@ -41,7 +42,9 @@ function App() {
                 <ReviewListProvider>
                   <ReviewBreakdownProvider>
                     <ReviewButtonProvider>
-                      <RatingsAndReviews />
+                      <FilterStarProvider>
+                        <RatingsAndReviews />
+                      </FilterStarProvider>
                     </ReviewButtonProvider>
                   </ReviewBreakdownProvider>
                 </ReviewListProvider>

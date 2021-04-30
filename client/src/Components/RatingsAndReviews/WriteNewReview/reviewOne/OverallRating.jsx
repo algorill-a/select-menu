@@ -5,7 +5,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
-import { FaStar } from 'react-icons/fa';
+import { BsStarFill } from 'react-icons/bs';
 import { WriteReviewContext } from '../../Context/WriteNewReviewContext.jsx';
 
 const Input = styled.input`
@@ -52,9 +52,9 @@ const OverallRating = () => {
                 setText(star.rating);
               }}
             />
-            <FaStar
+            <BsStarFill
               size={25}
-              color={(rating || hover) < ratingValue ? '#e4e5e9' : '#ffc107'}
+              color={(rating || hover) < ratingValue ? '#3d3d3d' : '#20afe3'}
               onMouseEnter={() => {
                 setHover(ratingValue);
                 setText(star.rating);
