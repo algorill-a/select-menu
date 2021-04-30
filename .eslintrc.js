@@ -23,5 +23,23 @@ module.exports = {
     'react',
   ],
   rules: {
+    'jsx-a11y/label-has-associated-control': ['error', {
+      required: {
+        some: ['nesting', 'id'],
+      },
+    }],
+    'jsx-a11y/label-has-for': ['error', {
+      required: {
+        some: ['nesting', 'id'],
+      },
+    }],
+    'no-console': 'off',
+    'no-restricted-syntax': [
+      'error',
+      {
+        selector: "CallExpression[callee.object.name='console'][callee.property.name!=/^(log|warn|error|info|trace)$/]",
+        message: 'Unexpected property on console object was called',
+      },
+    ],
   },
 };
