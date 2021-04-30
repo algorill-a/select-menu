@@ -31,7 +31,9 @@ const Sale = Styled.div`
 `;
 
 const Rating = Styled.div`
-  bottom: 0;
+  position: relative;
+  bottom: 30px;
+  z-index: 1;
 `;
 
 const Pinterest = Styled.a`
@@ -42,10 +44,29 @@ const Twitter = Styled.a`
   display: block;
 `;
 
+const FullStars = Styled.span`
+  position: relative;
+  opacity: 50%;
+  z-index: 0;
+  margin-top: 5px;
+`;
+
+const Star = Styled.span`
+  position: absolute;
+  clip: ${(props) => (props.percent > 0 && props.percent <= 25 ? "rect(0px, 7px, 25px, 0px)"
+    : props.percent > 25 && props.percent <= 50 ? "rect(0px, 13px, 25px, 0px)"
+    : props.percent > 50 && props.percent <= 75 ? "rect(0px, 17px, 25px, 0px)"
+    : "rect(0px, 25px, 25px, 0px)")}
+`;
+
 const ProductInfo = () => {
   const { prodInfo } = useContext(ProductsContext);
   const { currentProduct, currentStyle, currentRating } = useContext(StyleContext);
   const [price, setPrice] = useState({ price: null, salesPrice: null });
+
+  // average rating
+  const fullStarCount = Math.floor(currentRating);
+  const percentStar = ((currentRating - Math.floor(currentRating)) * 100).toFixed(0);
 
   const getProducts = (endpoint) => (fetch(`api/${endpoint}`)
     .then((data) => data.json()));
@@ -63,7 +84,11 @@ const ProductInfo = () => {
 
   return (
     <ProductInfoContainer>
-      <Rating>{[...Array(5)].map((star, index) => <GiBananaPeeled size={25} color={index <= currentRating ? '#BEDF7C' : '#808080'} value={index} />)}</Rating>
+      <FullStars>{[...Array(5)].map((star, index) => <GiBananaPeeled size={25} color="#3d3d3d" key={index} />)}</FullStars>
+      <Rating>
+        {fullStarCount > 0 ? ([...Array(fullStarCount)].map((star, index) => <GiBananaPeeled size={25} color="#20afe3" key={index} />)) : null}
+        {percentStar > 0 ? (<Star star={fullStarCount} percent={percentStar}><GiBananaPeeled size={25} color="#20afe3" /></Star>) : null}
+      </Rating>
       <div>{prodInfo !== null ? prodInfo.productCategory : null}</div>
       <h1>{prodInfo !== null ? prodInfo.productTitle : null}</h1>
       <div>
