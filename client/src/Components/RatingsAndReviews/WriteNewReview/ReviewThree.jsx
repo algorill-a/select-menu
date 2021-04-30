@@ -1,7 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable import/extensions */
 import React, { useContext } from 'react';
+import styled from 'styled-components';
 import { WriteReviewContext } from '../Context/WriteNewReviewContext.jsx';
+
+const Input = styled.input`
+  width: 50%;
+`;
 
 const reviewThree = () => {
   const { reviewData } = useContext(WriteReviewContext);
@@ -14,8 +19,8 @@ const reviewThree = () => {
   return (
     <fieldset>
       <h3>Personal Information</h3>
-      <label>
-        <input
+      <label htmlFor="nickname">
+        <Input
           type="text"
           name="name"
           placeholder="Nickname*"
@@ -28,8 +33,8 @@ const reviewThree = () => {
         do not use your full name or email address
       </p>
       <br />
-      <label>
-        <input
+      <label htmlFor="email">
+        <Input
           type="text"
           name="email"
           placeholder="Email*"

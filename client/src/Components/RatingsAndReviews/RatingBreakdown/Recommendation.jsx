@@ -1,7 +1,7 @@
 /* eslint-disable import/extensions */
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { GiBananaPeeled } from 'react-icons/gi';
+import { BsStarFill } from 'react-icons/bs';
 import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext.jsx';
 
 const Div = styled.div`
@@ -39,7 +39,7 @@ const Key = styled.div`
   grid-area: 1 / 1 / 2 / 3;
 `;
 
-const Banana = styled.div`
+const Star = styled.div`
   grid-area: 2 / 1 / 3 / 2;
   color: #595850;
 `;
@@ -63,7 +63,12 @@ const Recommendation = () => {
           <Container>
             <Key>{key}</Key>
             <br />
-            <Banana><GiBananaPeeled size={30} /></Banana>
+            <Star>
+              <BsStarFill
+                size={30}
+                key={Math.floor(Math.random() * 10000)}
+              />
+            </Star>
             <Score>{parseFloat(value.value).toFixed(1)}</Score>
           </Container>
         );

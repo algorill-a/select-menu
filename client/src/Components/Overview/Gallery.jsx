@@ -10,7 +10,6 @@ const ViewContainer = Styled.div`
   height: 690px;
   width: 80%;
   margin-left: 15%;
-  z-index: 2;
   cursor: zoom-in;
 `;
 
@@ -25,7 +24,6 @@ const Image = Styled.img`
   height: 100%;
   object-fit: cover;
   position: relative;
-  z-index: 10;
   right: 420%;
   left: 30px;
   top: 23px;
@@ -90,7 +88,6 @@ const RightArrow = Styled.button`
   top: 390px;
   left: 63.5%;
   color: black;
-  z-index: 10;
   cursor: pointer;
   user-select: none;
   height: 50px;
@@ -105,7 +102,6 @@ const LeftArrow = Styled.button`
   top: 390px;
   left: 8.5%;
   color: black;
-  z-index: 10;
   cursor: pointer;
   user-select: none;
   height: 50px;
@@ -161,12 +157,8 @@ const Gallery = () => {
       </DefaultViewSlide>
     )) : <Image />;
 
-  const activeThumbnails = (currentStylePhotos.length < 7)? currentStylePhotos : (currentStylePhotos.length - 7 > currentImage ? currentStylePhotos.slice(currentImage,
+  const activeThumbnails = (currentStylePhotos.length < 7) ? currentStylePhotos : (currentStylePhotos.length - 7 > currentImage ? currentStylePhotos.slice(currentImage,
     currentImage + 7) : currentStylePhotos.slice(currentStylePhotos.length - 7, currentStylePhotos.length));
-
-  // const thumbnailsToDisplay = activeThumbnails.length < 7
-  //   ? [...activeThumbnails,
-  //     ...currentStylePhotos.slice(0, 7 - activeThumbnails.length)] : activeThumbnails;
 
   useEffect(() => {
     if (currentStylePhotos.length > 7) {

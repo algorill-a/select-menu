@@ -9,15 +9,17 @@ const StylesContainer = Styled.div`
   left: 65%;
 `;
 
-const ThumbnailContainer = Styled.button`
-  display: inline-block;
-  width: 60px;
-  height: 60px;
-  position: relative;
-  overflow: hidden;
-  border-radius: 50%;
-  margin: 2px;
-`;
+// const ThumbnailContainer = Styled.button`
+//   display: inline-block;
+//   width: 60px;
+//   height: 60px;
+//   position: relative;
+//   overflow: hidden;
+//   border-radius: 50%;
+//   border-style: solid;
+//   border-width: thin;
+//   margin: 2px;
+// `;
 
 const Thumbnail = Styled.img`
   height: 150%;
@@ -26,6 +28,19 @@ const Thumbnail = Styled.img`
   margin-left: -25%;
   margin-top: -25%;
   cursor: pointer;
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: thin;
+  margin: 2px;
+  opacity: 60%;
+  :hover {
+    opacity: 80%;
+  }
 `;
 
 const StyleName = Styled.h3`
@@ -46,19 +61,20 @@ const StyleSelector = () => {
     <StylesContainer>
       <StyleName>{`Style > ${currentStyleName}`}</StyleName>
       {(allStyles !== null) ? allStyles.map((photo) => (
-        <ThumbnailContainer key={photo.style_id}>
-          <Thumbnail
-            src={photo.photo}
-            key={photo.style_id}
-            onClick={() => {
-              if (photo.style_id !== currentStyle) {
-                changeProduct({ currProd: currProduct.currProd, currStyle: photo.style_id });
-                setCurrentStyleName(photo.name);
-                setCurrentStyle(photo.style_id);
-              }
-            }}
-          />
-        </ThumbnailContainer>
+        // <ThumbnailContainer key={photo.style_id}>
+        <Thumbnail
+          style={(currentStyle === photo.style_id) ? { opacity: '100%' } : null}
+          src={photo.photo}
+          key={photo.style_id}
+          onClick={() => {
+            if (photo.style_id !== currentStyle) {
+              changeProduct({ currProd: currProduct.currProd, currStyle: photo.style_id });
+              setCurrentStyleName(photo.name);
+              setCurrentStyle(photo.style_id);
+            }
+          }}
+        />
+        // </ThumbnailContainer>
       )) : null }
     </StylesContainer>
   );

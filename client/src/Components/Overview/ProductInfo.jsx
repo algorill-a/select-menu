@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable import/extensions */
 import React, { useContext, useEffect, useState } from 'react';
 import Styled from 'styled-components';
@@ -9,7 +10,7 @@ const ProductInfoContainer = Styled.div`
   font-family: 'Montserrat', sans-serif;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr .5fr 1.5fr .75fr repeat(2, .5fr);
+  grid-template-rows: .75fr .5fr 1.5fr .75fr repeat(2, .5fr);
   grid-column-gap: 0px;
   grid-row-gap: 0px;
 `;
@@ -33,8 +34,24 @@ const Sale = Styled.div`
 `;
 
 const Rating = Styled.div`
-  vertical-align: center;
-  bottom: 0;
+  position: relative;
+  bottom: 30px;
+  z-index: 1;
+`;
+
+const FullStars = Styled.span`
+  position: relative;
+  opacity: 50%;
+  z-index: 0;
+  margin-top: 5px;
+`;
+
+const Star = Styled.span`
+  position: absolute;
+  clip: ${(props) => (props.percent > 0 && props.percent <= 25 ? 'rect(0px, 7px, 25px, 0px)'
+    : props.percent > 25 && props.percent <= 50 ? 'rect(0px, 13px, 25px, 0px)'
+      : props.percent > 50 && props.percent <= 75 ? 'rect(0px, 17px, 25px, 0px)'
+        : 'rect(0px, 25px, 25px, 0px)')}
 `;
 
 const ProductInfo = (props) => {
@@ -43,6 +60,10 @@ const ProductInfo = (props) => {
   const [price, setPrice] = useState({ price: null, salesPrice: null });
   // eslint-disable-next-line react/prop-types
   const { focus } = props;
+
+  // average rating
+  const fullStarCount = Math.floor(currentRating);
+  const percentStar = ((currentRating - Math.floor(currentRating)) * 100).toFixed(0);
 
   const getProducts = (endpoint) => (fetch(`api/${endpoint}`)
     .then((data) => data.json()));
@@ -65,7 +86,13 @@ const ProductInfo = (props) => {
 
   return (
     <ProductInfoContainer>
-      <Rating onClick={focus}>{[...Array(5)].map((star, index) => <GiBananaPeeled size={25} color={index <= currentRating ? '#BEDF7C' : '#808080'} value={index} />)}</Rating>
+      <div>
+        <FullStars>{[...Array(5)].map((star, index) => <GiBananaPeeled size={25} color="#3d3d3d" key={index} />)}</FullStars>
+        <Rating onClick={focus}>
+          {fullStarCount > 0 ? ([...Array(fullStarCount)].map((star, index) => <GiBananaPeeled size={25} color="#20afe3" key={index} />)) : null}
+          {percentStar > 0 ? (<Star star={fullStarCount} percent={percentStar}><GiBananaPeeled size={25} color="#20afe3" /></Star>) : null}
+        </Rating>
+      </div>
       <div>{prodInfo !== null ? prodInfo.productCategory : null}</div>
       <h1 style={{ marginBottom: '0' }}>{prodInfo !== null ? prodInfo.productTitle : null}</h1>
       <div>

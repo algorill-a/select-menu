@@ -2,26 +2,26 @@
 /* eslint-disable import/extensions */
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { GiBananaPeeled } from 'react-icons/gi';
 import { AiOutlineClose } from 'react-icons/ai';
 import { OutfitContext } from '../../contexts/OutfitContext.jsx';
 
 // Styled Components
 const CardContainer = styled.div`
   font-family: 'Montserrat', sans-serif;
-  width: 250px;
+  width: 300px;
   height: 400px;
-  border: 1px solid black;
+  border: 2px solid black;
   padding: 10px 12px 10px;
   background: alicewhite;
   overflow: hidden;
   box-sizing: border-box;
+  margin: 5px;
+  box-shadow: 2px 5px 5px #808080;
 `;
 
 const ProductImage = styled.img`
   width: 100%;
   height: 200px;
-  top: 0;
   object-fit: cover;
   border: 1px solid alicewhite;
 `;
@@ -46,7 +46,7 @@ const Sale = styled.div`
   font-weight: 300;
 `;
 
-const StarIcon = styled.div`
+const CloseIcon = styled.div`
   color: grey;
   padding: 5px;
   text-align: right;
@@ -56,18 +56,12 @@ const StarIcon = styled.div`
   }
 `;
 
-const Rating = styled.div`
-  position: relative;
-  bottom: 0;
-  text-align: right;
-`;
-
 const Outfit = ({ outfit }) => {
   const { dispatch } = useContext(OutfitContext);
   //
   return (
     <CardContainer>
-      <StarIcon onClick={() => dispatch({ type: 'REMOVE_OUTFIT', value: outfit.prodStyleId })}><AiOutlineClose /></StarIcon>
+      <CloseIcon onClick={() => dispatch({ type: 'REMOVE_OUTFIT', value: outfit.prodStyleId })}><AiOutlineClose /></CloseIcon>
       <ProductImage src={outfit.imageUrl} alt="" />
       <ProductCategory>
         <div>{outfit.prodCategory}</div>
@@ -79,11 +73,6 @@ const Outfit = ({ outfit }) => {
           <Sale>{outfit.sale}</Sale>
         </>
       ) : <Original>{outfit.price}</Original>}
-      {outfit.ratingAvg > 0 ? (
-        <Rating>
-          {[...Array(5)].map((star, index) => <GiBananaPeeled size={25} color={index <= outfit.ratingAvg ? '#BEDF7C' : '#808080'} value={index} />)}
-        </Rating>
-      ) : null}
     </CardContainer>
   );
 };

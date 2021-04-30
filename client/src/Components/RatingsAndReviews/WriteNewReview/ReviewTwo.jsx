@@ -1,6 +1,16 @@
 /* eslint-disable import/extensions */
 import React, { useContext } from 'react';
+import styled from 'styled-components';
 import { WriteReviewContext } from '../Context/WriteNewReviewContext.jsx';
+
+const Input = styled.input`
+  width: 50%;
+`;
+
+const Textarea = styled.textarea`
+  width: 50%;
+  height: 80%;
+`;
 
 const ReviewTwo = () => {
   const { reviewData } = useContext(WriteReviewContext);
@@ -8,16 +18,15 @@ const ReviewTwo = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log('this is value', value);
     setReview({ ...review, [name]: value });
   };
 
   return (
     <fieldset>
       <h3>Your Review</h3>
-      <label>
+      <label htmlFor="summary">
         <br />
-        <input
+        <Input
           type="text"
           name="summary"
           placeholder="Summary*"
@@ -27,8 +36,8 @@ const ReviewTwo = () => {
       </label>
       <br />
       <br />
-      <label>
-        <textarea
+      <label htmlFor="body">
+        <Textarea
           type="text"
           name="body"
           rows="4"

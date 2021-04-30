@@ -7,6 +7,7 @@ import Card from './Card.jsx';
 import Outfit from './Outfit.jsx';
 import { CardContext } from '../../contexts/CardContext.jsx';
 import { MainContext } from '../../contexts/MainContextProvider.jsx';
+// import { ThemeContext } from '../../contexts/ThemeContext.jsx';
 import { OutfitContext } from '../../contexts/OutfitContext.jsx';
 import { StyleContext } from '../Overview/StyleContext.jsx';
 
@@ -21,6 +22,7 @@ const Title = styled.h3`
 const CardListContainer = styled.div`
   font-family: 'Montserrat', sans-serif;
   margin-top: 3em;
+  margin-right: 5px;
   border: 0;
   position: relative;
   border: 1px solid black,
@@ -64,6 +66,7 @@ const AddOutfitContainer = styled.div`
   font-family: 'Montserrat', sans-serif;
   text-align: center;
   color: #808080;
+  margin: 5px;
 `;
 
 const AddButton = styled.div`
@@ -83,9 +86,13 @@ const CardList = () => {
   const { outfitList } = useContext(OutfitContext);
   const { setCurrentRating } = useContext(StyleContext);
   const { addToOutfitCard } = useContext(OutfitContext);
+  // const { isLightTheme, light, dark } = useContext(ThemeContext);
+  // const theme = isLightTheme ? light : dark;
+  // console.log(theme);
   let productId;
   let ratings = 0;
   let sum = 0;
+
   // card states
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [showStart, setShowStart] = useState(false);
@@ -111,10 +118,11 @@ const CardList = () => {
                 ratings += (parseInt(keys[i], 10) * parseInt(reviews.ratings[[keys[i]]], 10));
                 sum += (parseInt(reviews.ratings[[keys[i]]], 10));
               }
-              ratings = Math.ceil(ratings / sum);
+              ratings /= sum;
             } else {
               ratings = 0;
             }
+            /* NEED TO CHANGE FOR OVERVIEW */
             setCurrentRating(ratings);
           });
         getProducts(`products/${item}/styles`)

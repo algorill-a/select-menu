@@ -56,7 +56,6 @@ const Characteristics = () => {
                   <label>
                     <input
                       type="radio"
-                      key={Math.floor(Math.random() * 10000)}
                       title={key}
                       name={value.id}
                       id={index}

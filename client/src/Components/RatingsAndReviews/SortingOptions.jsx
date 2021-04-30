@@ -10,31 +10,30 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const Ul = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-tempalte-rows: 1fr;
-  grid-column-gap: 50px;
+const Select = styled.select`
   list-style-type: none;
+  float: right;
   height: 5vh;
+  width: 25%;
   margin: 0;
-  padding-bottom: 10px;
-  font-weight: 900;
-  font-size: 2em;
-  letter-spacing: 4px;
-  color: #5F939A;
+  font-weight: bold;
+  font-size: 1em;
+  text-align: center;
+  border: 1px solid black;
+  box-shadow: 2px 3px black;
+  color: black;
+  outline: none;
+  &: hover {
+    border: 2px solid #00bee8;
+    box-shadow: 2px 5px 5px #00bee8;
 `;
 
-const Li = styled.li`
+const Option = styled.option`
   font-family: 'Montserrat', sans-serif;
   letter-spacing: 4px
-  color: #5F939A;
-  display: inline;
-  width: 90%;
-  padding-top: .5vh;
+  color: black;
+  font-size: 2em;
   text-align: center;
-  border: 2px solid black;
-  box-shadow: 3px 3px 3px #0d555f;
 `;
 
 const SortingOptions = () => {
@@ -49,17 +48,31 @@ const SortingOptions = () => {
   };
 
   const filterByRelevance = () => {
-    console.log(list);
-    setList(list.slice());
+    setList(list.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
+      .sort((a, b) => (b.date === a.date
+        ? (b.helpfulness - a.helpfulness) : null)));
+  };
+
+  const handleOnChange = (event) => {
+    const { value } = event.target;
+    if (value === 'Helpful') {
+      filterByHelpful();
+    }
+    if (value === 'Newest') {
+      filterByDate();
+    }
+    if (value === 'Relevance') {
+      filterByRelevance();
+    }
   };
 
   return (
     <Container>
-      <Ul>
-        <Li onClick={filterByHelpful}>Helpful</Li>
-        <Li onClick={filterByDate}>Newest</Li>
-        <Li onClick={filterByRelevance}>Relevant</Li>
-      </Ul>
+      <Select onChange={handleOnChange}>
+        <Option value="Helpful">Helpful</Option>
+        <Option value="Newest">Newest</Option>
+        <Option value="Relevance">Relevant</Option>
+      </Select>
     </Container>
   );
 };

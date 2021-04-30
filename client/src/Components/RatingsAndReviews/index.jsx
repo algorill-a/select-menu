@@ -33,6 +33,7 @@ const EmptyContainer = styled.div`
   margin: 0px;
   border: 1px solid black;
   font-family: 'Montserrat',sans-serif;
+  letter-spacing: 4px;
 `;
 
 const Title = styled.h3`
@@ -41,29 +42,20 @@ const Title = styled.h3`
   margin-top: 5em;
   margin-left: 8em;
 `;
-
-const NoReviews = styled.div`
-  grid-area: 1 / 2 / 2 / 3;
-`;
-
-const Img = styled.img`
-  background-size: cover;
-  border-radius: 15px;
-  box-shadow: 2px 4px 6px green;
-  width: 80%;
-  height: 50%;
-  z-index: -1;
-`;
-
 const TextContainer = styled.div`
-  position: relative;
+  grid-area: 1 / 1 / 2 / 2;
   font-size: 3em;
-  left: 25%;
-  top: 45%;
-  font-family: Helvetica;
-  color: white;
-  text-shadow: 2px 2px 3px black;
+  font-weight: bold;
+  color: #0d555f;
 `;
+
+// const Img = styled.img`
+//   grid-area: 1 / 2 / 2 / 3;
+//   left: 50%;
+//   width: 50vw;
+//   height: 60vh;
+//   z-index: -1;
+// `;
 
 const Text = styled.div``;
 const Text2 = styled.div``;
@@ -82,9 +74,13 @@ const Button = styled.button`
   box-shadow: 1px 3px 3px #5B5347;
   outline: 0;
   &:active {
-    background-color: #03fc07;
-    border: 2px solid #91ff93;
-    color: #c8f745;
+    background-color: black;
+    color: white;
+    box-shadow: 1px 3px 3px #5F939A;
+  }
+  &:hover {
+    border: 2px solid #00bee8;
+    box-shadow: 2px 5px 5px #00bee8;
   }
 `;
 
@@ -116,7 +112,7 @@ const RatingsAndReviews = () => {
   const productId = currProduct.currProd;
 
   const getList = () => {
-    axios.get(`/api/reviews?product_id=${productId}`)
+    axios.get(`/api/reviews?product_id=${productId}&count=10`)
       .then((response) => setList(response.data.results))
       .catch((error) => console.log(error));
   };
@@ -132,14 +128,11 @@ const RatingsAndReviews = () => {
     if (list.length === 0) {
       return (
         <EmptyContainer>
-          <NoReviews>
-            <TextContainer>
-              <Text>Looks like there are</Text>
-              <Text2>no reviews</Text2>
-              <Text3>for this product</Text3>
-            </TextContainer>
-            <Img src="./monkey.gif" alt="" />
-          </NoReviews>
+          <TextContainer>
+            <Text>Looks like there are</Text>
+            <Text2>no reviews</Text2>
+            <Text3>for this product</Text3>
+          </TextContainer>
         </EmptyContainer>
       );
     }
@@ -161,7 +154,7 @@ const RatingsAndReviews = () => {
 
           <DivFour>
             <WriteNewReview />
-            <Button type="button" onClick={incrementCount}>Read More Reivews</Button>
+            <Button type="button" onClick={incrementCount}>Read More Reviews</Button>
             <Button type="button" onClick={toggleReviewModal}>Add Review</Button>
           </DivFour>
         </Container>
