@@ -7,6 +7,7 @@ import {
 import { StyleContext } from './StyleContext.jsx';
 
 const ViewContainer = Styled.div`
+  position: relative;
   height: 690px;
   width: 80%;
   margin-left: 15%;
@@ -85,8 +86,7 @@ const DefaultViewImage = Styled.img`
 
 const RightArrow = Styled.button`
   position: absolute;
-  top: 390px;
-  left: 63.5%;
+  top: 45%;
   color: black;
   cursor: pointer;
   user-select: none;
@@ -95,12 +95,12 @@ const RightArrow = Styled.button`
   :hover {
     opacity: 80%;
   }
+  right: 0;
 `;
 
 const LeftArrow = Styled.button`
   position: absolute;
-  top: 390px;
-  left: 8.5%;
+  top: 45%;
   color: black;
   cursor: pointer;
   user-select: none;
@@ -109,6 +109,7 @@ const LeftArrow = Styled.button`
   :hover {
     opacity: 80%;
   }
+  z-index: 1;
 `;
 
 const Gallery = () => {
@@ -172,7 +173,6 @@ const Gallery = () => {
         width: '120%',
         cursor: 'zoom-out',
         zIndex: '10',
-        buttonPosition: '90%',
       });
     } else {
       setView(null);

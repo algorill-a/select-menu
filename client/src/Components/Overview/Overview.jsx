@@ -39,12 +39,11 @@ grid-area: 2 / 1 / 3 / 3;
 
 const Container = Styled.div`
 display: grid;
-grid-template-columns: 2fr 1fr;
+grid-template-columns: 2.25fr 1fr;
 grid-template-rows: 2fr .5fr;
 grid-column-gap: 0px;
 grid-row-gap: 0px;
 `;
-
 
 const Overview = (props) => {
   // eslint-disable-next-line react/prop-types
