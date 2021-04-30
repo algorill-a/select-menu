@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/prop-types */
 /* eslint-disable import/extensions */
@@ -76,14 +77,12 @@ const StarIcon = styled.div`
 const FullStars = styled.span`
   position: relative;
   opacity: 50%;
-  z-index: 0;
   margin-top: 5px;
 `;
 
 const Rating = styled.div`
   position: absolute;
   bottom: 25px;
-  z-index: 1;
 `;
 
 const Star = styled.span`

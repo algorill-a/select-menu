@@ -3,12 +3,10 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { createContext, useState, useContext } from 'react';
 import { MainContext } from './MainContextProvider.jsx';
-// import styled from 'styled-components';
 
 export const ModalContext = createContext();
 
 // Modal Context
-
 const ModalContextProvider = (props) => {
   const { currProduct } = useContext(MainContext);
   const [charDisplay, setCharDisplay] = useState(false);
