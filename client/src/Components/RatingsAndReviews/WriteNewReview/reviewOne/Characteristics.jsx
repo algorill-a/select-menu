@@ -4,7 +4,6 @@
 /* eslint-disable import/extensions */
 import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
-import { ImRadioUnchecked, ImRadioChecked2 } from 'react-icons/Im';
 import { WriteReviewContext } from '../../Context/WriteNewReviewContext.jsx';
 
 const Container = styled.div`
