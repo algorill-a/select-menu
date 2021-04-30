@@ -24,6 +24,36 @@ const Header = Styled.h1`
   text-align: center;
 `;
 
+const ContainerGrid = Styled.div`
+  display: grid;
+  grid-template-columns: 2fr fit-content(8ch) fit-content(8ch) 4fr 2fr;
+  grid-template-rows: 2fr repeat(2, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  height: 100vh;
+  width: 100vw;
+`;
+
+const DivOne = Styled.div`
+  grid-area: 1 / 2 / 2 / 3;
+`;
+
+const DivTwo = Styled.div`
+  grid-area: 2 / 2 / 3 / 3;
+`;
+
+const DivThree = Styled.div`
+  grid-area: 3 / 2 / 4 / 3;
+`;
+
+const DivFour = Styled.div`
+  grid-area: 1 / 1 / 4 / 2;
+`;
+
+const DivFive = Styled.div`
+  grid-area: 1 / 3 / 4 / 4;
+`;
+
 function App() {
   return (
     <div>
@@ -34,21 +64,31 @@ function App() {
             <StyleContextProvider>
               <CardContextProvider>
                 <OutfitContextProvider>
-                  <Overview />
-                  <CardList />
+                  <WriteReviewProvider>
+                    <ReviewListProvider>
+                      <ReviewBreakdownProvider>
+                        <ReviewButtonProvider>
+                          <FilterStarProvider>
+                            <ContainerGrid>
+                              <DivOne>
+                                <Overview />
+                              </DivOne>
+                              <DivTwo>
+                                <CardList />
+                              </DivTwo>
+                              <DivThree>
+                                <RatingsAndReviews />
+                              </DivThree>
+                              <DivFour>{' '}</DivFour>
+                              <DivFive>{' '}</DivFive>
+                            </ContainerGrid>
+                          </FilterStarProvider>
+                        </ReviewButtonProvider>
+                      </ReviewBreakdownProvider>
+                    </ReviewListProvider>
+                  </WriteReviewProvider>
                 </OutfitContextProvider>
               </CardContextProvider>
-              <WriteReviewProvider>
-                <ReviewListProvider>
-                  <ReviewBreakdownProvider>
-                    <ReviewButtonProvider>
-                      <FilterStarProvider>
-                        <RatingsAndReviews />
-                      </FilterStarProvider>
-                    </ReviewButtonProvider>
-                  </ReviewBreakdownProvider>
-                </ReviewListProvider>
-              </WriteReviewProvider>
             </StyleContextProvider>
           </ProductsContextProvider>
           <ComparisonModal />
