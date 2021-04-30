@@ -1,5 +1,6 @@
 /* eslint-disable import/extensions */
 import React, { useContext } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
 import { GiBananaPeeled } from 'react-icons/gi';
 import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext.jsx';
@@ -60,13 +61,13 @@ const Recommendation = () => {
       {Object.entries(breakdown.characteristics).map((entries) => {
         const [key, value] = entries;
         return (
-          <Container>
+          <Container key={uuidv4()}>
             <Key>{key}</Key>
             <br />
             <Star>
               <GiBananaPeeled
                 size={30}
-                key={Math.floor(Math.random() * 10000)}
+                key={uuidv4()}
               />
             </Star>
             <Score>{parseFloat(value.value).toFixed(1)}</Score>

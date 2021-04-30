@@ -1,6 +1,7 @@
 /* eslint-disable import/extensions */
 /* eslint-disable radix */
 import React, { useState, useContext, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
 import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext.jsx';
 import RatingBar from './RatingBar.jsx';
@@ -71,6 +72,7 @@ const RatingBars = () => {
             <RatingBar
               title={key}
               value={getIndivPercentage(value)}
+              key={uuidv4()}
             />
           );
         })}
