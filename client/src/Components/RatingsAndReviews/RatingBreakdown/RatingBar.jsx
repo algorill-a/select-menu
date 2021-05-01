@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Span = styled.span`
   padding-left: 6px;
@@ -57,3 +57,8 @@ const RatingBar = ({ title, value }) => (
 );
 
 export default RatingBar;
+
+RatingBar.propTypes = {
+  title: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+};

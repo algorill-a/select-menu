@@ -1,16 +1,14 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import ReviewList from './ReviewList/ReviewList.jsx';
-import RatingBreakdown from './RatingBreakdown/RatingBreakdown.jsx';
-import SortingOptions from './SortingOptions.jsx';
-import WriteNewReview from './WriteNewReview/index.jsx';
-import { ReviewListContext } from './Context/ReviewListContext.jsx';
-import { MainContext } from '../../contexts/MainContextProvider.jsx';
-import { ReviewButtonContext } from '../../contexts/ReviewButtonContext.jsx';
-import { ModalContext } from '../../contexts/ModalContext.jsx';
+import ReviewList from './ReviewList/ReviewList';
+import RatingBreakdown from './RatingBreakdown/RatingBreakdown';
+import SortingOptions from './SortingOptions';
+import WriteNewReview from './WriteNewReview/index';
+import { ReviewListContext } from './Context/ReviewListContext';
+import { MainContext } from '../../contexts/MainContextProvider';
+import { ReviewButtonContext } from '../../contexts/ReviewButtonContext';
+import { ModalContext } from '../../contexts/ModalContext';
 
 const Container = styled.div`
   height: 50vh;
@@ -24,14 +22,10 @@ const Container = styled.div`
 `;
 
 const EmptyContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 8fr 1fr;
-  grid-template-rows: 1fr;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  padding: 0px;
-  margin: 0px;
-  border: 1px solid black;
+  padding: 20px 20px;
+  margin: 50px 0px;
+  border-radius: 15px;
+  background-color #02475e;
   font-family: 'Montserrat',sans-serif;
   letter-spacing: 4px;
 `;
@@ -42,24 +36,13 @@ const Title = styled.h3`
   margin-top: 5em;
   margin-left: 8em;
 `;
-const TextContainer = styled.div`
-  grid-area: 1 / 1 / 2 / 2;
-  font-size: 3em;
-  font-weight: bold;
-  color: #0d555f;
+
+const Text = styled.div`
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 4px;
+  font-size: 4em;
 `;
-
-// const Img = styled.img`
-//   grid-area: 1 / 2 / 2 / 3;
-//   left: 50%;
-//   width: 50vw;
-//   height: 60vh;
-//   z-index: -1;
-// `;
-
-const Text = styled.div``;
-const Text2 = styled.div``;
-const Text3 = styled.div``;
 
 const Button = styled.button`
   padding: 15px;
@@ -90,7 +73,7 @@ const DivOne = styled.div`
 
 const DivTwo = styled.div`
   grid-area: 2 / 2 / 3 / 3;
-  height: 50vh;
+  height: 77vh;
   overflow: scroll;
 `;
 
@@ -107,7 +90,7 @@ const DivFour = styled.div`
 const RatingsAndReviews = () => {
   const { real, copy } = useContext(ReviewListContext);
   const [list, setList] = real;
-  const [dupeList, setDupeList] = copy;
+  const [, setDupeList] = copy;
   const { currProduct } = useContext(MainContext);
   const { toggleReviewModal } = useContext(ModalContext);
   const { counts } = useContext(ReviewButtonContext);
@@ -116,7 +99,10 @@ const RatingsAndReviews = () => {
 
   const getList = () => {
     axios.get(`/api/reviews?product_id=${productId}&count=10`)
-      .then((response) => setList(response.data.results))
+      .then((response) => {
+        setList(response.data.results);
+        setDupeList(response.data.results);
+      })
       .catch((error) => console.log(error));
   };
   useEffect(getList, [currProduct]);
@@ -127,15 +113,10 @@ const RatingsAndReviews = () => {
   };
 
   const renderConditionList = () => {
-    setDupeList(list);
-    if (dupeList.length === 0) {
+    if (list.length === 0) {
       return (
         <EmptyContainer>
-          <TextContainer>
-            <Text>Looks like there are</Text>
-            <Text2>no reviews</Text2>
-            <Text3>for this product</Text3>
-          </TextContainer>
+          <Text>Looks like there are no review for this product</Text>
         </EmptyContainer>
       );
     }

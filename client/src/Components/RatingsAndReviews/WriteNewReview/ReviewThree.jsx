@@ -1,8 +1,6 @@
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable import/extensions */
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { WriteReviewContext } from '../Context/WriteNewReviewContext.jsx';
+import { WriteReviewContext } from '../Context/WriteNewReviewContext';
 
 const Input = styled.input`
   width: 50%;
@@ -42,7 +40,7 @@ const reviewThree = () => {
           required
         />
       </label>
-      <p>Authentication only - we won't send you any marketing/promotional emails.</p>
+      <p>{'Authentication only - we won\'t send you any marketing/promotional emails.'}</p>
     </fieldset>
   );
 };
