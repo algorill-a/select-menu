@@ -41,5 +41,13 @@ module.exports = {
         message: 'Unexpected property on console object was called',
       },
     ],
+    // 'import/extensions': [
+    //   'error',
+    //   'ignorePackages',
+    //   {
+    //     js: 'never',
+    //     jsx: 'never',
+    //   },
+    // ],
   },
 };

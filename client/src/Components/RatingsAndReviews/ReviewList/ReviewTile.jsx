@@ -1,10 +1,9 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import axios from 'axios';
-import { GiBananaPeeled, GiCheckMark } from 'react-icons/gi';
-import gorillaImg from '../../../../dist/gorilla.png';
+import PropTypes from 'prop-types';
+import { GiBananaPeeled, GiGorilla } from 'react-icons/gi';
 
 const Container = styled.div`
   display: grid;
@@ -121,12 +120,6 @@ const Img = styled.img`
   padding 0px 10px;
 `;
 
-const CheckMark = styled.span`
-  grid-area: 1 / 1 / 2 / 2;
-  position: relative;
-  width: 1vw;
-`;
-
 const Recommend = styled.span`
   grid-area: 1 / 2 / 2 / 3;
   border-bottom: 1px solid black;
@@ -191,7 +184,7 @@ const ReviewTile = ({ tile }) => {
           {JSON.stringify(tile.recommend) === 'true'
             ? (
               <div>
-                <CheckMark><GiCheckMark color="#20afe3" /></CheckMark>
+                <GiGorilla size={30} color="#595850" />
                 <span> | </span>
                 <span>Gorilla approved</span>
               </div>
@@ -231,3 +224,21 @@ const ReviewTile = ({ tile }) => {
   );
 };
 export default ReviewTile;
+
+ReviewTile.propTypes = {
+  tile: PropTypes.shape({
+    review_id: PropTypes.number,
+    rating: PropTypes.number,
+    reviewer_name: PropTypes.string,
+    date: PropTypes.string,
+    helpfulness: PropTypes.number,
+    summary: PropTypes.string,
+    body: PropTypes.string,
+    recommend: PropTypes.bool,
+    response: PropTypes.string,
+    photos: PropTypes.arrayOf(PropTypes.string),
+  }),
+};
+ReviewTile.defaultProps = {
+  tile: 'No Reviews',
+};

@@ -1,8 +1,8 @@
-/* eslint-disable import/extensions */
 import React, { useContext } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
 import { GiBananaPeeled } from 'react-icons/gi';
-import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext.jsx';
+import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext';
 
 const Div = styled.div`
   display: grid;
@@ -60,12 +60,13 @@ const Recommendation = () => {
       {Object.entries(breakdown.characteristics).map((entries) => {
         const [title, value] = entries;
         return (
-          <Container>
+          <Container key={uuidv4()}>
             <Key>{title}</Key>
             <br />
             <Star>
               <GiBananaPeeled
                 size={30}
+                key={uuidv4()}
               />
             </Star>
             <Score>{parseFloat(value.value).toFixed(1)}</Score>

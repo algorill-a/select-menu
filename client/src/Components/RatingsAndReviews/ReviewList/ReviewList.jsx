@@ -1,9 +1,9 @@
-/* eslint-disable import/extensions */
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import ReviewTile from './ReviewTile.jsx';
-import { ReviewListContext } from '../Context/ReviewListContext.jsx';
-import { ReviewButtonContext } from '../../../contexts/ReviewButtonContext.jsx';
+import { v4 as uuidv4 } from 'uuid';
+import ReviewTile from './ReviewTile';
+import { ReviewListContext } from '../Context/ReviewListContext';
+import { ReviewButtonContext } from '../../../contexts/ReviewButtonContext';
 
 const DivTwo = styled.div`
   padding: 0;
@@ -26,6 +26,7 @@ const ReviewsList = () => {
         {renderList().slice(0).map((tile) => (
           <ReviewTile
             tile={tile}
+            key={uuidv4()}
           />
         ))}
       </DivTwo>

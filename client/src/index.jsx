@@ -54,7 +54,7 @@ const DivFive = Styled.div`
   grid-area: 1 / 3 / 4 / 4;
 `;
 
-function App() {
+const App = () => {
   const ratingsAndReviewsRef = createRef();
   const focus = () => {
     ratingsAndReviewsRef.current.scrollIntoView();
@@ -102,7 +102,7 @@ function App() {
       </MainContextProvider>
     </div>
   );
-}
+};
 
 ReactDOM.render(<App />, document.getElementById('app'));
 

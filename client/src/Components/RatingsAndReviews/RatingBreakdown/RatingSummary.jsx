@@ -1,10 +1,8 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable import/extensions */
-/* eslint-disable radix */
 import React, { useContext } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
 import { GiBananaPeeled } from 'react-icons/gi';
-import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext.jsx';
+import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext';
 
 const Container = styled.div`
   display: grid;
@@ -70,10 +68,16 @@ const Rating = styled.span`
 
 const Star = styled.div`
   position: absolute;
-  clip: ${(props) => (props.percent > 0 && props.percent <= 25 ? 'rect(0px, 7px, 25px, 0px)'
-    : props.percent > 25 && props.percent <= 50 ? 'rect(0px, 13px, 25px, 0px)'
-      : props.percent > 50 && props.percent <= 75 ? 'rect(0px, 17px, 25px, 0px)'
-        : 'rect(0px, 25px, 25px, 0px)')}
+  clip: ${(props) => {
+    if (props.percent > 0 && props.percent <= 25) {
+      return 'rect(0px, 7px, 25px, 0px)';
+    } if (props.percent > 25 && props.percent <= 50) {
+      return 'rect(0px, 13px, 25px, 0px)';
+    } if (props.percent > 50 && props.percent <= 75) {
+      return 'rect(0px, 17px, 25px, 0px)';
+    }
+    return 'rect(0px, 25px, 25px, 0px)';
+  }}
 `;
 
 const RatingSummary = () => {
@@ -85,8 +89,8 @@ const RatingSummary = () => {
     let length = 0;
     Object.entries(object).forEach((entry) => {
       const [key, value] = entry;
-      length += parseInt(value);
-      total += key * parseInt(value);
+      length += parseInt(value, 10);
+      total += key * parseInt(value, 10);
     });
     totalReviews = length;
     return total / length;
@@ -101,18 +105,20 @@ const RatingSummary = () => {
       <H3>Banana Score</H3>
       <Container>
         <BananaDiv>
-          <FullStars>
-            {[...Array(5)].map((star) => (
-              <GiBananaPeeled
-                size={30}
-                name={star}
-              />
-            ))}
-          </FullStars>
-          <Rating>
-            {fullStarCount > 0 ? ([...Array(fullStarCount)].map((star) => <GiBananaPeeled size={30} color="#20afe3" name={star} />)) : null}
-            {percentStar > 0 ? (<Star star={fullStarCount} percent={percentStar}><GiBananaPeeled size={30} color="#20afe3" /></Star>) : null}
-          </Rating>
+          <>
+            <FullStars>
+              {[...Array(5)].map(() => (
+                <GiBananaPeeled
+                  size={30}
+                  key={uuidv4()}
+                />
+              ))}
+            </FullStars>
+            <Rating>
+              {fullStarCount > 0 ? ([...Array(fullStarCount)].map(() => <GiBananaPeeled size={30} color="#20afe3" key={uuidv4()} />)) : null}
+              {percentStar > 0 ? (<Star star={fullStarCount} percent={percentStar}><GiBananaPeeled size={30} color="#20afe3" /></Star>) : null}
+            </Rating>
+          </>
         </BananaDiv>
         <Score>
           {(parseFloat(getAverage(breakdown.ratings)).toFixed(1))}

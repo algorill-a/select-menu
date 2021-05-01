@@ -1,16 +1,14 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import ReviewList from './ReviewList/ReviewList.jsx';
-import RatingBreakdown from './RatingBreakdown/RatingBreakdown.jsx';
-import SortingOptions from './SortingOptions.jsx';
-import WriteNewReview from './WriteNewReview/index.jsx';
-import { ReviewListContext } from './Context/ReviewListContext.jsx';
-import { MainContext } from '../../contexts/MainContextProvider.jsx';
-import { ReviewButtonContext } from '../../contexts/ReviewButtonContext.jsx';
-import { ModalContext } from '../../contexts/ModalContext.jsx';
+import ReviewList from './ReviewList/ReviewList';
+import RatingBreakdown from './RatingBreakdown/RatingBreakdown';
+import SortingOptions from './SortingOptions';
+import WriteNewReview from './WriteNewReview/index';
+import { ReviewListContext } from './Context/ReviewListContext';
+import { MainContext } from '../../contexts/MainContextProvider';
+import { ReviewButtonContext } from '../../contexts/ReviewButtonContext';
+import { ModalContext } from '../../contexts/ModalContext';
 
 const Container = styled.div`
   height: 50vh;
@@ -75,7 +73,7 @@ const DivOne = styled.div`
 
 const DivTwo = styled.div`
   grid-area: 2 / 2 / 3 / 3;
-  height: 50vh;
+  height: 77vh;
   overflow: scroll;
 `;
 

@@ -1,7 +1,6 @@
-/* eslint-disable import/extensions */
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { WriteReviewContext } from '../Context/WriteNewReviewContext.jsx';
+import { WriteReviewContext } from '../Context/WriteNewReviewContext';
 
 const Input = styled.input`
   width: 50%;

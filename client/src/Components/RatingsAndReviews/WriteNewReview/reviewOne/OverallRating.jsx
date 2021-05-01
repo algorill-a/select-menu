@@ -1,12 +1,8 @@
-/* eslint-disable import/extensions */
-/* eslint-disable jsx-a11y/label-has-for */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-console */
-/* eslint-disable import/no-extraneous-dependencies */
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
-import { BsStarFill } from 'react-icons/bs';
-import { WriteReviewContext } from '../../Context/WriteNewReviewContext.jsx';
+import { GiBananaPeeled } from 'react-icons/gi';
+import { v4 as uuidv4 } from 'uuid';
+import { WriteReviewContext } from '../../Context/WriteNewReviewContext';
 
 const Input = styled.input`
   display: none;
@@ -40,7 +36,7 @@ const OverallRating = () => {
       {starRating().map((star, i) => {
         const ratingValue = i + 1;
         return (
-          <label key={Math.floor(Math.random() * 10000)}>
+          <label key={uuidv4()} htmlFor={i}>
             <Input
               type="radio"
               name="rating"
@@ -51,8 +47,8 @@ const OverallRating = () => {
                 setText(star.rating);
               }}
             />
-            <BsStarFill
-              size={25}
+            <GiBananaPeeled
+              size={40}
               color={(rating || hover) < ratingValue ? '#3d3d3d' : '#20afe3'}
               onMouseEnter={() => {
                 setHover(ratingValue);
