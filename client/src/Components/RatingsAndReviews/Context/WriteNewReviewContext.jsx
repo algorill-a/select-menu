@@ -1,16 +1,14 @@
-/* eslint-disable no-console */
-/* eslint-disable import/extensions */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
 import React, {
   useState, useEffect, useContext, createContext,
 } from 'react';
 import axios from 'axios';
-import { MainContext } from '../../../contexts/MainContextProvider.jsx';
+import PropTypes from 'prop-types';
+import { MainContext } from '../../../contexts/MainContextProvider';
 
 export const WriteReviewContext = createContext();
 
 const WriteReviewProvider = (props) => {
+  const { children } = props;
   const { currProduct } = useContext(MainContext);
   const productId = currProduct.currProd;
 
@@ -59,23 +57,24 @@ const WriteReviewProvider = (props) => {
     },
   });
 
-  const changeChara = (data) => {
+  const changeCharacteristic = (data) => {
     Object.entries(data).forEach((entry) => {
       const [key, value] = entry;
       if (chara[key]) {
-        setChara((oldChara) => ({ ...oldChara, [key]: { ...oldChara[key], id: value.id } }));
+        setChara((oldChar) => (
+          { ...oldChar, [key]: { ...oldChar[key], id: value.id } }));
       }
     });
   };
 
-  const changeReqChara = (data) => {
+  const changeRequestCharacteristic = (data) => {
     const container = {};
     Object.values(data).forEach((entry) => {
       if (container[entry.id] === undefined) {
         container[entry.id] = null;
       }
     });
-    changeChara(data);
+    changeCharacteristic(data);
     return container;
   };
 
@@ -83,21 +82,32 @@ const WriteReviewProvider = (props) => {
     axios.get(`/api/reviews/meta?product_id=${currProduct.currProd}`)
       .then((response) => setReview({
         ...review,
-        characteristics: changeReqChara(response.data.characteristics),
+        characteristics: changeRequestCharacteristic(response.data.characteristics),
       }))
-      .catch((error) => console.log(error));
+      .catch((error) => error.send(error));
   };
 
   useEffect(getRequest, [productId]);
 
   return (
     <WriteReviewContext.Provider value={
-      { reviewData: [review, setReview], charaData: [chara, setChara] }
+      { reviewData: [review, setReview], characteristicData: [chara, setChara] }
     }
     >
-      {props.children}
+      {children}
     </WriteReviewContext.Provider>
   );
 };
 
 export default WriteReviewProvider;
+
+WriteReviewProvider.propTypes = {
+  children: PropTypes.shape({
+    reviewData: PropTypes.node,
+    characteristicData: PropTypes.node,
+  }),
+};
+
+WriteReviewProvider.defaultProps = {
+  children: 'There are no children',
+};

@@ -108,7 +108,7 @@ const ProductInfo = (props) => {
         >
           Tweet
         </a>
-        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8" />
+        <script async src="https://platform.twitter.com/widgets.js" charSet="utf-8" />
         <a
           data-pin-do="buttonBookmark"
           data-pin-tall="true"

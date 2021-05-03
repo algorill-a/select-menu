@@ -1,18 +1,15 @@
-/* eslint-disable no-console */
-/* eslint-disable import/extensions */
 import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { AiOutlineClose } from 'react-icons/ai';
-import ReviewPartOne from './reviewOne/ReviewOne.jsx';
-import ReviewPartTwo from './ReviewTwo.jsx';
-import ReviewPartThree from './ReviewThree.jsx';
-import { WriteReviewContext } from '../Context/WriteNewReviewContext.jsx';
-import { ReviewListContext } from '../Context/ReviewListContext.jsx';
-import { ModalContext } from '../../../contexts/ModalContext.jsx';
-import { MainContext } from '../../../contexts/MainContextProvider.jsx';
+import ReviewPartOne from './reviewOne/ReviewOne';
+import ReviewPartTwo from './ReviewTwo';
+import ReviewPartThree from './ReviewThree';
+import { WriteReviewContext } from '../Context/WriteNewReviewContext';
+import { ReviewListContext } from '../Context/ReviewListContext';
+import { ModalContext } from '../../../contexts/ModalContext';
+import { MainContext } from '../../../contexts/MainContextProvider';
 
-// Modal styled components
 const ModalWrapper = styled.div`
   position: fixed;
   top: 0;
@@ -40,7 +37,7 @@ const ModalBox = styled.div`
   width: 60%;
   overflow-y: auto;
   background-color: white;
-  box-shadow: 0 0 10px rgba(0,0,0,0.25);
+  box-shadow: 1px 4px 10px rgba(0,0,0,0.25);
   z-index: 900;
   padding: 40px;
 `;
@@ -77,16 +74,20 @@ const Button = styled.button`
 
 const WriteNewReview = () => {
   const { reviewData } = useContext(WriteReviewContext);
-  const { real } = useContext(ReviewListContext);
-  const { setList } = real;
+  const { real, copy } = useContext(ReviewListContext);
   const { currProduct } = useContext(MainContext);
   const { reviewDisplay, toggleReviewModal } = useContext(ModalContext);
+  const [, setList] = real;
+  const [, setDupeList] = copy;
   const [review, setReview] = reviewData;
   const productId = currProduct.currProd;
 
   const getList = () => {
-    axios.get(`/api/reviews?product_id=${productId}&count=10`)
-      .then((response) => setList(response.data.results))
+    axios.get(`/api/reviews?product_id=${productId}&count=20`)
+      .then((response) => {
+        setList(response.data.results);
+        setDupeList(response.data.results);
+      })
       .catch((error) => console.log(error));
   };
 
@@ -118,7 +119,7 @@ const WriteNewReview = () => {
     toggleReviewModal();
   };
 
-  useEffect(getList, [review]);
+  useEffect(() => getList, [review]);
 
   return reviewDisplay ? (
     <ModalWrapper>

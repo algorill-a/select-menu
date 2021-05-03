@@ -1,10 +1,10 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
 import React, { useState, createContext } from 'react';
+import PropTypes from 'prop-types';
 
 export const ReviewListContext = createContext();
 
 const ReviewListProvider = (props) => {
+  const { children } = props;
   const [list, setList] = useState([]);
   const [dupeList, setDupeList] = useState([]);
 
@@ -15,9 +15,20 @@ const ReviewListProvider = (props) => {
         copy: [dupeList, setDupeList],
       }}
     >
-      {props.children}
+      {children}
     </ReviewListContext.Provider>
   );
 };
 
 export default ReviewListProvider;
+
+ReviewListProvider.propTypes = {
+  children: PropTypes.shape({
+    real: PropTypes.node,
+    copy: PropTypes.node,
+  }),
+};
+
+ReviewListProvider.defaultProps = {
+  children: 'there are no children',
+};

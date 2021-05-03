@@ -1,10 +1,8 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable import/extensions */
 import React from 'react';
 import styled from 'styled-components';
-import Characteristics from './Characteristics.jsx';
-import OverallRating from './OverallRating.jsx';
-import Recommend from './Recommend.jsx';
+import Characteristics from './Characteristics';
+import OverallRating from './OverallRating';
+import Recommend from './Recommend';
 
 const Container = styled.fieldset`
   display: grid;
@@ -14,20 +12,9 @@ const Container = styled.fieldset`
   grid-template-rows: 1fr 4fr;
   grid-column-gap: 30px;
   grid-row-gap: 30px;
-  width: 60vw;
-  height: 50vh;
+  width: 57.8vw;
+  height: 70vh;
 `;
-
-// const FirstTwoDivs = styled.div`
-//   display: grid;
-//   grid-template-columns: repeat(2, 1fr);
-//   grid-tempalte-rows: 1fr;
-//   grid-column-gap: 15px;
-//   grid-row-gap: 30px;
-//   width: 80vw;
-//   margin: 0;
-//   padding: 20px;
-// `;
 
 const OR = styled.div`
   grid-area: 1 / 1 / 2 / 2;
@@ -42,7 +29,7 @@ const R = styled.div`
 
 const Chara = styled.div`
   grid-area: 2 / 1 / 3 / 3;
-  height: 20vh;
+  height: 40vh;
 `;
 
 const ReviewPartOne = () => (

@@ -1,6 +1,7 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable import/extensions */
 import React, { useContext, useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { IoIosArrowBack, IoIosArrowForward, IoIosAddCircle } from 'react-icons/io';
 import styled from 'styled-components';
 import Card from './Card.jsx';
@@ -201,7 +202,7 @@ const CardList = () => {
         {showStart ? <IconLeft onClick={prevCard}><IoIosArrowBack /></IconLeft> : null}
         {showEnd ? <IconRight onClick={nextCard}><IoIosArrowForward /></IconRight> : null}
         {cardsToDisplay.map((card) => (
-          <Card card={card} key={card.id} value={card.prodId} />))}
+          <Card card={card} key={uuidv4()} value={card.prodId} />))}
       </CardListContainer>
 
       <Title>Outfit List</Title>
@@ -213,7 +214,7 @@ const CardList = () => {
               Add to Outfit
             </AddOutfitContainer>
             {outfitsToDisplay.map((outfit) => (
-              <Outfit outfit={outfit} key={outfit.id} value={outfit.prodId} />))}
+              <Outfit outfit={outfit} key={uuidv4()} value={outfit.prodId} />))}
             {showOutfitStart ? <IconLeft onClick={prevOutfit}><IoIosArrowBack /></IconLeft> : null}
             {showOutfitEnd
               ? (<IconRight onClick={nextOutfit}><IoIosArrowForward /></IconRight>) : null}
