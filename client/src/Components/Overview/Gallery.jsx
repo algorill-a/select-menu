@@ -36,6 +36,25 @@ const Image = Styled.img`
   }
 `;
 
+// const ExpandedImage = Styled.Image`
+//   width: 100%;
+//   height: 100%;
+//   object-fit: cover;
+//   position: relative;
+//   right: 420%;
+//   left: 30px;
+//   top: 23px;
+//   border-radius: 0.12em;
+//   border-style: 'solid';
+//   border-color: 'white';
+//   border-width: 'thin';
+//   cursor: pointer;
+//   opacity: '100%'
+//   :hover {
+//     opacity: 95%;
+//   }
+// `;
+
 const UpArrow = Styled.button`
   cursor: pointer;
   position: absolute;
@@ -158,8 +177,15 @@ const Gallery = () => {
       </DefaultViewSlide>
     )) : <Image />;
 
-  const activeThumbnails = (currentStylePhotos.length < 7) ? currentStylePhotos : (currentStylePhotos.length - 7 > currentImage ? currentStylePhotos.slice(currentImage,
-    currentImage + 7) : currentStylePhotos.slice(currentStylePhotos.length - 7, currentStylePhotos.length));
+  const activeThumbnails = (() => {
+    if (currentStylePhotos.length < 7) {
+      return currentStylePhotos;
+    }
+    if (currentStylePhotos.length - 7 > currentImage) {
+      return currentStylePhotos.slice(currentImage, currentImage + 7);
+    }
+    return currentStylePhotos.slice(currentStylePhotos.length - 7, currentStylePhotos.length);
+  })();
 
   useEffect(() => {
     if (currentStylePhotos.length > 7) {
@@ -224,8 +250,3 @@ const Gallery = () => {
 };
 
 export default Gallery;
-
-// default - display 7 pictures current image + 6 additional images
-// click - display current image plus next 6 additional images
-// click - if last image of the displayed images is the last image in the array
-// display last image and the previous 6 images before that

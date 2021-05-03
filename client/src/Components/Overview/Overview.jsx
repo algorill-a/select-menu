@@ -45,20 +45,16 @@ grid-column-gap: 0px;
 grid-row-gap: 0px;
 `;
 
-const Overview = (props) => {
-  // eslint-disable-next-line react/prop-types
-  const { focus } = props;
-  return (
-    <Container>
-      <StyledGallery />
-      <InfoContainer>
-        <StyledProductInfo focus={focus} />
-        <StyledStyleSelector />
-        <StyledAddToCart />
-      </InfoContainer>
-      <StyledDescription />
-    </Container>
-  );
-};
+const Overview = (props) => (
+  <Container>
+    <StyledGallery />
+    <InfoContainer>
+      <StyledProductInfo focus={props.focus} />
+      <StyledStyleSelector />
+      <StyledAddToCart />
+    </InfoContainer>
+    <StyledDescription />
+  </Container>
+);
 
 export default Overview;

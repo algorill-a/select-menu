@@ -1,6 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable import/extensions */
 import React, { useContext, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import Styled from 'styled-components';
 import { GiBananaPeeled } from 'react-icons/gi';
 import { ProductsContext } from './ProductsContext.jsx';
@@ -58,7 +59,6 @@ const ProductInfo = (props) => {
   const { prodInfo } = useContext(ProductsContext);
   const { currentProduct, currentStyle, currentRating } = useContext(StyleContext);
   const [price, setPrice] = useState({ price: null, salesPrice: null });
-  // eslint-disable-next-line react/prop-types
   const { focus } = props;
 
   // average rating
@@ -79,16 +79,11 @@ const ProductInfo = (props) => {
       });
   }, [currentStyle]);
 
-  // const reviewClickHandler = () => {
-  //   <a href="ratings">Go to Ratings</a>;
-  //   focus();
-  // };
-
   return (
     <ProductInfoContainer>
       <div>
         <FullStars>{[...Array(5)].map((star, index) => <GiBananaPeeled size={25} color="#3d3d3d" key={index} />)}</FullStars>
-        <Rating onClick={focus}>
+        <Rating onClick={() => focus()}>
           {fullStarCount > 0 ? ([...Array(fullStarCount)].map((star, index) => <GiBananaPeeled size={25} color="#20afe3" key={index} />)) : null}
           {percentStar > 0 ? (<Star star={fullStarCount} percent={percentStar}><GiBananaPeeled size={25} color="#20afe3" /></Star>) : null}
         </Rating>
@@ -128,3 +123,11 @@ const ProductInfo = (props) => {
 };
 
 export default ProductInfo;
+
+ProductInfo.propTypes = {
+  focus: PropTypes.func,
+};
+
+ProductInfo.defaultProps = {
+  focus: null,
+};
