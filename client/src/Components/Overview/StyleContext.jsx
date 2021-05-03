@@ -87,10 +87,11 @@ const StyleContextProvider = (props) => {
               productStyles.results[productStyles.results.indexOf(result)].name,
             );
             const stylePhotos = [];
-            productStyles.results[productStyles.results.indexOf(result)].photos.forEach((image, index) => {
-              image.index = index;
-              stylePhotos.push(image);
-            });
+            productStyles.results[productStyles.results.indexOf(result)].photos.forEach(
+              (image, index) => {
+                image.index = index;
+                stylePhotos.push(image);
+              });
             setCurrentStylePhotos(stylePhotos);
             setCurrentStyleSkus(
               Object.entries(productStyles.results[productStyles.results.indexOf(result)].skus),

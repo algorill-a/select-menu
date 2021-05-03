@@ -1,14 +1,10 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable no-unused-vars */
-/* eslint-disable import/extensions */
 import React, { useState, useContext } from 'react';
-import { WriteReviewContext } from '../../Context/WriteNewReviewContext.jsx';
+import { WriteReviewContext } from '../../Context/WriteNewReviewContext';
 
 const Recommend = () => {
   const { reviewData } = useContext(WriteReviewContext);
   const [review, setReview] = reviewData;
-  const [recommend, setRecommend] = useState(true);
+  const [recommend] = useState(true);
 
   const handleChange = (event) => {
     const { name, value } = event.target;

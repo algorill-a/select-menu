@@ -1,11 +1,10 @@
-/* eslint-disable import/extensions */
 import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
-import RatingSummary from './RatingSummary.jsx';
-import Recommendation from './Recommendation.jsx';
-import RatingBars from './RatingBars.jsx';
-import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext.jsx';
-import { MainContext } from '../../../contexts/MainContextProvider.jsx';
+import RatingSummary from './RatingSummary';
+import Recommendation from './Recommendation';
+import RatingBars from './RatingBars';
+import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext';
+import { MainContext } from '../../../contexts/MainContextProvider';
 
 const RatingBreakdown = () => {
   const [breakdown, setBreakdown] = useContext(ReviewBreakdownContext);
@@ -14,7 +13,7 @@ const RatingBreakdown = () => {
   const getBreakdown = () => {
     axios.get(`/api/reviews/meta?product_id=${productId}`)
       .then((response) => setBreakdown(response.data))
-      .catch((error) => console.log(error));
+      .catch((error) => error.send(error));
   };
   useEffect(getBreakdown, [productId]);
 

@@ -1,14 +1,16 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable import/extensions */
-/* eslint-disable radix */
 import React, { useContext } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
 import { GiBananaPeeled } from 'react-icons/gi';
-import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext.jsx';
+import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext';
 
 const Container = styled.div`
-  width: 310px;
-  margin: 10px;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: 1fr 3fr 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  height: 75%;
   background-color: #02475E;
   border: 1px solid #black;
   box-shadow: 6px 4px black;
@@ -16,23 +18,28 @@ const Container = styled.div`
 `;
 
 const Score = styled.div`
-  position: relative;
-  height: 60px;
+  grid-area: 1 / 2 / 4 / 3;
   font-family: Helvetica;
   font-weight: bold;
   font-size: 4em;
   text-align: right;
-  top: -10px;
-  left: -20px;
   color: white;
   text-shadow: 2px 2px black;
+  margin-right: 10px;
 `;
 
 const BananaDiv = styled.div`
+  display: grid;
+  grid-area: 2 / 1 / 3 / 2;
   font-family: Helvetica;
-  float: left;
-  padding-top: 12px;
-  padding-left: 10px;
+`;
+
+const FillerSpaceOne = styled.div`
+  grid-area: 1 / 1 / 2 / 2;
+`;
+
+const FillerSpaceTwo = styled.div`
+  grid-area: 3 / 1 / 4 / 2;
 `;
 
 const H3 = styled.h3`
@@ -47,24 +54,30 @@ const Review = styled.p`
 
 const FullStars = styled.span`
   position: relative;
+  margin-top: 10px;
   opacity: 50%;
   z-index: 0;
-  margin-top: 5px;
   color: #d6d6d6;
 `;
 
 const Rating = styled.span`
   position: absolute;
-  left: 8.2%;
+  margin-top: 10px;
   z-index: 1;
 `;
 
 const Star = styled.div`
   position: absolute;
-  clip: ${(props) => (props.percent > 0 && props.percent <= 25 ? 'rect(0px, 7px, 25px, 0px)'
-    : props.percent > 25 && props.percent <= 50 ? 'rect(0px, 13px, 25px, 0px)'
-      : props.percent > 50 && props.percent <= 75 ? 'rect(0px, 17px, 25px, 0px)'
-        : 'rect(0px, 25px, 25px, 0px)')}
+  clip: ${(props) => {
+    if (props.percent > 0 && props.percent <= 25) {
+      return 'rect(0px, 7px, 25px, 0px)';
+    } if (props.percent > 25 && props.percent <= 50) {
+      return 'rect(0px, 13px, 25px, 0px)';
+    } if (props.percent > 50 && props.percent <= 75) {
+      return 'rect(0px, 17px, 25px, 0px)';
+    }
+    return 'rect(0px, 25px, 25px, 0px)';
+  }}
 `;
 
 const RatingSummary = () => {
@@ -76,8 +89,8 @@ const RatingSummary = () => {
     let length = 0;
     Object.entries(object).forEach((entry) => {
       const [key, value] = entry;
-      length += parseInt(value);
-      total += key * parseInt(value);
+      length += parseInt(value, 10);
+      total += key * parseInt(value, 10);
     });
     totalReviews = length;
     return total / length;
@@ -94,15 +107,15 @@ const RatingSummary = () => {
         <BananaDiv>
           <>
             <FullStars>
-              {[...Array(5)].map((star, index) => (
+              {[...Array(5)].map(() => (
                 <GiBananaPeeled
                   size={30}
-                  key={index}
+                  key={uuidv4()}
                 />
               ))}
             </FullStars>
             <Rating>
-              {fullStarCount > 0 ? ([...Array(fullStarCount)].map((star, index) => <GiBananaPeeled size={30} color="#20afe3" key={index} />)) : null}
+              {fullStarCount > 0 ? ([...Array(fullStarCount)].map(() => <GiBananaPeeled size={30} color="#20afe3" key={uuidv4()} />)) : null}
               {percentStar > 0 ? (<Star star={fullStarCount} percent={percentStar}><GiBananaPeeled size={30} color="#20afe3" /></Star>) : null}
             </Rating>
           </>
@@ -110,6 +123,8 @@ const RatingSummary = () => {
         <Score>
           {(parseFloat(getAverage(breakdown.ratings)).toFixed(1))}
         </Score>
+        <FillerSpaceOne />
+        <FillerSpaceTwo />
       </Container>
       <Review>
         {`This average is based on ${totalReviews} reviews`}

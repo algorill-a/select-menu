@@ -1,9 +1,8 @@
-/* eslint-disable import/extensions */
-/* eslint-disable radix */
 import React, { useState, useContext, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
-import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext.jsx';
-import RatingBar from './RatingBar.jsx';
+import { ReviewBreakdownContext } from '../Context/ReviewBreakdownContext';
+import RatingBar from './RatingBar';
 
 const Ul = styled.div`
   padding-bottom: 20px;
@@ -40,9 +39,9 @@ const RatingBars = () => {
 
     Object.entries(breakdown.recommended).forEach((entry) => {
       const [key, value] = entry;
-      total += parseInt(value);
+      total += parseInt(value, 10);
       if (key === 'true') {
-        recommended = parseInt(value);
+        recommended = parseInt(value, 10);
       }
     });
     return Math.floor((recommended / total) * 100);
@@ -62,15 +61,16 @@ const RatingBars = () => {
   return (
     <div>
       <Percent>
-        {`${parseInt(getPercentage())}% recommend this product`}
+        {`${parseInt(getPercentage(), 10)}% recommend this product`}
       </Percent>
       <Ul>
         {Object.entries(starRating).slice(0).reverse().map((rating) => {
-          const [key, value] = rating;
+          const [title, value] = rating;
           return (
             <RatingBar
-              title={key}
+              title={title}
               value={getIndivPercentage(value)}
+              key={uuidv4()}
             />
           );
         })}

@@ -7,7 +7,6 @@ import { StyleContext } from './StyleContext.jsx';
 import { OutfitContext } from '../../contexts/OutfitContext.jsx';
 
 const AddToCartContainer = Styled.div`
-  position: absolute;
   top: 625px;
   display: grid;
   grid-template-columns: 1fr;
@@ -26,7 +25,7 @@ const PleaseSelectSize = Styled.h4`
 
 const SizeSelector = Styled.select`
   display:inline-block;
-  padding:1em 4em;
+  padding:1em 3em;
   margin:0 0.3em 0.3em 0;
   border-radius:0.12em;
   box-sizing: border-box;
@@ -54,7 +53,7 @@ const QuantitySelector = Styled.select`
 
 const AddProductToCart = Styled.button`
   display: inline-block;
-  padding:1em 5em;
+  padding:1em 4em;
   margin:0 0.3em 0.3em 0;
   border-radius: 0.12em;
   box-sizing: border-box;
@@ -95,10 +94,14 @@ const AddToCart = () => {
   useEffect(() => {
     if (currentSize !== 'Select Size' && currentStyleSkus !== null) {
       currentStyleSkus.forEach((sku) => {
+        const skuId = sku[0];
+        const skuProperties = sku[1];
         if (sku[1].size === currentSize) {
-          const quantities = (Array.from({ length: (sku[1].quantity < 16 ? sku[1].quantity : 15) },
-            (_, index) => index + 1)).map(
-            (number) => <option key={sku[0]}>{number}</option>,
+          const quantities = (Array.from(
+            { length: (skuProperties.quantity < 16 ? skuProperties.quantity : 15) },
+            (_, index) => index + 1,
+          )).map(
+            (number) => <option key={skuId}>{number}</option>,
           );
           setQuantities(quantities);
         }
@@ -115,10 +118,10 @@ const AddToCart = () => {
         type: 'POST',
         data: { sku_id: currentSku },
         success: (data) => {
-          console.log(data);
+          data.send();
           setCurrentSize('Select Size');
         },
-        error: (error) => console.log(error),
+        error: (error) => error.send(),
       });
     }
   };
@@ -127,8 +130,10 @@ const AddToCart = () => {
     setPleaseSelect(' ');
     setCurrentSize(event.target.value);
     currentStyleSkus.forEach((sku) => {
-      if (sku[1].size === event.target.value) {
-        setCurrentSku(sku[0]);
+      const skuId = sku[0];
+      const skuProperties = sku[1];
+      if (skuProperties.size === event.target.value) {
+        setCurrentSku(skuId);
       }
     });
   };

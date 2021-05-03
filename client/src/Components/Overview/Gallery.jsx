@@ -7,6 +7,7 @@ import {
 import { StyleContext } from './StyleContext.jsx';
 
 const ViewContainer = Styled.div`
+  position: relative;
   height: 690px;
   width: 80%;
   margin-left: 15%;
@@ -34,6 +35,25 @@ const Image = Styled.img`
     opacity: 95%;
   }
 `;
+
+// const ExpandedImage = Styled.Image`
+//   width: 100%;
+//   height: 100%;
+//   object-fit: cover;
+//   position: relative;
+//   right: 420%;
+//   left: 30px;
+//   top: 23px;
+//   border-radius: 0.12em;
+//   border-style: 'solid';
+//   border-color: 'white';
+//   border-width: 'thin';
+//   cursor: pointer;
+//   opacity: '100%'
+//   :hover {
+//     opacity: 95%;
+//   }
+// `;
 
 const UpArrow = Styled.button`
   cursor: pointer;
@@ -85,8 +105,7 @@ const DefaultViewImage = Styled.img`
 
 const RightArrow = Styled.button`
   position: absolute;
-  top: 390px;
-  left: 63.5%;
+  top: 45%;
   color: black;
   cursor: pointer;
   user-select: none;
@@ -95,12 +114,12 @@ const RightArrow = Styled.button`
   :hover {
     opacity: 80%;
   }
+  right: 0;
 `;
 
 const LeftArrow = Styled.button`
   position: absolute;
-  top: 390px;
-  left: 8.5%;
+  top: 45%;
   color: black;
   cursor: pointer;
   user-select: none;
@@ -109,6 +128,7 @@ const LeftArrow = Styled.button`
   :hover {
     opacity: 80%;
   }
+  z-index: 1;
 `;
 
 const Gallery = () => {
@@ -157,8 +177,15 @@ const Gallery = () => {
       </DefaultViewSlide>
     )) : <Image />;
 
-  const activeThumbnails = (currentStylePhotos.length < 7) ? currentStylePhotos : (currentStylePhotos.length - 7 > currentImage ? currentStylePhotos.slice(currentImage,
-    currentImage + 7) : currentStylePhotos.slice(currentStylePhotos.length - 7, currentStylePhotos.length));
+  const activeThumbnails = (() => {
+    if (currentStylePhotos.length < 7) {
+      return currentStylePhotos;
+    }
+    if (currentStylePhotos.length - 7 > currentImage) {
+      return currentStylePhotos.slice(currentImage, currentImage + 7);
+    }
+    return currentStylePhotos.slice(currentStylePhotos.length - 7, currentStylePhotos.length);
+  })();
 
   useEffect(() => {
     if (currentStylePhotos.length > 7) {
@@ -172,7 +199,6 @@ const Gallery = () => {
         width: '120%',
         cursor: 'zoom-out',
         zIndex: '10',
-        buttonPosition: '90%',
       });
     } else {
       setView(null);
@@ -224,8 +250,3 @@ const Gallery = () => {
 };
 
 export default Gallery;
-
-// default - display 7 pictures current image + 6 additional images
-// click - display current image plus next 6 additional images
-// click - if last image of the displayed images is the last image in the array
-// display last image and the previous 6 images before that

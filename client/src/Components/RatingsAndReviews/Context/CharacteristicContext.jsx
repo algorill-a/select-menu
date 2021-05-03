@@ -1,10 +1,10 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
 import React, { useState, createContext } from 'react';
+import PropTypes from 'prop-types';
 
 export const CharacteristicContext = createContext();
 
 const CharacteristicProvider = (props) => {
+  const { children } = props;
   const [charas, setCharas] = useState([
     {
       name: 'Size',
@@ -40,9 +40,22 @@ const CharacteristicProvider = (props) => {
 
   return (
     <CharacteristicContext.Provider value={[charas, setCharas]}>
-      {props.children}
+      {children}
     </CharacteristicContext.Provider>
   );
 };
 
+CharacteristicProvider.propTypes = {
+  children: PropTypes.shape([
+    PropTypes.shape({
+      name: PropTypes.string,
+      options: PropTypes.arrayOf(PropTypes.string),
+      id: PropTypes.number,
+    }),
+  ]),
+};
+
+CharacteristicProvider.defaultProps = {
+  children: 'there are no children',
+};
 export default CharacteristicProvider;

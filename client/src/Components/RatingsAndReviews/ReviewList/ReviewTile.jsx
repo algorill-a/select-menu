@@ -1,16 +1,17 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import axios from 'axios';
-import { GiBananaPeeled } from 'react-icons/gi';
+import PropTypes from 'prop-types';
+import { GiBananaPeeled, GiGorilla } from 'react-icons/gi';
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 7fr repeat(2, 1fr);
-  grid-template-rows: repeat(4, 1fr) 2fr 1fr;
-  grid-column-gap: 20px;
-  height: 30vh;
+  grid-template-columns: 6fr repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr) 3fr 1fr 2fr repeat(2, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 10px;
+  height: 40vh;
   background-color: rgba(207, 188, 188, 0.3)
   border-bottom: 1px solid #EEEEEE;
   box-shadow: 1px 2px #D8D8D8;
@@ -49,7 +50,6 @@ const Summary = styled.div`
   font-weight: 900;
   letter-spacing: 4px;
   color: black;
-  background: rgba(255, 255, 255, 0.8)
 `;
 
 const Body = styled.div`
@@ -74,11 +74,11 @@ const ResponseDiv = styled.div`
 `;
 
 const Photo = styled.div`
-
+  grid-area: 6 / 1 / 7 / 4;
 `;
 
 const HelpfulDiv = styled.div`
-  grid-area: 6 / 1 / 7 /  4;
+  grid-area: 7 / 1 / 8 /  4;
   font-family: 'Montserrat',sans-serif;
   font-weight: 100;
   font-size: 10px;
@@ -117,6 +117,13 @@ const Bold = styled.div`
 const Img = styled.img`
   height: 100px;
   width: 100px;
+  padding 0px 10px;
+`;
+
+const Recommend = styled.span`
+  grid-area: 1 / 2 / 2 / 3;
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
 `;
 
 const ReviewTile = ({ tile }) => {
@@ -173,7 +180,17 @@ const ReviewTile = ({ tile }) => {
       </Body>
 
       <RecommendDiv>
-        {JSON.stringify(tile.recommend) === 'true' ? ' | Gorilla approved' : null}
+        <Recommend>
+          {JSON.stringify(tile.recommend) === 'true'
+            ? (
+              <div>
+                <GiGorilla size={30} color="#595850" />
+                <span> | </span>
+                <span>Gorilla approved</span>
+              </div>
+            )
+            : null }
+        </Recommend>
       </RecommendDiv>
 
       <Photo>
@@ -207,3 +224,21 @@ const ReviewTile = ({ tile }) => {
   );
 };
 export default ReviewTile;
+
+ReviewTile.propTypes = {
+  tile: PropTypes.shape({
+    review_id: PropTypes.number,
+    rating: PropTypes.number,
+    reviewer_name: PropTypes.string,
+    date: PropTypes.string,
+    helpfulness: PropTypes.number,
+    summary: PropTypes.string,
+    body: PropTypes.string,
+    recommend: PropTypes.bool,
+    response: PropTypes.string,
+    photos: PropTypes.arrayOf(PropTypes.string),
+  }),
+};
+ReviewTile.defaultProps = {
+  tile: 'No Reviews',
+};

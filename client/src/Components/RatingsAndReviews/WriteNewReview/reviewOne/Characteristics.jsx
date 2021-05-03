@@ -1,10 +1,6 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable no-unused-vars */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable import/extensions */
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { WriteReviewContext } from '../../Context/WriteNewReviewContext.jsx';
+import { WriteReviewContext } from '../../Context/WriteNewReviewContext';
 
 const Container = styled.div`
   display: grid;
@@ -15,9 +11,9 @@ const Container = styled.div`
 `;
 
 const Characteristics = () => {
-  const { reviewData, charaData } = useContext(WriteReviewContext);
-  const [review, setReview] = reviewData;
-  const [chara, setChara] = charaData;
+  const { reviewData, characteristicData } = useContext(WriteReviewContext);
+  const [, setReview] = reviewData;
+  const [chara, setChara] = characteristicData;
 
   const selectOptions = (event) => {
     const {
@@ -42,12 +38,12 @@ const Characteristics = () => {
 
   return (
     <Container>
-      {Object.entries(chara).map((entry, i) => {
-        const [key, value] = entry;
-        return value.id !== null
-          ? (
+      {Object.entries(chara).map((entry) => {
+        const [title, value] = entry;
+        if (value.id !== null) {
+          return (
             <div>
-              <p>{key}</p>
+              <p>{title}</p>
               <p>{value.placeholder}</p>
               {value.options.slice(0).map((choice, j) => {
                 const index = j + 1;
@@ -55,7 +51,7 @@ const Characteristics = () => {
                   <label>
                     <input
                       type="radio"
-                      title={key}
+                      title={title}
                       name={value.id}
                       id={index}
                       value={choice}
@@ -65,8 +61,9 @@ const Characteristics = () => {
                 );
               })}
             </div>
-          )
-          : null;
+          );
+        }
+        return null;
       })}
     </Container>
   );
