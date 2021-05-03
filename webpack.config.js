@@ -27,12 +27,7 @@ module.exports = {
         loader: 'file-loader',
       }],
   },
-<<<<<<< HEAD
-
-  mode: 'performance',
-=======
   resolve: {
     extensions: ['.js', '.json', '.jsx', '.css'],
   },
->>>>>>> 65e25887d14d66e9b6902232624abe5fba3443da
 };
